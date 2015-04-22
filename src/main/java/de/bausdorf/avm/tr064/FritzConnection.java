@@ -53,6 +53,7 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
@@ -126,6 +127,7 @@ public void init() throws ClientProtocolException, IOException, JAXBException{
 private void readTR64() throws ClientProtocolException, IOException, JAXBException{
 	InputStream xml = getXMLIS("/" + FRITZ_TR64_DESC_FILE);
 	ObjectMapper mapper = new XmlMapper();
+	mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	RootType root = mapper.readValue(xml, RootType.class);
 
 	LOG.debug(root.toString());
@@ -138,6 +140,7 @@ private void readIGDDESC() throws IOException {
 	try
 	{
 		ObjectMapper mapper = new XmlMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		RootType2 root = mapper.readValue(xml, RootType2.class);
 		LOG.debug(root.toString());
 

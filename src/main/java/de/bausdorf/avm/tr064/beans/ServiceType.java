@@ -56,7 +56,7 @@ import javax.xml.bind.annotation.XmlType;
     "serviceId",
     "controlURL",
     "eventSubURL",
-    "scpdurl"
+    "SCPDURL"
 })
 public class ServiceType {
 
