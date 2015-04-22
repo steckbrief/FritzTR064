@@ -18,29 +18,28 @@
  * specific language governing permissions and limitations under the License.
  *
  ***********************************************************************************************************************/
-package de.mapoll.javaAVMTR064.beans;
+
+package de.bausdorf.avm.tr064.beans;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java-Klasse für stateVariableType complex type.
+ * <p>Java-Klasse fï¿½r rootType complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="stateVariableType"&gt;
+ * &lt;complexType name="rootType"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="dataType" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="specVersion" type="{urn:dslforum-org:device-1-0}specVersionType"/&gt;
+ *         &lt;element name="device" type="{urn:dslforum-org:device-1-0}deviceType"/&gt;
  *       &lt;/sequence&gt;
- *       &lt;attribute name="sendEvents" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -48,90 +47,65 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
+@XmlRootElement(name = "root", namespace="urn:schemas-upnp-org:device-1-0")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "stateVariableType", propOrder = {
-    "name",
-    "dataType"
+@XmlType(name = "rootType", propOrder = {
+    "specVersion",
+    "device"
 })
-public class StateVariableType {
-
+public class RootType2 {
+	
     @XmlElement(required = true)
-    protected String name;
+    protected SpecVersionType specVersion;
     @XmlElement(required = true)
-    protected String dataType;
-    @XmlAttribute(name = "sendEvents")
-    protected String sendEvents;
+    protected DeviceType device;
 
     /**
-     * Ruft den Wert der name-Eigenschaft ab.
+     * Ruft den Wert der specVersion-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link SpecVersionType }
      *     
      */
-    public String getName() {
-        return name;
+    public SpecVersionType getSpecVersion() {
+        return specVersion;
     }
 
     /**
-     * Legt den Wert der name-Eigenschaft fest.
+     * Legt den Wert der specVersion-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link SpecVersionType }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setSpecVersion(SpecVersionType value) {
+        this.specVersion = value;
     }
 
     /**
-     * Ruft den Wert der dataType-Eigenschaft ab.
+     * Ruft den Wert der device-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link DeviceType }
      *     
      */
-    public String getDataType() {
-        return dataType;
+    public DeviceType getDevice() {
+        return device;
     }
 
     /**
-     * Legt den Wert der dataType-Eigenschaft fest.
+     * Legt den Wert der device-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link DeviceType }
      *     
      */
-    public void setDataType(String value) {
-        this.dataType = value;
-    }
-
-    /**
-     * Ruft den Wert der sendEvents-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSendEvents() {
-        return sendEvents;
-    }
-
-    /**
-     * Legt den Wert der sendEvents-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSendEvents(String value) {
-        this.sendEvents = value;
+    public void setDevice(DeviceType value) {
+        this.device = value;
     }
 
 }

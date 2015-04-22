@@ -18,9 +18,8 @@
  * specific language governing permissions and limitations under the License.
  *
  ***********************************************************************************************************************/
-package de.mapoll.javaAVMTR064;
+package de.bausdorf.avm.tr064;
 
-import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,11 +35,11 @@ import org.w3c.dom.NodeList;
 public class Response {
 
 	private SOAPMessage response;
-	private Map<String, Type> stateToType;
+	private Map<String, Class<?>> stateToType;
 	private Map<String, String> argumentState;
 	private Map<String, String> data;
 
-	public Response(SOAPMessage response, Map<String, Type> stateToType, Map<String, String> argumentState)
+	public Response(SOAPMessage response, Map<String, Class<?>> stateToType, Map<String, String> argumentState)
 			throws SOAPException {
 		this.response = response;
 		this.stateToType = stateToType;

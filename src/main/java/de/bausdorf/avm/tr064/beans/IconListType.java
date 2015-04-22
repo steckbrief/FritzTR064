@@ -19,16 +19,15 @@
  *
  ***********************************************************************************************************************/
 
-package de.mapoll.javaAVMTR064.beans;
+package de.bausdorf.avm.tr064.beans;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java-Klasse für iconListType complex type.
+ * <p>Java-Klasse fï¿½r iconListType complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 

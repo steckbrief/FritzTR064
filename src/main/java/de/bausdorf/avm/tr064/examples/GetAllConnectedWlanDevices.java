@@ -1,3 +1,4 @@
+package de.bausdorf.avm.tr064.examples;
 /***********************************************************************************************************************
  *
  * javaAVMTR064 - open source Java TR-064 API
@@ -24,25 +25,28 @@ import java.util.HashMap;
 
 import javax.xml.bind.JAXBException;
 
-
-
-
-
-
 import org.apache.http.client.ClientProtocolException;
 
-import de.mapoll.javaAVMTR064.Action;
-import de.mapoll.javaAVMTR064.FritzConnection;
-import de.mapoll.javaAVMTR064.Response;
-import de.mapoll.javaAVMTR064.Service;
+import de.bausdorf.avm.tr064.Action;
+import de.bausdorf.avm.tr064.FritzConnection;
+import de.bausdorf.avm.tr064.Service;
+import de.bausdorf.avm.tr064.Response;
 
 public class GetAllConnectedWlanDevices {
-	static String ip = "192.168.0.1";
-	static String user = "user";
-	static String password = "password";
+	static String ip = null;
+	static String user = null;
+	static String password = null;
 	
 	
 	public static void main(String[] args){
+		if( args.length < 3 ) {
+			System.out.println("args: <fb-ip> <user> <password>");
+		} else {
+			ip = args[0];
+			user = args[0];
+			password = args[0];
+		}
+			
 		//Create a new FritzConnection with username and password
 		FritzConnection fc = new FritzConnection(ip,user,password);
 		try {

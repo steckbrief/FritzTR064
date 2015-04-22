@@ -19,28 +19,27 @@
  *
  ***********************************************************************************************************************/
 
-
-package de.mapoll.javaAVMTR064.beans;
+package de.bausdorf.avm.tr064.beans;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java-Klasse für serviceStateTableType complex type.
+ * <p>Java-Klasse fÃ¼r serviceListType complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="serviceStateTableType"&gt;
+ * &lt;complexType name="serviceListType"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;choice maxOccurs="unbounded" minOccurs="0"&gt;
- *         &lt;element name="stateVariable" type="{urn:dslforum-org:service-1-0}stateVariableType"/&gt;
- *       &lt;/choice&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="service" type="{urn:dslforum-org:device-1-0}serviceType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -49,40 +48,40 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "serviceStateTableType", propOrder = {
-    "stateVariable"
+@XmlType(name = "serviceListType", propOrder = {
+    "service"
 })
-public class ServiceStateTableType {
+public class ServiceListType {
 
-    protected List<StateVariableType> stateVariable;
+    protected List<ServiceType> service;
 
     /**
-     * Gets the value of the stateVariable property.
+     * Gets the value of the service property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the stateVariable property.
+     * This is why there is not a <CODE>set</CODE> method for the service property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getStateVariable().add(newItem);
+     *    getService().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link StateVariableType }
+     * {@link ServiceType }
      * 
      * 
      */
-    public List<StateVariableType> getStateVariable() {
-        if (stateVariable == null) {
-            stateVariable = new ArrayList<StateVariableType>();
+    public List<ServiceType> getService() {
+        if (service == null) {
+            service = new ArrayList<ServiceType>();
         }
-        return this.stateVariable;
+        return this.service;
     }
 
 }

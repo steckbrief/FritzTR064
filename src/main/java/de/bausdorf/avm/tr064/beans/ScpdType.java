@@ -18,8 +18,7 @@
  * specific language governing permissions and limitations under the License.
  *
  ***********************************************************************************************************************/
-
-package de.mapoll.javaAVMTR064.beans;
+package de.bausdorf.avm.tr064.beans;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -27,19 +26,19 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java-Klasse für rootType complex type.
+ * <p>Java-Klasse fÃ¼r scpdType complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="rootType"&gt;
+ * &lt;complexType name="scpdType"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="specVersion" type="{urn:dslforum-org:device-1-0}specVersionType"/&gt;
- *         &lt;element name="device" type="{urn:dslforum-org:device-1-0}deviceType"/&gt;
+ *         &lt;element name="specVersion" type="{urn:dslforum-org:service-1-0}specVersionType"/&gt;
+ *         &lt;element name="actionList" type="{urn:dslforum-org:service-1-0}actionListType"/&gt;
+ *         &lt;element name="serviceStateTable" type="{urn:dslforum-org:service-1-0}serviceStateTableType"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -48,18 +47,21 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlRootElement(name = "root", namespace="urn:schemas-upnp-org:device-1-0")
+@XmlRootElement(name = "scpd", namespace="urn:dslforum-org:service-1-0")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "rootType", propOrder = {
+@XmlType(name = "scpdType", propOrder = {
     "specVersion",
-    "device"
+    "actionList",
+    "serviceStateTable"
 })
-public class RootType2 {
-	
+public class ScpdType {
+
     @XmlElement(required = true)
     protected SpecVersionType specVersion;
     @XmlElement(required = true)
-    protected DeviceType device;
+    protected ActionListType actionList;
+    @XmlElement(required = true)
+    protected ServiceStateTableType serviceStateTable;
 
     /**
      * Ruft den Wert der specVersion-Eigenschaft ab.
@@ -86,27 +88,51 @@ public class RootType2 {
     }
 
     /**
-     * Ruft den Wert der device-Eigenschaft ab.
+     * Ruft den Wert der actionList-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link DeviceType }
+     *     {@link ActionListType }
      *     
      */
-    public DeviceType getDevice() {
-        return device;
+    public ActionListType getActionList() {
+        return actionList;
     }
 
     /**
-     * Legt den Wert der device-Eigenschaft fest.
+     * Legt den Wert der actionList-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link DeviceType }
+     *     {@link ActionListType }
      *     
      */
-    public void setDevice(DeviceType value) {
-        this.device = value;
+    public void setActionList(ActionListType value) {
+        this.actionList = value;
+    }
+
+    /**
+     * Ruft den Wert der serviceStateTable-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ServiceStateTableType }
+     *     
+     */
+    public ServiceStateTableType getServiceStateTable() {
+        return serviceStateTable;
+    }
+
+    /**
+     * Legt den Wert der serviceStateTable-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ServiceStateTableType }
+     *     
+     */
+    public void setServiceStateTable(ServiceStateTableType value) {
+        this.serviceStateTable = value;
     }
 
 }

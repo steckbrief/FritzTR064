@@ -19,28 +19,29 @@
  *
  ***********************************************************************************************************************/
 
-package de.mapoll.javaAVMTR064.beans;
+package de.bausdorf.avm.tr064.beans;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java-Klasse für scpdType complex type.
+ * <p>Java-Klasse fï¿½r iconType complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="scpdType"&gt;
+ * &lt;complexType name="iconType"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="specVersion" type="{urn:dslforum-org:service-1-0}specVersionType"/&gt;
- *         &lt;element name="actionList" type="{urn:dslforum-org:service-1-0}actionListType"/&gt;
- *         &lt;element name="serviceStateTable" type="{urn:dslforum-org:service-1-0}serviceStateTableType"/&gt;
+ *         &lt;element name="mimetype" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="width" type="{http://www.w3.org/2001/XMLSchema}byte"/&gt;
+ *         &lt;element name="height" type="{http://www.w3.org/2001/XMLSchema}byte"/&gt;
+ *         &lt;element name="depth" type="{http://www.w3.org/2001/XMLSchema}byte"/&gt;
+ *         &lt;element name="url" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -49,92 +50,118 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlRootElement(name = "scpd", namespace="urn:schemas-upnp-org:service-1-0")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "scpdType", propOrder = {
-    "specVersion",
-    "actionList",
-    "serviceStateTable"
+@XmlType(name = "iconType", propOrder = {
+    "mimetype",
+    "width",
+    "height",
+    "depth",
+    "url"
 })
-public class ScpdType2 {
+public class IconType {
 
     @XmlElement(required = true)
-    protected SpecVersionType specVersion;
+    protected String mimetype;
+    protected byte width;
+    protected byte height;
+    protected byte depth;
     @XmlElement(required = true)
-    protected ActionListType actionList;
-    @XmlElement(required = true)
-    protected ServiceStateTableType serviceStateTable;
+    protected String url;
 
     /**
-     * Ruft den Wert der specVersion-Eigenschaft ab.
+     * Ruft den Wert der mimetype-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link SpecVersionType }
+     *     {@link String }
      *     
      */
-    public SpecVersionType getSpecVersion() {
-        return specVersion;
+    public String getMimetype() {
+        return mimetype;
     }
 
     /**
-     * Legt den Wert der specVersion-Eigenschaft fest.
+     * Legt den Wert der mimetype-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link SpecVersionType }
+     *     {@link String }
      *     
      */
-    public void setSpecVersion(SpecVersionType value) {
-        this.specVersion = value;
+    public void setMimetype(String value) {
+        this.mimetype = value;
     }
 
     /**
-     * Ruft den Wert der actionList-Eigenschaft ab.
+     * Ruft den Wert der width-Eigenschaft ab.
+     * 
+     */
+    public byte getWidth() {
+        return width;
+    }
+
+    /**
+     * Legt den Wert der width-Eigenschaft fest.
+     * 
+     */
+    public void setWidth(byte value) {
+        this.width = value;
+    }
+
+    /**
+     * Ruft den Wert der height-Eigenschaft ab.
+     * 
+     */
+    public byte getHeight() {
+        return height;
+    }
+
+    /**
+     * Legt den Wert der height-Eigenschaft fest.
+     * 
+     */
+    public void setHeight(byte value) {
+        this.height = value;
+    }
+
+    /**
+     * Ruft den Wert der depth-Eigenschaft ab.
+     * 
+     */
+    public byte getDepth() {
+        return depth;
+    }
+
+    /**
+     * Legt den Wert der depth-Eigenschaft fest.
+     * 
+     */
+    public void setDepth(byte value) {
+        this.depth = value;
+    }
+
+    /**
+     * Ruft den Wert der url-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link ActionListType }
+     *     {@link String }
      *     
      */
-    public ActionListType getActionList() {
-        return actionList;
+    public String getUrl() {
+        return url;
     }
 
     /**
-     * Legt den Wert der actionList-Eigenschaft fest.
+     * Legt den Wert der url-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link ActionListType }
+     *     {@link String }
      *     
      */
-    public void setActionList(ActionListType value) {
-        this.actionList = value;
-    }
-
-    /**
-     * Ruft den Wert der serviceStateTable-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ServiceStateTableType }
-     *     
-     */
-    public ServiceStateTableType getServiceStateTable() {
-        return serviceStateTable;
-    }
-
-    /**
-     * Legt den Wert der serviceStateTable-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ServiceStateTableType }
-     *     
-     */
-    public void setServiceStateTable(ServiceStateTableType value) {
-        this.serviceStateTable = value;
+    public void setUrl(String value) {
+        this.url = value;
     }
 
 }

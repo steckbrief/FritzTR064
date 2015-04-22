@@ -18,7 +18,7 @@
  * specific language governing permissions and limitations under the License.
  *
  ***********************************************************************************************************************/
-package de.mapoll.javaAVMTR064;
+package de.bausdorf.avm.tr064;
 
 
 
@@ -32,6 +32,7 @@ import java.util.Random;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+
 
 
 
@@ -57,10 +58,10 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 
-import de.mapoll.javaAVMTR064.beans.DeviceType;
-import de.mapoll.javaAVMTR064.beans.RootType;
-import de.mapoll.javaAVMTR064.beans.RootType2;
-import de.mapoll.javaAVMTR064.beans.ServiceType;
+import de.bausdorf.avm.tr064.beans.DeviceType;
+import de.bausdorf.avm.tr064.beans.RootType;
+import de.bausdorf.avm.tr064.beans.RootType2;
+import de.bausdorf.avm.tr064.beans.ServiceType;
 
 public class FritzConnection {
 	private static int DEFAULT_PORT = 49000;

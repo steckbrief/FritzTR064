@@ -18,12 +18,11 @@
  * specific language governing permissions and limitations under the License.
  *
  ***********************************************************************************************************************/
-package de.mapoll.javaAVMTR064;
+package de.bausdorf.avm.tr064;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -45,14 +44,14 @@ import javax.xml.soap.SOAPPart;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.StringEntity;
 
-import de.mapoll.javaAVMTR064.beans.ActionType;
-import de.mapoll.javaAVMTR064.beans.ArgumentType;
-import de.mapoll.javaAVMTR064.beans.ServiceType;
-import de.mapoll.javaAVMTR064.beans.StateVariableType;
+import de.bausdorf.avm.tr064.beans.ActionType;
+import de.bausdorf.avm.tr064.beans.ArgumentType;
+import de.bausdorf.avm.tr064.beans.ServiceType;
+import de.bausdorf.avm.tr064.beans.StateVariableType;
 
 public class Action {
 
-	private Map<String, Type> stateToType;
+	private Map<String, Class<?>> stateToType;
 	private Map<String, Boolean> argumentOut;
 	private Map<String, String> argumentState;
 	private String name;
@@ -63,14 +62,14 @@ public class Action {
 	public Action(ActionType action, List<StateVariableType> stateVariableList, FritzConnection connection,
 			ServiceType serviceXML) {
 		this.actionXML = action;
-		stateToType = new HashMap<String, Type>();
+		stateToType = new HashMap<String, Class<?>>();
 		argumentOut = new HashMap<String, Boolean>();
 		argumentState = new HashMap<String, String>();
 		name = actionXML.getName();
 		this.connection = connection;
 		this.serviceXML = serviceXML;
 		for (StateVariableType s : stateVariableList) {
-			Type type = null;
+			Class<?> type = null;
 			if (s.getDataType().equals("string"))
 				type = String.class;
 			else if (s.getDataType().startsWith("ui") || s.getDataType().startsWith("i"))
@@ -97,7 +96,7 @@ public class Action {
 		String ret = getName() + ":";
 		for (String argument : argumentOut.keySet()) {
 			ret += " " + argument + (argumentOut.get(argument) ? " out" : " in") + " "
-					+ stateToType.get(argumentState.get(argument)).getTypeName();
+					+ stateToType.get(argumentState.get(argument)).getName();
 		}
 
 		return ret;
@@ -121,7 +120,7 @@ public class Action {
 		return !isOut(argument);
 	}
 
-	public Type getTypeOfArgument(String argument) throws UnsupportedOperationException {
+	public Class<?> getTypeOfArgument(String argument) throws UnsupportedOperationException {
 		if (!argumentOut.containsKey(argument))
 			throw new UnsupportedOperationException(argument);
 		return stateToType.get(argumentState.get(argument));
@@ -145,7 +144,7 @@ public class Action {
 					throw new UnsupportedOperationException(a + " is not In");
 				if (parameter.getClass() != this.getTypeOfArgument(a)) {
 					try {
-						parameter = Class.forName(this.getTypeOfArgument(a).getTypeName()).cast(parameter);
+						parameter = Class.forName(this.getTypeOfArgument(a).getName()).cast(parameter);
 					} catch (Exception e) {
 						throw new UnsupportedOperationException(a + " has to be " + this.getTypeOfArgument(a)
 								+ ". Cast not posible: " + e.getMessage());
@@ -190,7 +189,7 @@ public class Action {
 		Class<?> classOfValue = null;
 		String ret="";
 		try {
-			classOfValue = Class.forName(this.getTypeOfArgument(name).getTypeName());
+			classOfValue = Class.forName(this.getTypeOfArgument(name).getName());
 		} catch (ClassNotFoundException | UnsupportedOperationException e) {
 			// Cant happen already checked
 			e.printStackTrace();

@@ -1,3 +1,4 @@
+package de.bausdorf.avm.tr064.examples;
 /***********************************************************************************************************************
  *
  * javaAVMTR064 - open source Java TR-064 API
@@ -21,24 +22,29 @@
 
 import java.io.IOException;
 
-
 import javax.xml.bind.JAXBException;
 
 
 
-import de.mapoll.javaAVMTR064.FritzConnection;
+
+
+import de.bausdorf.avm.tr064.FritzConnection;
 
 
 public class DisplayInfo {
-	static String ip = "192.168.0.1";
-	static String user = "user";
-	static String password = "password";
+	static String ip = null;
+	static String user = null;
+	static String password = null;
 	
 	
 	public static void main(String[] args) throws  IOException, JAXBException{
-	
-		
-		
+		if( args.length < 3 ) {
+			System.out.println("args: <fb-ip> <user> <password>");
+		} else {
+			ip = args[0];
+			user = args[0];
+			password = args[0];
+		}
 		FritzConnection fcWithoutUser = new FritzConnection(ip);
 		fcWithoutUser.init();
 		fcWithoutUser.printInfo();

@@ -18,7 +18,7 @@
  * specific language governing permissions and limitations under the License.
  *
  ***********************************************************************************************************************/
-package de.mapoll.javaAVMTR064;
+package de.bausdorf.avm.tr064;
 
 import java.io.IOException;
 
@@ -33,10 +33,10 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
 
-import de.mapoll.javaAVMTR064.beans.ActionType;
-import de.mapoll.javaAVMTR064.beans.ScpdType;
-import de.mapoll.javaAVMTR064.beans.ScpdType2;
-import de.mapoll.javaAVMTR064.beans.ServiceType;
+import de.bausdorf.avm.tr064.beans.ActionType;
+import de.bausdorf.avm.tr064.beans.ScpdType;
+import de.bausdorf.avm.tr064.beans.ScpdType2;
+import de.bausdorf.avm.tr064.beans.ServiceType;
 
 public class Service {
 	private ServiceType serviceXML;

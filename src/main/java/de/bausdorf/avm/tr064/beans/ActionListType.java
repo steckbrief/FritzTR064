@@ -20,26 +20,27 @@
  ***********************************************************************************************************************/
 
 
-package de.mapoll.javaAVMTR064.beans;
+
+package de.bausdorf.avm.tr064.beans;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java-Klasse für actionType complex type.
+ * <p>Java-Klasse fï¿½r actionListType complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="actionType"&gt;
+ * &lt;complexType name="actionListType"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="argumentList" type="{urn:dslforum-org:service-1-0}argumentListType" minOccurs="0"/&gt;
+ *         &lt;element name="action" type="{urn:dslforum-org:service-1-0}actionType" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -49,62 +50,40 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "actionType", propOrder = {
-    "name",
-    "argumentList"
+@XmlType(name = "actionListType", propOrder = {
+    "action"
 })
-public class ActionType {
+public class ActionListType {
 
-    @XmlElement(required = true)
-    protected String name;
-    protected ArgumentListType argumentList;
+    protected List<ActionType> action;
 
     /**
-     * Ruft den Wert der name-Eigenschaft ab.
+     * Gets the value of the action property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Legt den Wert der name-Eigenschaft fest.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the action property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
-
-    /**
-     * Ruft den Wert der argumentList-Eigenschaft ab.
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getAction().add(newItem);
+     * </pre>
      * 
-     * @return
-     *     possible object is
-     *     {@link ArgumentListType }
-     *     
-     */
-    public ArgumentListType getArgumentList() {
-        return argumentList;
-    }
-
-    /**
-     * Legt den Wert der argumentList-Eigenschaft fest.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link ArgumentListType }
-     *     
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link ActionType }
+     * 
+     * 
      */
-    public void setArgumentList(ArgumentListType value) {
-        this.argumentList = value;
+    public List<ActionType> getAction() {
+        if (action == null) {
+            action = new ArrayList<ActionType>();
+        }
+        return this.action;
     }
 
 }

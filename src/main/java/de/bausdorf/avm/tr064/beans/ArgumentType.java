@@ -18,28 +18,28 @@
  * specific language governing permissions and limitations under the License.
  *
  ***********************************************************************************************************************/
-package de.mapoll.javaAVMTR064.beans;
+
+package de.bausdorf.avm.tr064.beans;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java-Klasse für scpdType complex type.
+ * <p>Java-Klasse fï¿½r argumentType complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType name="scpdType"&gt;
+ * &lt;complexType name="argumentType"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="specVersion" type="{urn:dslforum-org:service-1-0}specVersionType"/&gt;
- *         &lt;element name="actionList" type="{urn:dslforum-org:service-1-0}actionListType"/&gt;
- *         &lt;element name="serviceStateTable" type="{urn:dslforum-org:service-1-0}serviceStateTableType"/&gt;
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="direction" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="relatedStateVariable" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -48,92 +48,91 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlRootElement(name = "scpd", namespace="urn:dslforum-org:service-1-0")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "scpdType", propOrder = {
-    "specVersion",
-    "actionList",
-    "serviceStateTable"
+@XmlType(name = "argumentType", propOrder = {
+    "name",
+    "direction",
+    "relatedStateVariable"
 })
-public class ScpdType {
+public class ArgumentType {
 
     @XmlElement(required = true)
-    protected SpecVersionType specVersion;
+    protected String name;
     @XmlElement(required = true)
-    protected ActionListType actionList;
+    protected String direction;
     @XmlElement(required = true)
-    protected ServiceStateTableType serviceStateTable;
+    protected String relatedStateVariable;
 
     /**
-     * Ruft den Wert der specVersion-Eigenschaft ab.
+     * Ruft den Wert der name-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link SpecVersionType }
+     *     {@link String }
      *     
      */
-    public SpecVersionType getSpecVersion() {
-        return specVersion;
+    public String getName() {
+        return name;
     }
 
     /**
-     * Legt den Wert der specVersion-Eigenschaft fest.
+     * Legt den Wert der name-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link SpecVersionType }
+     *     {@link String }
      *     
      */
-    public void setSpecVersion(SpecVersionType value) {
-        this.specVersion = value;
+    public void setName(String value) {
+        this.name = value;
     }
 
     /**
-     * Ruft den Wert der actionList-Eigenschaft ab.
+     * Ruft den Wert der direction-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link ActionListType }
+     *     {@link String }
      *     
      */
-    public ActionListType getActionList() {
-        return actionList;
+    public String getDirection() {
+        return direction;
     }
 
     /**
-     * Legt den Wert der actionList-Eigenschaft fest.
+     * Legt den Wert der direction-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link ActionListType }
+     *     {@link String }
      *     
      */
-    public void setActionList(ActionListType value) {
-        this.actionList = value;
+    public void setDirection(String value) {
+        this.direction = value;
     }
 
     /**
-     * Ruft den Wert der serviceStateTable-Eigenschaft ab.
+     * Ruft den Wert der relatedStateVariable-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link ServiceStateTableType }
+     *     {@link String }
      *     
      */
-    public ServiceStateTableType getServiceStateTable() {
-        return serviceStateTable;
+    public String getRelatedStateVariable() {
+        return relatedStateVariable;
     }
 
     /**
-     * Legt den Wert der serviceStateTable-Eigenschaft fest.
+     * Legt den Wert der relatedStateVariable-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link ServiceStateTableType }
+     *     {@link String }
      *     
      */
-    public void setServiceStateTable(ServiceStateTableType value) {
-        this.serviceStateTable = value;
+    public void setRelatedStateVariable(String value) {
+        this.relatedStateVariable = value;
     }
 
 }
