@@ -139,16 +139,24 @@ private void readTR64() throws ClientProtocolException, IOException, JAXBExcepti
 	name = device.getFriendlyName();
 	getServicesFromDevice(device);
 }
-private void readIGDDESC() throws ClientProtocolException, IOException, JAXBException{
+private void readIGDDESC() throws IOException {
 	InputStream xml = getXMLIS("/" + FRITZ_IGD_DESC_FILE);
-	JAXBContext jaxbContext = JAXBContext.newInstance(RootType2.class);
-	Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-	RootType2 root = (RootType2)jaxbUnmarshaller.unmarshal(xml);
-	LOG.debug(root.toString());
-	DeviceType device = root.getDevice();
-	name = device.getFriendlyName();
-	getServicesFromDevice(device);
+	try
+	{
+		JAXBContext jaxbContext = JAXBContext.newInstance(RootType2.class);
+		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+		RootType2 root = (RootType2)jaxbUnmarshaller.unmarshal(xml);
+		LOG.debug(root.toString());
+		DeviceType device = root.getDevice();
+		name = device.getFriendlyName();
+		getServicesFromDevice(device);
+	}
+	catch (JAXBException e)
+	{
+		LOG.error(e.getLocalizedMessage(), e);
+	}
 }
+
 private void getServicesFromDevice(DeviceType device) throws IOException, JAXBException {
 	for (ServiceType sT : device.getServiceList().getService()){
 		String[] tmp = sT.getServiceType().split(":"); 
@@ -170,6 +178,7 @@ private InputStream httpRequest(HttpHost target, HttpRequest request, HttpContex
 		response = httpClient.execute(target, request, context);
 		LOG.debug("got response " + response.getStatusLine());
 		content = EntityUtils.toByteArray(response.getEntity());
+		LOG.debug("got content: " + new String(content));
 	} catch (IOException e) {
 		LOG.error(e.getLocalizedMessage(), e);
 		throw e;
