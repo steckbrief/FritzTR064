@@ -29,16 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
-
-
-
-
-
-
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -61,6 +52,9 @@ import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import de.bausdorf.avm.tr064.beans.DeviceType;
 import de.bausdorf.avm.tr064.beans.RootType;
@@ -131,9 +125,9 @@ public void init() throws ClientProtocolException, IOException, JAXBException{
 }
 private void readTR64() throws ClientProtocolException, IOException, JAXBException{
 	InputStream xml = getXMLIS("/" + FRITZ_TR64_DESC_FILE);
-	JAXBContext jaxbContext = JAXBContext.newInstance(RootType.class);
-	Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-	RootType root = (RootType)jaxbUnmarshaller.unmarshal(xml);
+	ObjectMapper mapper = new XmlMapper();
+	RootType root = mapper.readValue(xml, RootType.class);
+
 	LOG.debug(root.toString());
 	DeviceType device = root.getDevice();
 	name = device.getFriendlyName();
@@ -143,10 +137,10 @@ private void readIGDDESC() throws IOException {
 	InputStream xml = getXMLIS("/" + FRITZ_IGD_DESC_FILE);
 	try
 	{
-		JAXBContext jaxbContext = JAXBContext.newInstance(RootType2.class);
-		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		RootType2 root = (RootType2)jaxbUnmarshaller.unmarshal(xml);
+		ObjectMapper mapper = new XmlMapper();
+		RootType2 root = mapper.readValue(xml, RootType2.class);
 		LOG.debug(root.toString());
+
 		DeviceType device = root.getDevice();
 		name = device.getFriendlyName();
 		getServicesFromDevice(device);
