@@ -166,10 +166,14 @@ private InputStream httpRequest(HttpHost target, HttpRequest request, HttpContex
 	CloseableHttpResponse response = null;
 	byte[] content = null;
 	try {
-		  response = httpClient.execute(target, request, context);
-		  content = EntityUtils.toByteArray(response.getEntity());
+		LOG.debug("try to request " + request.getRequestLine().toString());
+		LOG.debug("with context " + context.toString());
+		response = httpClient.execute(target, request, context);
+		content = EntityUtils.toByteArray(response.getEntity());
+		LOG.debug("response: " + EntityUtils.toString(response.getEntity()));
 	} catch (IOException e) {
-		throw e;	
+		LOG.error(e.getLocalizedMessage(), e);
+		throw e;
 	}
     finally{
     	if(response != null){
