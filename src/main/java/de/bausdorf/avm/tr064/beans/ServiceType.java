@@ -26,7 +26,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
  * <p>Java-Klasse für serviceType complex type.
  * 
@@ -52,24 +51,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "serviceType", propOrder = {
-    "serviceType",
-    "serviceId",
-    "controlURL",
-    "eventSubURL",
-    "SCPDURL"
+		"serviceType",
+		"serviceId",
+		"controlURL",
+		"eventSubURL",
+		"SCPDURL"
 })
-public class ServiceType {
-
-    @XmlElement(name="serviceType", required = true)
-    protected String serviceType;
-    @XmlElement(required = true)
-    protected String serviceId;
-    @XmlElement(required = true)
-    protected String controlURL;
-    @XmlElement(required = true)
-    protected String eventSubURL;
-    @XmlElement(name = "SCPDURL", required = true)
-    protected String scpdurl;
+public class ServiceType
+{
+	
+	@XmlElement(name = "serviceType", required = true)
+	protected String serviceType;
+	@XmlElement(required = true)
+	protected String serviceId;
+	@XmlElement(required = true)
+	protected String controlURL;
+	@XmlElement(required = true)
+	protected String eventSubURL;
+	@XmlElement(name = "SCPDURL", required = true)
+	protected String scpdurl;
+	
+	public ServiceType() {
+		super();
+	}
+	
+	public ServiceType(String type)
+	{
+		this();
+		this.serviceType = type;
+	}
+	
 	/**
 	 * @return the serviceType
 	 */
@@ -77,6 +88,7 @@ public class ServiceType {
 	{
 		return serviceType;
 	}
+	
 	/**
 	 * @return the serviceId
 	 */
@@ -84,6 +96,7 @@ public class ServiceType {
 	{
 		return serviceId;
 	}
+	
 	/**
 	 * @return the controlURL
 	 */
@@ -91,6 +104,7 @@ public class ServiceType {
 	{
 		return controlURL;
 	}
+	
 	/**
 	 * @return the eventSubURL
 	 */
@@ -98,6 +112,7 @@ public class ServiceType {
 	{
 		return eventSubURL;
 	}
+	
 	/**
 	 * @return the scpdurl
 	 */
