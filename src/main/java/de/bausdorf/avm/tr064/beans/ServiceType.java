@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java-Klasse f�r serviceType complex type.
+ * <p>Java-Klasse für serviceType complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
@@ -70,129 +70,39 @@ public class ServiceType {
     protected String eventSubURL;
     @XmlElement(name = "SCPDURL", required = true)
     protected String scpdurl;
-
-    /**
-     * Ruft den Wert der serviceType-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    @XmlElement(name="serviceType", required = true)
-    public String getServiceType() {
-        return serviceType;
-    }
-
-    /**
-     * Legt den Wert der serviceType-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    @XmlElement(name="serviceType", required = true)
-    public void setServiceType(String value) {
-        this.serviceType = value;
-    }
-
-    /**
-     * Ruft den Wert der serviceId-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    @XmlElement(required = true)
-    public String getServiceId() {
-        return serviceId;
-    }
-
-    /**
-     * Legt den Wert der serviceId-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    @XmlElement(required = true)
-    public void setServiceId(String value) {
-        this.serviceId = value;
-    }
-
-    /**
-     * Ruft den Wert der controlURL-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getControlURL() {
-        return controlURL;
-    }
-
-    /**
-     * Legt den Wert der controlURL-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setControlURL(String value) {
-        this.controlURL = value;
-    }
-
-    /**
-     * Ruft den Wert der eventSubURL-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getEventSubURL() {
-        return eventSubURL;
-    }
-
-    /**
-     * Legt den Wert der eventSubURL-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setEventSubURL(String value) {
-        this.eventSubURL = value;
-    }
-
-    /**
-     * Ruft den Wert der scpdurl-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSCPDURL() {
-        return scpdurl;
-    }
-
-    /**
-     * Legt den Wert der scpdurl-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSCPDURL(String value) {
-        this.scpdurl = value;
-    }
-
+	/**
+	 * @return the serviceType
+	 */
+	public String getServiceType()
+	{
+		return serviceType;
+	}
+	/**
+	 * @return the serviceId
+	 */
+	public String getServiceId()
+	{
+		return serviceId;
+	}
+	/**
+	 * @return the controlURL
+	 */
+	public String getControlURL()
+	{
+		return controlURL;
+	}
+	/**
+	 * @return the eventSubURL
+	 */
+	public String getEventSubURL()
+	{
+		return eventSubURL;
+	}
+	/**
+	 * @return the scpdurl
+	 */
+	public String getScpdurl()
+	{
+		return scpdurl;
+	}
 }
