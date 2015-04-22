@@ -57,9 +57,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 })
 public class RootType {
 	
-    @XmlElement(required = true)
+    @XmlElement(name="specVersion", required = true)
     protected SpecVersionType specVersion;
-    @XmlElement(required = true)
+    @XmlElement(name="device", required = true)
     protected DeviceType device;
 
     /**

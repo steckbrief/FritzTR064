@@ -80,9 +80,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 })
 public class DeviceType {
 
-    @XmlElement(required = true)
+    @XmlElement(name="deviceType", required = true)
     protected String deviceType;
-    @XmlElement(required = true)
+    @XmlElement(name="fiendlyName", required = true)
     protected String friendlyName;
     @XmlElement(required = true)
     protected String manufacturer;
