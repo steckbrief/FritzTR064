@@ -28,6 +28,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * <p>Java-Klasse für serviceListType complex type.
  * 
@@ -83,5 +85,14 @@ public class ServiceListType {
         }
         return this.service;
     }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return new ToStringBuilder(this).append(this.getService()).toString();
+	}
 
 }

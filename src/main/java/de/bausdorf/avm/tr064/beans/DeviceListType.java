@@ -28,6 +28,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * <p>Java-Klasse f�r deviceListType complex type.
  * 
@@ -83,5 +85,16 @@ public class DeviceListType {
         }
         return this.device;
     }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return new ToStringBuilder(this)
+				.append(this.device)
+				.toString();
+	}
 
 }

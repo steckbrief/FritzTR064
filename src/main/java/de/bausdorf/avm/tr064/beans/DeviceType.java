@@ -462,7 +462,18 @@ public class DeviceType {
 	@Override
 	public String toString()
 	{
-		return new ToStringBuilder(this).toString();
+		return new ToStringBuilder(this)
+				.append("deviceType", this.getDeviceType())
+				.append("friendlyName", this.getFriendlyName())
+				.append("manufacturer", this.getManufacturer())
+				.append("modelName", this.getModelName())
+				.append("modelNumber", this.getModelNumber())
+				.append("modelDescription", this.getModelDescription())
+				.append("udn", this.getUDN())
+				.append("UPC", this.getUPC())
+				.append(this.getServiceList())
+				.append(this.getDeviceList())
+				.toString();
 	}
 
 }

@@ -26,6 +26,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * <p>Java-Klasse für serviceType complex type.
  * 
@@ -119,5 +121,20 @@ public class ServiceType
 	public String getScpdurl()
 	{
 		return scpdurl;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return new ToStringBuilder(this)
+				.append("serviceId", this.getServiceId())
+				.append("serviceType", this.getServiceType())
+				.append("controlURL", this.getControlURL())
+				.append("eventSubURL", this.getEventSubURL())
+				.append("scpdurl", this.getScpdurl())
+				.toString();
 	}
 }
