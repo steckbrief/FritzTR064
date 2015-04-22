@@ -60,7 +60,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 		"eventSubURL",
 		"SCPDURL"
 })
-public class ServiceType
+public class ServiceDesc
 {
 	
 	@XmlElement(name = "serviceType", required = true)
@@ -73,16 +73,6 @@ public class ServiceType
 	protected String eventSubURL;
 	@XmlElement(name = "SCPDURL", required = true)
 	protected String scpdurl;
-	
-	public ServiceType() {
-		super();
-	}
-	
-	public ServiceType(String type)
-	{
-		this();
-		this.serviceType = type;
-	}
 	
 	/**
 	 * @return the serviceType

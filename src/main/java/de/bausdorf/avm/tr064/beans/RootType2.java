@@ -61,7 +61,7 @@ public class RootType2 {
     @XmlElement(required = true)
     protected SpecVersionType specVersion;
     @XmlElement(required = true)
-    protected DeviceType device;
+    protected DeviceDesc device;
 
     /**
      * Ruft den Wert der specVersion-Eigenschaft ab.
@@ -92,10 +92,10 @@ public class RootType2 {
      * 
      * @return
      *     possible object is
-     *     {@link DeviceType }
+     *     {@link DeviceDesc }
      *     
      */
-    public DeviceType getDevice() {
+    public DeviceDesc getDevice() {
         return device;
     }
 
@@ -104,10 +104,10 @@ public class RootType2 {
      * 
      * @param value
      *     allowed object is
-     *     {@link DeviceType }
+     *     {@link DeviceDesc }
      *     
      */
-    public void setDevice(DeviceType value) {
+    public void setDevice(DeviceDesc value) {
         this.device = value;
     }
 

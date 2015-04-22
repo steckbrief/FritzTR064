@@ -46,7 +46,7 @@ import org.apache.http.entity.StringEntity;
 
 import de.bausdorf.avm.tr064.beans.ActionType;
 import de.bausdorf.avm.tr064.beans.ArgumentType;
-import de.bausdorf.avm.tr064.beans.ServiceType;
+import de.bausdorf.avm.tr064.beans.ServiceDesc;
 import de.bausdorf.avm.tr064.beans.StateVariableType;
 
 public class Action {
@@ -57,10 +57,10 @@ public class Action {
 	private String name;
 	private ActionType actionXML;
 	private FritzConnection connection;
-	private ServiceType serviceXML;
+	private ServiceDesc serviceXML;
 
 	public Action(ActionType action, List<StateVariableType> stateVariableList, FritzConnection connection,
-			ServiceType serviceXML) {
+			ServiceDesc serviceXML) {
 		this.actionXML = action;
 		stateToType = new HashMap<String, Class<?>>();
 		argumentOut = new HashMap<String, Boolean>();

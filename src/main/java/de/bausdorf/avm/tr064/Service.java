@@ -36,13 +36,13 @@ import javax.xml.bind.Unmarshaller;
 import de.bausdorf.avm.tr064.beans.ActionType;
 import de.bausdorf.avm.tr064.beans.ScpdType;
 import de.bausdorf.avm.tr064.beans.ScpdType2;
-import de.bausdorf.avm.tr064.beans.ServiceType;
+import de.bausdorf.avm.tr064.beans.ServiceDesc;
 
 public class Service {
-	private ServiceType serviceXML;
+	private ServiceDesc serviceXML;
 	private Map<String,Action> actions;
 	
-	public Service(ServiceType serviceXML, FritzConnection connection) throws IOException, JAXBException{
+	public Service(ServiceDesc serviceXML, FritzConnection connection) throws IOException, JAXBException{
 		this.serviceXML = serviceXML;
 		actions = new HashMap<String,Action>();
 		

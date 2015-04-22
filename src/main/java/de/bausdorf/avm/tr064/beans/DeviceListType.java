@@ -55,7 +55,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 })
 public class DeviceListType {
 
-    protected List<DeviceType> device;
+    protected List<DeviceDesc> device;
 
     /**
      * Gets the value of the device property.
@@ -75,13 +75,13 @@ public class DeviceListType {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link DeviceType }
+     * {@link DeviceDesc }
      * 
      * 
      */
-    public List<DeviceType> getDevice() {
+    public List<DeviceDesc> getDevice() {
         if (device == null) {
-            device = new ArrayList<DeviceType>();
+            device = new ArrayList<DeviceDesc>();
         }
         return this.device;
     }

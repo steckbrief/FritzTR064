@@ -79,7 +79,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
     "deviceList",
     "presentationURL"
 })
-public class DeviceType {
+public class DeviceDesc {
 
     @XmlElement(required = true)
     protected String deviceType;
@@ -110,15 +110,6 @@ public class DeviceType {
     @XmlSchemaType(name = "anyURI")
     protected String presentationURL;
 
-    public DeviceType() {
-    	super();
-    }
-    
-    public DeviceType(String type) {
-    	this();
-    	this.deviceType = type;
-    }
-    
     /**
      * Ruft den Wert der deviceType-Eigenschaft ab.
      * 

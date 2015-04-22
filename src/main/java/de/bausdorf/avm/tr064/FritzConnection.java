@@ -57,10 +57,10 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-import de.bausdorf.avm.tr064.beans.DeviceType;
+import de.bausdorf.avm.tr064.beans.DeviceDesc;
 import de.bausdorf.avm.tr064.beans.RootType;
 import de.bausdorf.avm.tr064.beans.RootType2;
-import de.bausdorf.avm.tr064.beans.ServiceType;
+import de.bausdorf.avm.tr064.beans.ServiceDesc;
 
 public class FritzConnection {
 	private static Logger LOG = LoggerFactory.getLogger(FritzConnection.class);
@@ -131,7 +131,7 @@ private void readTR64() throws ClientProtocolException, IOException, JAXBExcepti
 	RootType root = mapper.readValue(xml, RootType.class);
 
 	LOG.debug(root.toString());
-	DeviceType device = root.getDevice();
+	DeviceDesc device = root.getDevice();
 	name = device.getFriendlyName();
 	getServicesFromDevice(device);
 }
@@ -144,7 +144,7 @@ private void readIGDDESC() throws IOException {
 		RootType2 root = mapper.readValue(xml, RootType2.class);
 		LOG.debug(root.toString());
 
-		DeviceType device = root.getDevice();
+		DeviceDesc device = root.getDevice();
 		name = device.getFriendlyName();
 		getServicesFromDevice(device);
 	}
@@ -154,15 +154,15 @@ private void readIGDDESC() throws IOException {
 	}
 }
 
-private void getServicesFromDevice(DeviceType device) throws IOException, JAXBException {
-	for (ServiceType sT : device.getServiceList().getService()){
+private void getServicesFromDevice(DeviceDesc device) throws IOException, JAXBException {
+	for (ServiceDesc sT : device.getServiceList().getService()){
 		String[] tmp = sT.getServiceType().split(":"); 
 		String key = tmp[tmp.length-2] + ":" + tmp[tmp.length-1];
 		
 		services.put(key, new Service(sT, this));
 	}
 	if (device.getDeviceList()!= null)
-		for (DeviceType d : device.getDeviceList().getDevice()){
+		for (DeviceDesc d : device.getDeviceList().getDevice()){
 			getServicesFromDevice(d);
 		}
 }

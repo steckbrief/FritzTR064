@@ -55,7 +55,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 })
 public class ServiceListType {
 
-    protected List<ServiceType> service;
+    protected List<ServiceDesc> service;
 
     /**
      * Gets the value of the service property.
@@ -75,13 +75,13 @@ public class ServiceListType {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link ServiceType }
+     * {@link ServiceDesc }
      * 
      * 
      */
-    public List<ServiceType> getService() {
+    public List<ServiceDesc> getService() {
         if (service == null) {
-            service = new ArrayList<ServiceType>();
+            service = new ArrayList<ServiceDesc>();
         }
         return this.service;
     }
