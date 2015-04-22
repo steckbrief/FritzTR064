@@ -88,4 +88,14 @@ public class SpecVersionType {
         this.minor = value;
     }
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+
+    @Override
+	public String toString()
+	{
+		return Integer.toHexString(major) + " " + Integer.toHexString(minor);
+	}
+
 }

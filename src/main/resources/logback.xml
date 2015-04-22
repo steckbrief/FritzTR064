@@ -1,0 +1,42 @@
+<!--
+
+    Copyright 2014 by adviqo AG
+    Zimmerstraße 68, 10117 Berlin, Germany
+    All rights reserved.
+
+    This software is the confidential and proprietary information of
+    adviqo AG ("Confidential Information"). You shall not disclose
+    such Confidential Information and shall use it only in accordance with the
+    terms of the license agreement you entered into with adviqo AG.
+
+-->
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
+      by default -->
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>${accobot.logdir:-logs}/tr064.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${accobot.logdir}/tr064.%d{yyyy-MM-dd}.log</fileNamePattern>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d{dd.MM.yyyy-HH:mm:ss.SSS} %-5level %logger{30}[:%line]- %msg%n%ex{5}
+      </pattern>
+    </encoder>
+  </appender>
+
+  <root level="WARN">
+    <appender-ref ref="FILE" />
+    <appender-ref ref="STDOUT" />
+  </root>
+
+  <logger name="de.bausdorf.avm" level="DEBUG" additivity="false">
+    <appender-ref ref="STDOUT" />
+  </logger>
+</configuration>

@@ -27,6 +27,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * <p>Java-Klasse f�r deviceType complex type.
  * 
@@ -442,5 +444,14 @@ public class DeviceType {
     public void setPresentationURL(String value) {
         this.presentationURL = value;
     }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return new ToStringBuilder(this).toString();
+	}
 
 }

@@ -27,6 +27,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * <p>Java-Klasse f�r rootType complex type.
  * 
@@ -107,5 +109,17 @@ public class RootType {
     public void setDevice(DeviceType value) {
         this.device = value;
     }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return new ToStringBuilder(this)
+				.append(this.getSpecVersion())
+				.append(this.getDevice())
+				.toString();
+	}
 
 }

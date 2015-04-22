@@ -38,6 +38,8 @@ import javax.xml.bind.Unmarshaller;
 
 
 
+
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
@@ -57,6 +59,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.bausdorf.avm.tr064.beans.DeviceType;
 import de.bausdorf.avm.tr064.beans.RootType;
@@ -64,6 +68,8 @@ import de.bausdorf.avm.tr064.beans.RootType2;
 import de.bausdorf.avm.tr064.beans.ServiceType;
 
 public class FritzConnection {
+	private static Logger LOG = LoggerFactory.getLogger(FritzConnection.class);
+	
 	private static int DEFAULT_PORT = 49000;
 	private static String FRITZ_IGD_DESC_FILE = "igddesc.xml";
 	private static String FRITZ_TR64_DESC_FILE = "tr64desc.xml";
@@ -102,6 +108,8 @@ public FritzConnection(String address, String user, String pwd){
 }
 public void init() throws ClientProtocolException, IOException, JAXBException{
 	if (user!=null && pwd!=null){
+		LOG.debug("try to connect to " + this.targetHost.getAddress() 
+				+ " with credentials " + this.user + "/" + this.pwd);
 		CredentialsProvider credsProvider = new BasicCredentialsProvider();
 	    credsProvider.setCredentials(AuthScope.ANY,
 	        new UsernamePasswordCredentials(user, pwd));
@@ -126,6 +134,7 @@ private void readTR64() throws ClientProtocolException, IOException, JAXBExcepti
 	JAXBContext jaxbContext = JAXBContext.newInstance(RootType.class);
 	Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 	RootType root = (RootType)jaxbUnmarshaller.unmarshal(xml);
+	LOG.debug(root.toString());
 	DeviceType device = root.getDevice();
 	name = device.getFriendlyName();
 	getServicesFromDevice(device);
@@ -135,6 +144,7 @@ private void readIGDDESC() throws ClientProtocolException, IOException, JAXBExce
 	JAXBContext jaxbContext = JAXBContext.newInstance(RootType2.class);
 	Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 	RootType2 root = (RootType2)jaxbUnmarshaller.unmarshal(xml);
+	LOG.debug(root.toString());
 	DeviceType device = root.getDevice();
 	name = device.getFriendlyName();
 	getServicesFromDevice(device);
@@ -204,16 +214,16 @@ public Service getService(String name){
 }
 
 public void printInfo(){
-	System.out.println(name);
-	System.out.println("----------------------------------");
+	LOG.info(name);
+	LOG.info("----------------------------------");
 	for (String a: services.keySet()){
-		System.out.println(a);
+		LOG.info(a);
 		Service s = services.get(a);
 		for (String b : s.getActions().keySet()){
-			System.out.print("    ");
-			System.out.println(b);
-			System.out.print("       ");
-			System.out.println(s.getActions().get(b).getArguments());
+			LOG.info("    ");
+			LOG.info(b);
+			LOG.info("       ");
+			LOG.info(s.getActions().get(b).getArguments().toString());
 		}
 	}
 }

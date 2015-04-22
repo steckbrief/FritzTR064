@@ -28,27 +28,38 @@ import javax.xml.bind.JAXBException;
 
 
 
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.bausdorf.avm.tr064.FritzConnection;
 
 
 public class DisplayInfo {
+	private static final Logger LOG = LoggerFactory.getLogger(DisplayInfo.class);
+	
 	static String ip = null;
 	static String user = null;
 	static String password = null;
 	
 	
 	public static void main(String[] args) throws  IOException, JAXBException{
-		if( args.length < 3 ) {
-			System.out.println("args: <fb-ip> <user> <password>");
+		if( args.length < 2 ) {
+			LOG.error("args: <fb-ip> <password> [user]");
+			System.exit(1);
 		} else {
 			ip = args[0];
-			user = args[0];
-			password = args[0];
+			password = args[1];
+			if( args.length > 2 )
+			{
+				user = args[2];
+			}
 		}
 		FritzConnection fcWithoutUser = new FritzConnection(ip);
 		fcWithoutUser.init();
 		fcWithoutUser.printInfo();
-		System.out.println("##################################################################");
+		LOG.info("##################################################################");
 		FritzConnection fcWithUser = new FritzConnection(ip,user,password);
 		fcWithUser.init();
 		fcWithUser.printInfo();

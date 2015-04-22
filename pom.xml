@@ -13,6 +13,21 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.4</version>
 		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.8</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -27,11 +42,11 @@
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
-<!-- 					<archive> -->
-<!-- 						<manifest> -->
-<!-- 							<mainClass>fully.qualified.MainClass</mainClass> -->
-<!-- 						</manifest> -->
-<!-- 					</archive> -->
+					<!-- <archive> -->
+					<!-- <manifest> -->
+					<!-- <mainClass>fully.qualified.MainClass</mainClass> -->
+					<!-- </manifest> -->
+					<!-- </archive> -->
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>

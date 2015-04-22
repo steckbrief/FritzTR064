@@ -26,6 +26,8 @@ import java.util.HashMap;
 import javax.xml.bind.JAXBException;
 
 import org.apache.http.client.ClientProtocolException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.bausdorf.avm.tr064.Action;
 import de.bausdorf.avm.tr064.FritzConnection;
@@ -33,18 +35,23 @@ import de.bausdorf.avm.tr064.Service;
 import de.bausdorf.avm.tr064.Response;
 
 public class GetAllConnectedWlanDevices {
+	private static final Logger LOG = LoggerFactory.getLogger(GetAllConnectedWlanDevices.class);
 	static String ip = null;
 	static String user = null;
 	static String password = null;
 	
 	
 	public static void main(String[] args){
-		if( args.length < 3 ) {
-			System.out.println("args: <fb-ip> <user> <password>");
+		if( args.length < 2 ) {
+			LOG.error("args: <fb-ip> <password> [user]");
+			System.exit(1);
 		} else {
 			ip = args[0];
-			user = args[0];
-			password = args[0];
+			password = args[1];
+			if( args.length > 2 )
+			{
+				user = args[2];
+			}
 		}
 			
 		//Create a new FritzConnection with username and password
@@ -84,7 +91,7 @@ public class GetAllConnectedWlanDevices {
 			} catch (ClassCastException | NoSuchFieldException e) {
 				e.printStackTrace();
 			}
-			System.out.println("WLAN " + i + ":" + deviceCount);
+			LOG.info("WLAN " + i + ":" + deviceCount);
 			for (int j = 0; j < deviceCount; j++){
 				//Create a map for the arguments of an action. You have to do this, if the action has IN-Parameters.
 				HashMap <String, Object> arguments = new HashMap<String, Object>();
@@ -92,7 +99,7 @@ public class GetAllConnectedWlanDevices {
 				arguments.put("NewAssociatedDeviceIndex", j);
 				try {
 					Response response2 = fc.getService("WLANConfiguration:" + i).getAction("GetGenericAssociatedDeviceInfo").execute(arguments);
-					System.out.println("    " + response2.getData());
+					LOG.info("    " + response2.getData());
 				} catch (UnsupportedOperationException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
