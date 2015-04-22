@@ -109,6 +109,15 @@ public class DeviceType {
     @XmlSchemaType(name = "anyURI")
     protected String presentationURL;
 
+    public DeviceType() {
+    	super();
+    }
+    
+    public DeviceType(String type) {
+    	this();
+    	this.deviceType = type;
+    }
+    
     /**
      * Ruft den Wert der deviceType-Eigenschaft ab.
      * 
