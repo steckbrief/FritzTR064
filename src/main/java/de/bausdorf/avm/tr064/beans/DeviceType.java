@@ -71,8 +71,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
     "modelName",
     "modelNumber",
     "modelURL",
-    "udn",
-    "upc",
+    "UDN",
+    "UPC",
     "iconList",
     "serviceList",
     "deviceList",
@@ -80,9 +80,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 })
 public class DeviceType {
 
-    @XmlElement(name="deviceType", required = true)
+    @XmlElement(required = true)
     protected String deviceType;
-    @XmlElement(name="fiendlyName", required = true)
+    @XmlElement(required = true)
     protected String friendlyName;
     @XmlElement(required = true)
     protected String manufacturer;
