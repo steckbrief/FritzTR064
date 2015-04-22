@@ -60,7 +60,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class ServiceType {
 
-    @XmlElement(required = true)
+    @XmlElement(name="serviceType", required = true)
     protected String serviceType;
     @XmlElement(required = true)
     protected String serviceId;
@@ -79,7 +79,7 @@ public class ServiceType {
      *     {@link String }
      *     
      */
-    @XmlElement(required = true)
+    @XmlElement(name="serviceType", required = true)
     public String getServiceType() {
         return serviceType;
     }
@@ -92,7 +92,7 @@ public class ServiceType {
      *     {@link String }
      *     
      */
-    @XmlElement(required = true)
+    @XmlElement(name="serviceType", required = true)
     public void setServiceType(String value) {
         this.serviceType = value;
     }
