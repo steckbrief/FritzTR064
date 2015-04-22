@@ -52,8 +52,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "serviceType", propOrder = {
+//@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = {
 		"serviceType",
 		"serviceId",
 		"controlURL",

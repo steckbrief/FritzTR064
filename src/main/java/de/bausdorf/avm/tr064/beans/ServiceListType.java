@@ -26,6 +26,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -49,12 +50,13 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "serviceListType", propOrder = {
+//@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = {
     "service"
 })
 public class ServiceListType {
 
+	@XmlElement(name="service")
     protected List<ServiceDesc> service;
 
     /**

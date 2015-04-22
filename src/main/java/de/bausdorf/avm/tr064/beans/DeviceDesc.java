@@ -62,8 +62,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "deviceType", propOrder = {
+//@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = {
     "deviceType",
     "friendlyName",
     "manufacturer",
