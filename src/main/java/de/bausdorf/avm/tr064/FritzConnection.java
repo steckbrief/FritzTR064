@@ -166,9 +166,10 @@ private InputStream httpRequest(HttpHost target, HttpRequest request, HttpContex
 	CloseableHttpResponse response = null;
 	byte[] content = null;
 	try {
-		LOG.debug("try to request " + target.toURI() + request.getRequestLine().toString());
+		LOG.debug("try to request " + target.toURI() + request.toString());
 		LOG.debug("with context " + context.toString());
 		response = httpClient.execute(target, request, context);
+		LOG.debug("got response " + response.getStatusLine());
 		content = EntityUtils.toByteArray(response.getEntity());
 		LOG.debug("response: " + EntityUtils.toString(response.getEntity()));
 	} catch (IOException e) {
