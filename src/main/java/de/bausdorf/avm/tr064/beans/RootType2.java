@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * <p>Java-Klasse f�r rootType complex type.
@@ -116,7 +117,7 @@ public class RootType2 {
 	@Override
 	public String toString()
 	{
-		return new ToStringBuilder(this)
+		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
 				.append(this.specVersion)
 				.append(this.device)
 				.toString();

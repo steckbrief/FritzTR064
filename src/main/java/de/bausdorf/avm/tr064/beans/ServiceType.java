@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * <p>Java-Klasse für serviceType complex type.
@@ -129,7 +130,7 @@ public class ServiceType
 	@Override
 	public String toString()
 	{
-		return new ToStringBuilder(this)
+		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
 				.append("serviceId", this.getServiceId())
 				.append("serviceType", this.getServiceType())
 				.append("controlURL", this.getControlURL())

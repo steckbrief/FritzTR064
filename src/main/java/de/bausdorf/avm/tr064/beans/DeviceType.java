@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * <p>Java-Klasse f�r deviceType complex type.
@@ -462,7 +463,7 @@ public class DeviceType {
 	@Override
 	public String toString()
 	{
-		return new ToStringBuilder(this)
+		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
 				.append("deviceType", this.getDeviceType())
 				.append("friendlyName", this.getFriendlyName())
 				.append("manufacturer", this.getManufacturer())
