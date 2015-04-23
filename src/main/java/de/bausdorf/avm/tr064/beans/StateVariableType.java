@@ -20,10 +20,14 @@
  ***********************************************************************************************************************/
 package de.bausdorf.avm.tr064.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -54,17 +58,25 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "stateVariableType", propOrder = {
     "name",
-    "dataType"
+    "dataType",
+    "allowedValueList",
+    "allowedValueRange",
+    "defaultValue"
 })
 public class StateVariableType {
 
+    @XmlAttribute(name = "sendEvents")
+    protected String sendEvents;
     @XmlElement(name="name", required = true)
     protected String name;
     @XmlElement(required = true)
     protected String dataType;
-    @XmlAttribute(name = "sendEvents")
-    protected String sendEvents;
-
+    @XmlElementWrapper(name="allowedValueList")
+    @XmlElement(name="allowedValue")
+    private List<String> allowedValueList;
+    private AllowedValueRangeType allowedValueRange;
+    private String defaultValue;
+    
     /**
      * Ruft den Wert der name-Eigenschaft ab.
      * 
@@ -137,6 +149,57 @@ public class StateVariableType {
         this.sendEvents = value;
     }
 
+	/**
+	 * @return the allowedValueList
+	 */
+	public List<String> getAllowedValueList()
+	{
+		if( this.allowedValueList == null ) {
+			this.allowedValueList = new ArrayList<String>();
+		}
+		return allowedValueList;
+	}
+
+	/**
+	 * @param allowedValueList the allowedValueList to set
+	 */
+	public void setAllowedValueList(List<String> allowedValueList)
+	{
+		this.allowedValueList = allowedValueList;
+	}
+
+	/**
+	 * @return the defaultValue
+	 */
+	public String getDefaultValue()
+	{
+		return defaultValue;
+	}
+
+	/**
+	 * @param defaultValue the defaultValue to set
+	 */
+	public void setDefaultValue(String defaultValue)
+	{
+		this.defaultValue = defaultValue;
+	}
+
+	/**
+	 * @return the allowedValueRange
+	 */
+	public AllowedValueRangeType getAllowedValueRange()
+	{
+		return allowedValueRange;
+	}
+
+	/**
+	 * @param allowedValueRange the allowedValueRange to set
+	 */
+	public void setAllowedValueRange(AllowedValueRangeType allowedValueRange)
+	{
+		this.allowedValueRange = allowedValueRange;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -147,6 +210,9 @@ public class StateVariableType {
 				.append("name", this.name)
 				.append("dataType", this.dataType)
 				.append("sendEvents", this.sendEvents)
+				.append("allowedValueList", this.allowedValueList)
+				.append("allowedValueRange", this.allowedValueRange)
+				.append("defaultValue", this.defaultValue)
 				.toString();
 	}
 

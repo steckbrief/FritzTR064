@@ -20,6 +20,7 @@ public class XmlMappingTest
 	
 	InputStream igdDescIS;
 	InputStream anyIS;
+	InputStream igdicfgIS;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
@@ -31,6 +32,7 @@ public class XmlMappingTest
 	{
 		this.igdDescIS = ClassLoader.getSystemResourceAsStream("igd_desc_test.xml");
 		this.anyIS = ClassLoader.getSystemResourceAsStream("any_test.xml");
+		this.igdicfgIS = ClassLoader.getSystemResourceAsStream("igdicfgSCPD_test.xml");
 	}
 	
 	@Test
@@ -62,5 +64,20 @@ public class XmlMappingTest
 			LOG.error(e.getLocalizedMessage(), e);
 			fail(e.getLocalizedMessage());
 		}
+	}
+	
+	@Test
+	public void testIgdicfgSCPDMapping() {
+		try {
+			this.testMapping(this.igdicfgIS, ScpdType2.class);
+		} catch (Exception e) {
+			LOG.error(e.getLocalizedMessage(), e);
+			fail(e.getLocalizedMessage());
+		}
+	}
+	
+	private void testMapping(InputStream is, Class<?> mapTo) throws Exception {
+		ObjectMapper mapper = new XmlMapper();
+		LOG.debug(mapper.readValue(is, mapTo).toString());
 	}
 }
