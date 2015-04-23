@@ -21,14 +21,19 @@
 
 package de.bausdorf.avm.tr064.beans;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 /**
  * <p>Java-Klasse f�r deviceType complex type.
@@ -48,8 +53,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *         &lt;element name="modelName" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="modelNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="modelURL" type="{http://www.w3.org/2001/XMLSchema}anyURI"/&gt;
- *         &lt;element name="UDN" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="UPC" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="udn" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="upc" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="iconList" type="{urn:dslforum-org:device-1-0}iconListType" minOccurs="0"/&gt;
  *         &lt;element name="serviceList" type="{urn:dslforum-org:device-1-0}serviceListType"/&gt;
  *         &lt;element name="deviceList" type="{urn:dslforum-org:device-1-0}deviceListType" minOccurs="0"/&gt;
@@ -62,7 +67,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * 
  * 
  */
-//@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = {
     "deviceType",
     "friendlyName",
@@ -72,8 +77,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
     "modelName",
     "modelNumber",
     "modelURL",
-    "UDN",
-    "UPC",
+    "udn",
+    "upc",
     "iconList",
     "serviceList",
     "deviceList",
@@ -82,33 +87,44 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class DeviceDesc {
 
     @XmlElement(required = true)
-    protected String deviceType;
+    private String deviceType;
     @XmlElement(required = true)
-    protected String friendlyName;
+    private String friendlyName;
     @XmlElement(required = true)
-    protected String manufacturer;
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "anyURI")
-    protected String manufacturerURL;
-    @XmlElement(required = true)
-    protected String modelDescription;
-    @XmlElement(required = true)
-    protected String modelName;
-    @XmlElement(required = true)
-    protected String modelNumber;
+    private String manufacturer;
     @XmlElement(required = true)
     @XmlSchemaType(name = "anyURI")
-    protected String modelURL;
-    @XmlElement(name = "UDN", required = true)
-    protected String udn;
-    @XmlElement(name = "UPC")
-    protected String upc;
-    protected IconListType iconList;
+    private String manufacturerURL;
     @XmlElement(required = true)
-    protected ServiceListType serviceList;
-    protected DeviceListType deviceList;
+    private String modelDescription;
+    @XmlElement(required = true)
+    private String modelName;
+    @XmlElement(required = true)
+    private String modelNumber;
+    @XmlElement(required = true)
     @XmlSchemaType(name = "anyURI")
-    protected String presentationURL;
+    private String modelURL;
+    @XmlElement(name = "udn", required = true)
+    @JacksonXmlProperty(localName="UDN")
+    private String udn;
+    @XmlElement(name = "upc")
+    @JacksonXmlProperty(localName="UPC")
+    private String upc;
+
+    @XmlElementWrapper(name="iconList")
+    @XmlElement(name="icon")
+    private List<IconType> iconList;
+
+    @XmlElementWrapper(name="serviceList", required = true)
+    @XmlElement(name="service")
+    private List<ServiceDesc> serviceList;
+    
+    @XmlElementWrapper(name="deviceList")
+    @XmlElement(name="device")
+    private List<DeviceDesc> deviceList;
+    
+    @XmlSchemaType(name = "anyURI")
+    private String presentationURL;
 
     /**
      * Ruft den Wert der deviceType-Eigenschaft ab.
@@ -310,8 +326,7 @@ public class DeviceDesc {
      *     {@link String }
      *     
      */
-    @XmlElement(name = "UDN", required = true)
-    public String getUDN() {
+    public String getUdn() {
         return udn;
     }
 
@@ -323,8 +338,7 @@ public class DeviceDesc {
      *     {@link String }
      *     
      */
-    @XmlElement(name = "UDN", required = true)
-    public void setUDN(String value) {
+    public void setUdn(String value) {
         this.udn = value;
     }
 
@@ -360,7 +374,7 @@ public class DeviceDesc {
      *     {@link IconListType }
      *     
      */
-    public IconListType getIconList() {
+    public List<IconType> getIconList() {
         return iconList;
     }
 
@@ -372,7 +386,7 @@ public class DeviceDesc {
      *     {@link IconListType }
      *     
      */
-    public void setIconList(IconListType value) {
+    public void setIconList(List<IconType> value) {
         this.iconList = value;
     }
 
@@ -384,7 +398,7 @@ public class DeviceDesc {
      *     {@link ServiceListType }
      *     
      */
-    public ServiceListType getServiceList() {
+    public List<ServiceDesc> getServiceList() {
         return serviceList;
     }
 
@@ -396,7 +410,7 @@ public class DeviceDesc {
      *     {@link ServiceListType }
      *     
      */
-    public void setServiceList(ServiceListType value) {
+    public void setServiceList(List<ServiceDesc> value) {
         this.serviceList = value;
     }
 
@@ -408,7 +422,7 @@ public class DeviceDesc {
      *     {@link DeviceListType }
      *     
      */
-    public DeviceListType getDeviceList() {
+    public List<DeviceDesc> getDeviceList() {
         return deviceList;
     }
 
@@ -420,7 +434,7 @@ public class DeviceDesc {
      *     {@link DeviceListType }
      *     
      */
-    public void setDeviceList(DeviceListType value) {
+    public void setDeviceList(List<DeviceDesc> value) {
         this.deviceList = value;
     }
 
@@ -455,16 +469,16 @@ public class DeviceDesc {
 	public String toString()
 	{
 		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-				.append("deviceType", this.getDeviceType())
-				.append("friendlyName", this.getFriendlyName())
-				.append("manufacturer", this.getManufacturer())
-				.append("modelName", this.getModelName())
-				.append("modelNumber", this.getModelNumber())
-				.append("modelDescription", this.getModelDescription())
-				.append("udn", this.getUDN())
-				.append("UPC", this.getUPC())
-				.append(this.getServiceList())
-				.append(this.getDeviceList())
+				.append("deviceType", this.deviceType)
+				.append("friendlyName", this.friendlyName)
+				.append("manufacturer", this.manufacturer)
+				.append("modelName", this.modelName)
+				.append("modelNumber", this.modelNumber)
+				.append("modelDescription", this.modelDescription)
+				.append("udn", this.udn)
+				.append("upc", this.upc)
+				.append(this.serviceList)
+				.append(this.deviceList)
 				.toString();
 	}
 

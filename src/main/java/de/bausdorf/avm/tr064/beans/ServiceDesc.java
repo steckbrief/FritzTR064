@@ -29,6 +29,8 @@ import javax.xml.bind.annotation.XmlType;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+
 /**
  * <p>Java-Klasse für serviceType complex type.
  * 
@@ -52,13 +54,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * 
  * 
  */
-//@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = {
 		"serviceType",
 		"serviceId",
 		"controlURL",
 		"eventSubURL",
-		"SCPDURL"
+		"scpdurl"
 })
 public class ServiceDesc
 {
@@ -71,7 +73,8 @@ public class ServiceDesc
 	protected String controlURL;
 	@XmlElement(required = true)
 	protected String eventSubURL;
-	@XmlElement(name = "SCPDURL", required = true)
+	@XmlElement(name = "scpdurl", required = true)
+	@JacksonXmlProperty(localName="SCPDURL")
 	protected String scpdurl;
 	
 	/**

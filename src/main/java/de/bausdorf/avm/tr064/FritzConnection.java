@@ -155,14 +155,14 @@ private void readIGDDESC() throws IOException {
 }
 
 private void getServicesFromDevice(DeviceDesc device) throws IOException, JAXBException {
-	for (ServiceDesc sT : device.getServiceList().getService()){
+	for (ServiceDesc sT : device.getServiceList()){
 		String[] tmp = sT.getServiceType().split(":"); 
 		String key = tmp[tmp.length-2] + ":" + tmp[tmp.length-1];
 		
 		services.put(key, new Service(sT, this));
 	}
 	if (device.getDeviceList()!= null)
-		for (DeviceDesc d : device.getDeviceList().getDevice()){
+		for (DeviceDesc d : device.getDeviceList()){
 			getServicesFromDevice(d);
 		}
 }
