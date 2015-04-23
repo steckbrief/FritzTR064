@@ -21,6 +21,9 @@
 
 package de.bausdorf.avm.tr064.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
@@ -80,8 +83,8 @@ public class ObjectFactory {
      * Create an instance of {@link ArgumentListType }
      * 
      */
-    public ArgumentListType createArgumentListType() {
-        return new ArgumentListType();
+    public List<ArgumentType> createArgumentListType() {
+        return new ArrayList<ArgumentType>();
     }
 
     /**
@@ -96,8 +99,8 @@ public class ObjectFactory {
      * Create an instance of {@link ActionListType }
      * 
      */
-    public ActionListType createActionListType() {
-        return new ActionListType();
+    public List<ActionType> createActionListType() {
+        return new ArrayList<ActionType>();
     }
 
     /**

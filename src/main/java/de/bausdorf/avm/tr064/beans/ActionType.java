@@ -22,10 +22,15 @@
 
 package de.bausdorf.avm.tr064.beans;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * <p>Java-Klasse f�r actionType complex type.
@@ -56,7 +61,9 @@ public class ActionType {
 
     @XmlElement(required = true)
     protected String name;
-    protected ArgumentListType argumentList;
+    @XmlElementWrapper(name="argumentList")
+    @XmlElement(name="argument")
+    protected List<ArgumentType> argumentList;
 
     /**
      * Ruft den Wert der name-Eigenschaft ab.
@@ -90,7 +97,7 @@ public class ActionType {
      *     {@link ArgumentListType }
      *     
      */
-    public ArgumentListType getArgumentList() {
+    public List<ArgumentType> getArgumentList() {
         return argumentList;
     }
 
@@ -102,8 +109,19 @@ public class ActionType {
      *     {@link ArgumentListType }
      *     
      */
-    public void setArgumentList(ArgumentListType value) {
+    public void setArgumentList(List<ArgumentType> value) {
         this.argumentList = value;
     }
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+    @Override
+	public String toString()
+	{
+		return new ToStringBuilder(this)
+				.append("name", this.name)
+				.append("argumentList", this.argumentList)
+				.toString();
+	}
 }

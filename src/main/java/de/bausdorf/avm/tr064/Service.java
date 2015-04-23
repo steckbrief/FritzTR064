@@ -28,10 +28,13 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.UnmarshalException;
-import javax.xml.bind.Unmarshaller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import de.bausdorf.avm.tr064.beans.ActionType;
 import de.bausdorf.avm.tr064.beans.ScpdType;
@@ -39,6 +42,8 @@ import de.bausdorf.avm.tr064.beans.ScpdType2;
 import de.bausdorf.avm.tr064.beans.ServiceDesc;
 
 public class Service {
+	private static Logger LOG = LoggerFactory.getLogger(FritzConnection.class);
+
 	private ServiceDesc serviceXML;
 	private Map<String,Action> actions;
 	
@@ -47,18 +52,19 @@ public class Service {
 		actions = new HashMap<String,Action>();
 		
 		try (InputStream is = connection.getXMLIS(serviceXML.getScpdurl())){
-		JAXBContext jaxbContext = JAXBContext.newInstance(ScpdType.class);
-		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		ScpdType scpd = (ScpdType)jaxbUnmarshaller.unmarshal(is);
-		for (ActionType a : scpd.getActionList().getAction()){
+
+		ObjectMapper mapper = new XmlMapper();
+		ScpdType scpd = mapper.readValue(is, ScpdType.class);
+		LOG.debug(scpd.toString());
+		for (ActionType a : scpd.getActionList()){
 			actions.put(a.getName(), new Action(a, scpd.getServiceStateTable().getStateVariable(), connection, this.serviceXML));
 		}
-		} catch (UnmarshalException e){
+		} catch (Exception e){
 			InputStream  is = connection.getXMLIS(serviceXML.getScpdurl());
-			JAXBContext jaxbContext = JAXBContext.newInstance(ScpdType2.class);
-			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			ScpdType2 scpd = (ScpdType2)jaxbUnmarshaller.unmarshal(is);
-			for (ActionType a : scpd.getActionList().getAction()){
+			ObjectMapper mapper = new XmlMapper();
+			ScpdType2 scpd = mapper.readValue(is, ScpdType2.class);
+			LOG.debug(scpd.toString());
+			for (ActionType a : scpd.getActionList()){
 				
 				actions.put(a.getName(), new Action(a, scpd.getServiceStateTable().getStateVariable(), connection, this.serviceXML));
 			}

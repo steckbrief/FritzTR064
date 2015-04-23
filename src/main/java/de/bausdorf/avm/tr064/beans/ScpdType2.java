@@ -21,9 +21,12 @@
 
 package de.bausdorf.avm.tr064.beans;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -59,8 +62,9 @@ public class ScpdType2 {
 
     @XmlElement(required = true)
     protected SpecVersionType specVersion;
-    @XmlElement(required = true)
-    protected ActionListType actionList;
+    @XmlElementWrapper(name="actionList", required = true)
+    @XmlElement(name="action")
+    protected List<ActionType> actionList;
     @XmlElement(required = true)
     protected ServiceStateTableType serviceStateTable;
 
@@ -96,7 +100,7 @@ public class ScpdType2 {
      *     {@link ActionListType }
      *     
      */
-    public ActionListType getActionList() {
+    public List<ActionType> getActionList() {
         return actionList;
     }
 
@@ -108,7 +112,7 @@ public class ScpdType2 {
      *     {@link ActionListType }
      *     
      */
-    public void setActionList(ActionListType value) {
+    public void setActionList(List<ActionType> value) {
         this.actionList = value;
     }
 

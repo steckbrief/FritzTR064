@@ -140,7 +140,7 @@ private void readIGDDESC() throws IOException {
 	try
 	{
 		ObjectMapper mapper = new XmlMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		RootType2 root = mapper.readValue(xml, RootType2.class);
 		LOG.debug(root.toString());
 

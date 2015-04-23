@@ -85,7 +85,7 @@ public class Action {
 			stateToType.put(s.getName(), type);
 		}
 		if (actionXML.getArgumentList() != null)
-			for (ArgumentType a : actionXML.getArgumentList().getArgument()) {
+			for (ArgumentType a : actionXML.getArgumentList()) {
 				String name = a.getName();
 				argumentOut.put(name, a.getDirection().equals("out"));
 				argumentState.put(name, a.getRelatedStateVariable());

@@ -29,6 +29,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * <p>Java-Klasse für serviceStateTableType complex type.
  * 
@@ -84,5 +86,16 @@ public class ServiceStateTableType {
         }
         return this.stateVariable;
     }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return new ToStringBuilder(this)
+				.append("stateVariable", this.stateVariable)
+				.toString();
+	}
 
 }
