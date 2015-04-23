@@ -1,0 +1,722 @@
+16:39:56,798 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback.groovy]
+16:39:56,798 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.xml]
+16:39:56,798 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [logback.xml] at [jar:file:/home/robert/projects/FritzTR064/target/FritzTR064-0.0.1-SNAPSHOT-jar-with-dependencies.jar!/logback.xml]
+16:39:56,807 |-INFO in ch.qos.logback.core.joran.spi.ConfigurationWatchList@37db1db7 - URL [jar:file:/home/robert/projects/FritzTR064/target/FritzTR064-0.0.1-SNAPSHOT-jar-with-dependencies.jar!/logback.xml] is not of type file
+16:39:56,838 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - debug attribute not set
+16:39:56,843 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+16:39:56,847 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [STDOUT]
+16:39:56,859 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+16:39:56,892 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.FileAppender]
+16:39:56,893 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [FILE]
+16:39:56,896 |-ERROR in ch.qos.logback.core.joran.spi.Interpreter@13:77 - no applicable action for [rollingPolicy], current ElementPath  is [[configuration][appender][rollingPolicy]]
+16:39:56,897 |-ERROR in ch.qos.logback.core.joran.spi.Interpreter@14:21 - no applicable action for [fileNamePattern], current ElementPath  is [[configuration][appender][rollingPolicy][fileNamePattern]]
+16:39:56,897 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+16:39:56,898 |-INFO in ch.qos.logback.core.FileAppender[FILE] - File property is set to [logs/tr064.log]
+16:39:56,899 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to WARN
+16:39:56,899 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [FILE] to Logger[ROOT]
+16:39:56,899 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [STDOUT] to Logger[ROOT]
+16:39:56,899 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [de.bausdorf.avm] to INFO
+16:39:56,899 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting additivity of logger [de.bausdorf.avm] to false
+16:39:56,900 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [STDOUT] to Logger[de.bausdorf.avm]
+16:39:56,900 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [org.apache.http] to INFO
+16:39:56,900 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting additivity of logger [org.apache.http] to false
+16:39:56,900 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [FILE] to Logger[org.apache.http]
+16:39:56,900 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+16:39:56,901 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@127bf607 - Registering current configuration as safe fallback point
+
+FRITZ!Box 7490
+----------------------------------
+service: Any:1
+service: WANDSLLinkConfig:1
+action: GetFCSPreserved
+arguments: [NewFCSPreserved]
+action: SetATMEncapsulation
+arguments: [NewATMEncapsulation]
+action: SetDestinationAddress
+arguments: [NewDestinationAddress]
+action: GetDSLLinkInfo
+arguments: [NewLinkStatus, NewLinkType]
+action: SetDSLLinkType
+arguments: [NewLinkType]
+action: GetModulationType
+arguments: [NewModulationType]
+action: GetATMEncapsulation
+arguments: [NewATMEncapsulation]
+action: GetAutoConfig
+arguments: [NewAutoConfig]
+action: SetFCSPreserved
+arguments: [NewFCSPreserved]
+action: GetDestinationAddress
+arguments: [NewDestinationAddress]
+service: WANCommonInterfaceConfig:1
+action: GetCommonLinkProperties
+arguments: [NewLayer1UpstreamMaxBitRate, NewPhysicalLinkStatus, NewWANAccessType, NewLayer1DownstreamMaxBitRate]
+action: GetTotalBytesReceived
+arguments: [NewTotalBytesReceived]
+action: GetTotalBytesSent
+arguments: [NewTotalBytesSent]
+action: GetAddonInfos
+arguments: [NewRoutedBridgedModeBoth, NewIdleDisconnectTime, NewVoipDNSServer2, NewByteSendRate, NewAutoDisconnectTime, NewVoipDNSServer1, NewUpnpControlEnabled, NewByteReceiveRate, NewPacketReceiveRate, NewPacketSendRate, NewDNSServer1, NewDNSServer2, NewTotalBytesSent, NewTotalBytesReceived]
+action: GetTotalPacketsReceived
+arguments: [NewTotalPacketsReceived]
+action: GetTotalPacketsSent
+arguments: [NewTotalPacketsSent]
+service: WANIPConnection:1
+action: GetExternalIPAddress
+arguments: [NewExternalIPAddress]
+action: GetStatusInfo
+arguments: [NewLastConnectionError, NewUptime, NewConnectionStatus]
+action: RequestConnection
+arguments: []
+action: AddPortMapping
+arguments: [NewExternalPort, NewInternalPort, NewProtocol, NewEnabled, NewInternalClient, NewLeaseDuration, NewPortMappingDescription, NewRemoteHost]
+action: SetConnectionType
+arguments: [NewConnectionType]
+action: DeletePortMapping
+arguments: [NewExternalPort, NewProtocol, NewRemoteHost]
+action: GetSpecificPortMappingEntry
+arguments: [NewExternalPort, NewInternalPort, NewProtocol, NewEnabled, NewInternalClient, NewLeaseDuration, NewPortMappingDescription, NewRemoteHost]
+action: GetGenericPortMappingEntry
+arguments: [NewExternalPort, NewInternalPort, NewPortMappingIndex, NewProtocol, NewEnabled, NewInternalClient, NewLeaseDuration, NewPortMappingDescription, NewRemoteHost]
+action: GetNATRSIPStatus
+arguments: [NewRSIPAvailable, NewNATEnabled]
+action: ForceTermination
+arguments: []
+action: GetConnectionTypeInfo
+arguments: [NewPossibleConnectionTypes, NewConnectionType]
+16:39:57.458 [main] INFO  d.b.avm.tr064.examples.DisplayInfo - ##################################################################
+FRITZ!Box 7490
+----------------------------------
+service: X_AVM-DE_TAM:1
+action: GetMessageList
+arguments: [NewIndex, NewURL]
+action: DeleteMessage
+arguments: [NewMessageIndex, NewIndex]
+action: MarkMessage
+arguments: [NewMessageIndex, NewIndex]
+action: GetInfo
+arguments: [NewName, NewStick, NewEnable, NewTAMRunning, NewIndex, NewStatus]
+action: SetEnable
+arguments: [NewEnable, NewIndex]
+service: UserInterface:1
+action: X_AVM-DE_SetInternationalConfig
+arguments: [NewX_AVM-DE_Annex, NewX_AVM-DE_Language, NewX_AVM-DE_Country]
+action: X_AVM-DE_DoManualUpdate
+arguments: [NewX_AVM-DE_DownloadURL, NewX_AVM-DE_AllowDowngrade]
+action: X_AVM-DE_CheckUpdate
+arguments: [NewX_AVM-DE_LaborVersion]
+action: GetInfo
+arguments: [NewX_AVM-DE_InfoURL, NewUpgradeAvailable, NewX_AVM-DE_UpdateState, NewPasswordUserSelectable, NewWarrantyDate, NewPasswordRequired, NewX_AVM-DE_DownloadURL, NewX_AVM-DE_Version, NewX_AVM-DE_LaborVersion]
+action: X_AVM-DE_DoPrepareCGI
+arguments: [NewX_AVM-DE_CGI, NewX_AVM-DE_SessionID]
+action: X_AVM-DE_DoUpdate
+arguments: [NewUpgradeAvailable, NewX_AVM-DE_UpdateState]
+action: X_AVM-DE_GetInternationalConfig
+arguments: [NewX_AVM-DE_CountryList, NewX_AVM-DE_LanguageList, NewX_AVM-DE_AnnexList, NewX_AVM-DE_Annex, NewX_AVM-DE_Language, NewX_AVM-DE_Country]
+service: X_AVM-DE_MyFritz:1
+action: SetServiceByIndex
+arguments: [NewScheme, NewName, NewType, NewPort, NewIPv6InterfaceID, NewURLPath, NewHostName, NewMACAddress, NewIPv4Address, NewEnabled, NewIndex, NewIPv6Address]
+action: GetServiceByIndex
+arguments: [NewIPv6Addresses, NewScheme, NewName, NewType, NewPort, NewURLPath, NewHostName, NewMACAddress, NewIPv4Addresses, NewEnabled, NewIndex, NewIPv6InterfaceIDs, NewIPv4ForwardingWarning, NewStatus, NewDynDnsLabel]
+action: GetInfo
+arguments: [NewDeviceRegistered, NewPort, NewDynDNSName, NewEnabled]
+action: GetNumberOfServices
+arguments: [NewNumberOfServices]
+action: DeleteServiceByIndex
+arguments: [NewIndex]
+service: Layer3Forwarding:1
+action: SetDefaultConnectionService
+arguments: [NewDefaultConnectionService]
+action: SetForwardingEntryEnable
+arguments: [NewSourceSubnetMask, NewEnable, NewDestSubnetMask, NewDestIPAddress, NewSourceIPAddress]
+action: DeleteForwardingEntry
+arguments: [NewSourceSubnetMask, NewDestSubnetMask, NewDestIPAddress, NewSourceIPAddress]
+action: AddForwardingEntry
+arguments: [NewForwardingMetric, NewSourceSubnetMask, NewType, NewDestSubnetMask, NewDestIPAddress, NewGatewayIPAddress, NewInterface, NewSourceIPAddress]
+action: GetSpecificForwardingEntry
+arguments: [NewForwardingMetric, NewSourceSubnetMask, NewType, NewEnable, NewDestSubnetMask, NewDestIPAddress, NewGatewayIPAddress, NewInterface, NewStatus, NewSourceIPAddress]
+action: GetForwardNumberOfEntries
+arguments: [NewForwardNumberOfEntries]
+action: GetGenericForwardingEntry
+arguments: [NewForwardingMetric, NewSourceSubnetMask, NewType, NewEnable, NewForwardingIndex, NewDestSubnetMask, NewDestIPAddress, NewGatewayIPAddress, NewInterface, NewSourceIPAddress, NewStatus]
+action: GetDefaultConnectionService
+arguments: [NewDefaultConnectionService]
+service: X_AVM-DE_Storage:1
+action: SetFTPServer
+arguments: [NewFTPEnable]
+action: SetSMBServer
+arguments: [NewSMBEnable]
+action: GetInfo
+arguments: [NewFTPEnable, NewSMBEnable, NewFTPStatus]
+action: GetUserInfo
+arguments: [NewEnable, NewX_AVM-DE_NetworkAccessReadOnly, NewUsername]
+action: SetUserConfig
+arguments: [NewPassword, NewEnable, NewX_AVM-DE_NetworkAccessReadOnly]
+service: Hosts:1
+action: X_AVM-DE_GetAutoWakeOnLANByMACAddress
+arguments: [NewMACAddress, NewAutoWOLEnabled]
+action: X_AVM-DE_WakeOnLANByMACAddress
+arguments: [NewMACAddress]
+action: GetHostNumberOfEntries
+arguments: [NewHostNumberOfEntries]
+action: X_AVM-DE_SetHostNameByMACAddress
+arguments: [NewHostName, NewMACAddress]
+action: GetGenericHostEntry
+arguments: [NewLeaseTimeRemaining, NewAddressSource, NewIPAddress, NewActive, NewHostName, NewInterfaceType, NewMACAddress, NewIndex]
+action: X_AVM-DE_SetAutoWakeOnLANByMACAddress
+arguments: [NewMACAddress, NewAutoWOLEnabled]
+action: X_AVM-DE_GetChangeCounter
+arguments: [NewX_AVM-DE_ChangeCounter]
+action: GetSpecificHostEntry
+arguments: [NewLeaseTimeRemaining, NewAddressSource, NewIPAddress, NewActive, NewHostName, NewInterfaceType, NewMACAddress]
+service: WANDSLInterfaceConfig:1
+action: GetStatisticsTotal
+arguments: [NewFECErrors, NewLossOfFraming, NewReceiveBlocks, NewErroredSecs, NewHECErrors, NewATUCFECErrors, NewLinkRetrain, NewCRCErrors, NewTransmitBlocks, NewSeverelyErroredSecs, NewInitTimeouts, NewInitErrors, NewATUCCRCErrors, NewATUCHECErrors, NewCellDelin]
+action: GetInfo
+arguments: [NewDownstreamAttenuation, NewUpstreamPower, NewDataPath, NewUpstreamNoiseMargin, NewDownstreamMaxRate, NewUpstreamCurrRate, NewDownstreamCurrRate, NewATURCountry, NewUpstreamAttenuation, NewDownstreamPower, NewUpstreamMaxRate, NewStatus, NewEnable, NewATURVendor, NewDownstreamNoiseMargin]
+service: LANEthernetInterfaceConfig:1
+action: GetInfo
+arguments: [NewDuplexMode, NewEnable, NewMACAddress, NewMaxBitRate, NewStatus]
+action: SetEnable
+arguments: [NewEnable]
+action: GetStatistics
+arguments: [NewBytesReceived, NewPacketsReceived, NewPacketsSent, NewBytesSent]
+service: X_AVM-DE_UPnP:1
+action: SetConfig
+arguments: [NewUPnPMediaServer, NewEnable]
+action: GetInfo
+arguments: [NewUPnPMediaServer, NewEnable]
+service: X_VoIP:1
+action: SetVoIPCommonCountryCode
+arguments: [NewVoIPCountryCode]
+action: X_AVM-DE_GetPhonePort
+arguments: [NewX_AVM-DE_PhoneName, NewIndex]
+action: X_AVM-DE_AddVoIPAccount
+arguments: [NewVoIPRegistrar, NewVoIPPassword, NewVoIPSTUNServer, NewVoIPAccountIndex, NewVoIPOutboundProxy, NewVoIPUsername, NewVoIPNumber]
+action: SetVoIPCommonAreaCode
+arguments: [NewVoIPAreaCode]
+action: X_AVM-DE_GetNumberOfNumbers
+arguments: [NewNumberOfNumbers]
+action: X_AVM-DE_GetNumbers
+arguments: [NewNumberList]
+action: X_AVM-DE_DialHangup
+arguments: []
+action: GetVoIPCommonAreaCode
+arguments: [NewVoIPAreaCode]
+action: X_AVM-DE_DialGetConfig
+arguments: [NewX_AVM-DE_PhoneName]
+action: X_AVM-DE_GetVoIPAccount
+arguments: [NewVoIPRegistrar, NewVoIPPassword, NewVoIPSTUNServer, NewVoIPAccountIndex, NewVoIPOutboundProxy, NewVoIPUsername, NewVoIPNumber]
+action: SetConfig
+arguments: [NewFaxT38Enable, NewVoiceCoding]
+action: X_AVM-DE_GetClients
+arguments: [NewX_AVM-DE_ClientList]
+action: X_AVM-DE_GetClient2
+arguments: [NewX_AVM-DE_OutGoingNumber, NewX_AVM-DE_PhoneName, NewX_AVM-DE_ClientUsername, NewX_AVM-DE_ClientRegistrar, NewX_AVM-DE_ClientId, NewX_AVM-DE_ClientIndex]
+action: X_AVM-DE_DelVoIPAccount
+arguments: [NewVoIPAccountIndex]
+action: X_AVM-DE_GetClient3
+arguments: [NewX_AVM-DE_ExternalRegistration, NewX_AVM-DE_OutGoingNumber, NewX_AVM-DE_PhoneName, NewX_AVM-DE_ClientUsername, NewX_AVM-DE_InComingNumbers, NewX_AVM-DE_ClientRegistrar, NewX_AVM-DE_ClientId, NewX_AVM-DE_ClientIndex]
+action: X_AVM-DE_SetClient2
+arguments: [NewX_AVM-DE_OutGoingNumber, NewX_AVM-DE_PhoneName, NewX_AVM-DE_ClientPassword, NewX_AVM-DE_ClientId, NewX_AVM-DE_ClientIndex]
+action: GetInfo
+arguments: [NewFaxT38Enable, NewVoiceCoding]
+action: X_AVM-DE_SetClient3
+arguments: [NewX_AVM-DE_ExternalRegistration, NewX_AVM-DE_OutGoingNumber, NewX_AVM-DE_PhoneName, NewX_AVM-DE_ClientPassword, NewX_AVM-DE_InComingNumbers, NewX_AVM-DE_ClientId, NewX_AVM-DE_ClientIndex]
+action: X_AVM-DE_DialNumber
+arguments: [NewX_AVM-DE_PhoneNumber]
+action: X_AVM-DE_GetNumberOfClients
+arguments: [NewX_AVM-DE_NumberOfClients]
+action: X_AVM-DE_DeleteClient
+arguments: [NewX_AVM-DE_ClientIndex]
+action: X_AVM-DE_DialSetConfig
+arguments: [NewX_AVM-DE_PhoneName]
+action: SetVoIPEnableAreaCode
+arguments: [NewVoIPAccountIndex, NewVoIPEnableAreaCode]
+action: GetVoIPEnableAreaCode
+arguments: [NewVoIPAccountIndex, NewVoIPEnableAreaCode]
+action: GetExistingVoIPNumbers
+arguments: [NewExistingVoIPNumbers]
+action: X_AVM-DE_GetClient
+arguments: [NewX_AVM-DE_OutGoingNumber, NewX_AVM-DE_PhoneName, NewX_AVM-DE_ClientUsername, NewX_AVM-DE_ClientRegistrar, NewX_AVM-DE_ClientIndex]
+action: GetMaxVoIPNumbers
+arguments: [NewMaxVoIPNumbers]
+action: GetInfoEx
+arguments: [NewVoIPNumberMaxChars, NewVoIPUsernameMinChars, NewVoIPUsernameAllowedChars, NewVoIPRegistrarMaxChars, NewVoIPSTUNServerAllowedChars, NewVoIPNumberAllowedChars, NewVoIPPasswordMinChars, NewVoIPRegistrarAllowedChars, NewVoIPUsernameMaxChars, NewVoIPNumberMinChars, NewVoIPRegistrarMinChars, NewVoIPPasswordAllowedChars, NewVoIPPasswordMaxChars, NewVoIPSTUNServerMinChars, NewVoIPSTUNServerMaxChars]
+action: GetVoIPEnableCountryCode
+arguments: [NewVoIPEnableCountryCode, NewVoIPAccountIndex]
+action: SetVoIPEnableCountryCode
+arguments: [NewVoIPEnableCountryCode, NewVoIPAccountIndex]
+action: GetVoIPCommonCountryCode
+arguments: [NewVoIPCountryCode]
+action: X_AVM-DE_SetClient
+arguments: [NewX_AVM-DE_OutGoingNumber, NewX_AVM-DE_PhoneName, NewX_AVM-DE_ClientPassword, NewX_AVM-DE_ClientIndex]
+service: ManagementServer:1
+action: SetPeriodicInform
+arguments: [NewPeriodicInformInterval, NewPeriodicInformTime, NewPeriodicInformEnable]
+action: SetManagementServerUsername
+arguments: [NewUsername]
+action: X_SetTR069Enable
+arguments: [NewTR069Enabled]
+action: SetUpgradeManagement
+arguments: [NewUpgradesManaged]
+action: SetConnectionRequestAuthentication
+arguments: [NewConnectionRequestPassword, NewConnectionRequestUsername]
+action: SetManagementServerURL
+arguments: [NewURL]
+action: X_AVM-DE_SetTR069FirmwareDownloadEnabled
+arguments: [NewTR069FirmwareDownloadEnabled]
+action: X_AVM-DE_GetTR069FirmwareDownloadEnabled
+arguments: [NewTR069FirmwareDownloadEnabled]
+action: GetInfo
+arguments: [NewPeriodicInformInterval, NewPeriodicInformTime, NewConnectionRequestUsername, NewConnectionRequestURL, NewParameterHash, NewUsername, NewUpgradesManaged, NewPeriodicInformEnable, NewParameterKey, NewURL]
+action: SetManagementServerPassword
+arguments: [NewPassword]
+service: WLANConfiguration:2
+action: X_AVM-DE_SetStickSurfEnable
+arguments: [NewStickSurfEnable]
+action: GetBeaconType
+arguments: [NewBeaconType]
+action: GetTotalAssociations
+arguments: [NewTotalAssociations]
+action: GetSSID
+arguments: [NewSSID]
+action: SetEnable
+arguments: [NewEnable]
+action: SetConfig
+arguments: [NewChannel, NewBeaconType, NewSSID, NewBasicEncryptionModes, NewBasicAuthenticationMode, NewMACAddressControlEnabled, NewMaxBitRate]
+action: X_AVM-DE_GetWPSInfo
+arguments: [NewX_AVM-DE_WPSStatus, NewX_AVM-DE_WPSMode]
+action: X_AVM-DE_GetIPTVOptimized
+arguments: [NewX_AVM-DE_IPTVoptimize]
+action: SetBeaconAdvertisement
+arguments: [NewBeaconAdvertisementEnabled]
+action: GetBasBeaconSecurityProperties
+arguments: [NewBasicEncryptionModes, NewBasicAuthenticationMode]
+action: GetSecurityKeys
+arguments: [NewKeyPassphrase, NewPreSharedKey, NewWEPKey0, NewWEPKey3, NewWEPKey2, NewWEPKey1]
+action: X_AVM-DE_SetWLANHybridMode
+arguments: [NewKeyPassphrase, NewBeaconType, NewEnable, NewManualSpeed, NewSSID, NewMaxSpeedDS, NewTrafficMode, NewBSSID, NewMaxSpeedUS]
+action: GetInfo
+arguments: [NewMinCharsSSID, NewAllowedCharsSSID, NewBasicEncryptionModes, NewMACAddressControlEnabled, NewBasicAuthenticationMode, NewMaxCharsSSID, NewBSSID, NewStatus, NewChannel, NewBeaconType, NewEnable, NewMaxCharsPSK, NewSSID, NewStandard, NewAllowedCharsPSK, NewMaxBitRate, NewMinCharsPSK]
+action: GetBeaconAdvertisement
+arguments: [NewBeaconAdvertisementEnabled]
+action: GetChannelInfo
+arguments: [NewChannel, NewPossibleChannels]
+action: GetDefaultWEPKeyIndex
+arguments: [NewDefaultWEPKeyIndex]
+action: SetBeaconType
+arguments: [NewBeaconType]
+action: X_AVM-DE_GetWLANExtInfo
+arguments: [NewX_AVM-DE_APEnabled, NewX_AVM-DE_TimeoutActive, NewX_AVM-DE_EncryptionMode, NewX_AVM-DE_NoForcedOff, NewX_AVM-DE_LastChangedStamp, NewX_AVM-DE_TimeRemain, NewX_AVM-DE_UserIsolation, NewX_AVM-DE_Timeout, NewX_AVM-DE_APType]
+action: GetGenericAssociatedDeviceInfo
+arguments: [NewAssociatedDeviceIPAddress, NewAssociatedDeviceAuthState, NewAssociatedDeviceMACAddress, NewX_AVM-DE_SignalStrength, NewAssociatedDeviceIndex, NewX_AVM-DE_Speed]
+action: GetSpecificAssociatedDeviceInfo
+arguments: [NewAssociatedDeviceIPAddress, NewAssociatedDeviceAuthState, NewAssociatedDeviceMACAddress, NewX_AVM-DE_SignalStrength, NewX_AVM-DE_Speed]
+action: SetBasBeaconSecurityProperties
+arguments: [NewBasicEncryptionModes, NewBasicAuthenticationMode]
+action: SetSecurityKeys
+arguments: [NewKeyPassphrase, NewPreSharedKey, NewWEPKey0, NewWEPKey3, NewWEPKey2, NewWEPKey1]
+action: GetBSSID
+arguments: [NewBSSID]
+action: SetSSID
+arguments: [NewSSID]
+action: GetStatistics
+arguments: [NewTotalPacketsReceived, NewTotalPacketsSent]
+action: X_AVM-DE_GetWLANHybridMode
+arguments: [NewKeyPassphrase, NewBeaconType, NewEnable, NewManualSpeed, NewSSID, NewMaxSpeedDS, NewTrafficMode, NewBSSID, NewMaxSpeedUS]
+action: X_AVM-DE_GetNightControl
+arguments: [NewNightControl, NewNightTimeControlNoForcedOff]
+action: GetPacketStatistics
+arguments: [NewTotalPacketsReceived, NewTotalPacketsSent]
+action: X_SetHighFrequencyBand
+arguments: [NewEnableHighFrequency]
+action: SetChannel
+arguments: [NewChannel]
+action: X_AVM-DE_SetWPSConfig
+arguments: [NewX_AVM-DE_WPSClientPIN, NewX_AVM-DE_WPSStatus, NewX_AVM-DE_WPSMode, NewX_AVM-DE_WPSAPPIN]
+action: X_AVM-DE_SetIPTVOptimized
+arguments: [NewX_AVM-DE_IPTVoptimize]
+action: SetDefaultWEPKeyIndex
+arguments: [NewDefaultWEPKeyIndex]
+service: WLANConfiguration:3
+action: X_AVM-DE_SetStickSurfEnable
+arguments: [NewStickSurfEnable]
+action: GetBeaconType
+arguments: [NewBeaconType]
+action: GetTotalAssociations
+arguments: [NewTotalAssociations]
+action: GetSSID
+arguments: [NewSSID]
+action: SetEnable
+arguments: [NewEnable]
+action: SetConfig
+arguments: [NewChannel, NewBeaconType, NewSSID, NewBasicEncryptionModes, NewBasicAuthenticationMode, NewMACAddressControlEnabled, NewMaxBitRate]
+action: X_AVM-DE_GetWPSInfo
+arguments: [NewX_AVM-DE_WPSStatus, NewX_AVM-DE_WPSMode]
+action: X_AVM-DE_GetIPTVOptimized
+arguments: [NewX_AVM-DE_IPTVoptimize]
+action: SetBeaconAdvertisement
+arguments: [NewBeaconAdvertisementEnabled]
+action: GetBasBeaconSecurityProperties
+arguments: [NewBasicEncryptionModes, NewBasicAuthenticationMode]
+action: GetSecurityKeys
+arguments: [NewKeyPassphrase, NewPreSharedKey, NewWEPKey0, NewWEPKey3, NewWEPKey2, NewWEPKey1]
+action: X_AVM-DE_SetWLANHybridMode
+arguments: [NewKeyPassphrase, NewBeaconType, NewEnable, NewManualSpeed, NewSSID, NewMaxSpeedDS, NewTrafficMode, NewBSSID, NewMaxSpeedUS]
+action: GetInfo
+arguments: [NewMinCharsSSID, NewAllowedCharsSSID, NewBasicEncryptionModes, NewMACAddressControlEnabled, NewBasicAuthenticationMode, NewMaxCharsSSID, NewBSSID, NewStatus, NewChannel, NewBeaconType, NewEnable, NewMaxCharsPSK, NewSSID, NewStandard, NewAllowedCharsPSK, NewMaxBitRate, NewMinCharsPSK]
+action: GetBeaconAdvertisement
+arguments: [NewBeaconAdvertisementEnabled]
+action: GetChannelInfo
+arguments: [NewChannel, NewPossibleChannels]
+action: GetDefaultWEPKeyIndex
+arguments: [NewDefaultWEPKeyIndex]
+action: SetBeaconType
+arguments: [NewBeaconType]
+action: X_AVM-DE_GetWLANExtInfo
+arguments: [NewX_AVM-DE_APEnabled, NewX_AVM-DE_TimeoutActive, NewX_AVM-DE_EncryptionMode, NewX_AVM-DE_NoForcedOff, NewX_AVM-DE_LastChangedStamp, NewX_AVM-DE_TimeRemain, NewX_AVM-DE_UserIsolation, NewX_AVM-DE_Timeout, NewX_AVM-DE_APType]
+action: GetGenericAssociatedDeviceInfo
+arguments: [NewAssociatedDeviceIPAddress, NewAssociatedDeviceAuthState, NewAssociatedDeviceMACAddress, NewX_AVM-DE_SignalStrength, NewAssociatedDeviceIndex, NewX_AVM-DE_Speed]
+action: GetSpecificAssociatedDeviceInfo
+arguments: [NewAssociatedDeviceIPAddress, NewAssociatedDeviceAuthState, NewAssociatedDeviceMACAddress, NewX_AVM-DE_SignalStrength, NewX_AVM-DE_Speed]
+action: SetBasBeaconSecurityProperties
+arguments: [NewBasicEncryptionModes, NewBasicAuthenticationMode]
+action: SetSecurityKeys
+arguments: [NewKeyPassphrase, NewPreSharedKey, NewWEPKey0, NewWEPKey3, NewWEPKey2, NewWEPKey1]
+action: GetBSSID
+arguments: [NewBSSID]
+action: SetSSID
+arguments: [NewSSID]
+action: GetStatistics
+arguments: [NewTotalPacketsReceived, NewTotalPacketsSent]
+action: X_AVM-DE_GetWLANHybridMode
+arguments: [NewKeyPassphrase, NewBeaconType, NewEnable, NewManualSpeed, NewSSID, NewMaxSpeedDS, NewTrafficMode, NewBSSID, NewMaxSpeedUS]
+action: X_AVM-DE_GetNightControl
+arguments: [NewNightControl, NewNightTimeControlNoForcedOff]
+action: GetPacketStatistics
+arguments: [NewTotalPacketsReceived, NewTotalPacketsSent]
+action: X_SetHighFrequencyBand
+arguments: [NewEnableHighFrequency]
+action: SetChannel
+arguments: [NewChannel]
+action: X_AVM-DE_SetWPSConfig
+arguments: [NewX_AVM-DE_WPSClientPIN, NewX_AVM-DE_WPSStatus, NewX_AVM-DE_WPSMode, NewX_AVM-DE_WPSAPPIN]
+action: X_AVM-DE_SetIPTVOptimized
+arguments: [NewX_AVM-DE_IPTVoptimize]
+action: SetDefaultWEPKeyIndex
+arguments: [NewDefaultWEPKeyIndex]
+service: X_AVM-DE_OnTel:1
+action: SetEnableByIndex
+arguments: [NewEnable, NewIndex]
+action: DeletePhonebookEntry
+arguments: [NewPhonebookEntryID, NewPhonebookID]
+action: GetCallList
+arguments: [NewCallListURL]
+action: GetPhonebook
+arguments: [NewPhonebookExtraID, NewPhonebookID, NewPhonebookURL, NewPhonebookName]
+action: GetPhonebookEntry
+arguments: [NewPhonebookEntryID, NewPhonebookID, NewPhonebookEntryData]
+action: GetNumberOfEntries
+arguments: [NewOnTelNumberOfEntries]
+action: DeletePhonebook
+arguments: [NewPhonebookExtraID, NewPhonebookID]
+action: SetEnable
+arguments: [NewEnable]
+action: SetDECTHandsetPhonebook
+arguments: [NewPhonebookID, NewDectID]
+action: DeleteByIndex
+arguments: [NewIndex]
+action: SetConfig
+arguments: [NewName, NewPassword, NewServiceId, NewEnable, NewUrl, NewUsername]
+action: SetConfigByIndex
+arguments: [NewName, NewPassword, NewServiceId, NewEnable, NewUrl, NewUsername, NewIndex]
+action: GetInfoByIndex
+arguments: [NewName, NewServiceId, NewEnable, NewLastConnect, NewUrl, NewUsername, NewIndex, NewStatus]
+action: GetInfo
+arguments: [NewName, NewServiceId, NewEnable, NewLastConnect, NewUrl, NewUsername, NewStatus]
+action: GetDECTHandsetInfo
+arguments: [NewHandsetName, NewPhonebookID, NewDectID]
+action: SetPhonebookEntry
+arguments: [NewPhonebookEntryID, NewPhonebookID, NewPhonebookEntryData]
+action: GetPhonebookList
+arguments: [NewPhonebookList]
+action: GetDECTHandsetList
+arguments: [NewDectIDList]
+action: AddPhonebook
+arguments: [NewPhonebookExtraID, NewPhonebookName]
+service: WLANConfiguration:1
+action: X_AVM-DE_SetStickSurfEnable
+arguments: [NewStickSurfEnable]
+action: GetBeaconType
+arguments: [NewBeaconType]
+action: GetTotalAssociations
+arguments: [NewTotalAssociations]
+action: GetSSID
+arguments: [NewSSID]
+action: SetEnable
+arguments: [NewEnable]
+action: SetConfig
+arguments: [NewChannel, NewBeaconType, NewSSID, NewBasicEncryptionModes, NewBasicAuthenticationMode, NewMACAddressControlEnabled, NewMaxBitRate]
+action: X_AVM-DE_GetWPSInfo
+arguments: [NewX_AVM-DE_WPSStatus, NewX_AVM-DE_WPSMode]
+action: X_AVM-DE_GetIPTVOptimized
+arguments: [NewX_AVM-DE_IPTVoptimize]
+action: SetBeaconAdvertisement
+arguments: [NewBeaconAdvertisementEnabled]
+action: GetBasBeaconSecurityProperties
+arguments: [NewBasicEncryptionModes, NewBasicAuthenticationMode]
+action: GetSecurityKeys
+arguments: [NewKeyPassphrase, NewPreSharedKey, NewWEPKey0, NewWEPKey3, NewWEPKey2, NewWEPKey1]
+action: X_AVM-DE_SetWLANHybridMode
+arguments: [NewKeyPassphrase, NewBeaconType, NewEnable, NewManualSpeed, NewSSID, NewMaxSpeedDS, NewTrafficMode, NewBSSID, NewMaxSpeedUS]
+action: GetInfo
+arguments: [NewMinCharsSSID, NewAllowedCharsSSID, NewBasicEncryptionModes, NewMACAddressControlEnabled, NewBasicAuthenticationMode, NewMaxCharsSSID, NewBSSID, NewStatus, NewChannel, NewBeaconType, NewEnable, NewMaxCharsPSK, NewSSID, NewStandard, NewAllowedCharsPSK, NewMaxBitRate, NewMinCharsPSK]
+action: GetBeaconAdvertisement
+arguments: [NewBeaconAdvertisementEnabled]
+action: GetChannelInfo
+arguments: [NewChannel, NewPossibleChannels]
+action: GetDefaultWEPKeyIndex
+arguments: [NewDefaultWEPKeyIndex]
+action: SetBeaconType
+arguments: [NewBeaconType]
+action: X_AVM-DE_GetWLANExtInfo
+arguments: [NewX_AVM-DE_APEnabled, NewX_AVM-DE_TimeoutActive, NewX_AVM-DE_EncryptionMode, NewX_AVM-DE_NoForcedOff, NewX_AVM-DE_LastChangedStamp, NewX_AVM-DE_TimeRemain, NewX_AVM-DE_UserIsolation, NewX_AVM-DE_Timeout, NewX_AVM-DE_APType]
+action: GetGenericAssociatedDeviceInfo
+arguments: [NewAssociatedDeviceIPAddress, NewAssociatedDeviceAuthState, NewAssociatedDeviceMACAddress, NewX_AVM-DE_SignalStrength, NewAssociatedDeviceIndex, NewX_AVM-DE_Speed]
+action: GetSpecificAssociatedDeviceInfo
+arguments: [NewAssociatedDeviceIPAddress, NewAssociatedDeviceAuthState, NewAssociatedDeviceMACAddress, NewX_AVM-DE_SignalStrength, NewX_AVM-DE_Speed]
+action: SetBasBeaconSecurityProperties
+arguments: [NewBasicEncryptionModes, NewBasicAuthenticationMode]
+action: SetSecurityKeys
+arguments: [NewKeyPassphrase, NewPreSharedKey, NewWEPKey0, NewWEPKey3, NewWEPKey2, NewWEPKey1]
+action: GetBSSID
+arguments: [NewBSSID]
+action: SetSSID
+arguments: [NewSSID]
+action: GetStatistics
+arguments: [NewTotalPacketsReceived, NewTotalPacketsSent]
+action: X_AVM-DE_GetWLANHybridMode
+arguments: [NewKeyPassphrase, NewBeaconType, NewEnable, NewManualSpeed, NewSSID, NewMaxSpeedDS, NewTrafficMode, NewBSSID, NewMaxSpeedUS]
+action: X_AVM-DE_GetNightControl
+arguments: [NewNightControl, NewNightTimeControlNoForcedOff]
+action: GetPacketStatistics
+arguments: [NewTotalPacketsReceived, NewTotalPacketsSent]
+action: X_SetHighFrequencyBand
+arguments: [NewEnableHighFrequency]
+action: SetChannel
+arguments: [NewChannel]
+action: X_AVM-DE_SetWPSConfig
+arguments: [NewX_AVM-DE_WPSClientPIN, NewX_AVM-DE_WPSStatus, NewX_AVM-DE_WPSMode, NewX_AVM-DE_WPSAPPIN]
+action: X_AVM-DE_SetIPTVOptimized
+arguments: [NewX_AVM-DE_IPTVoptimize]
+action: SetDefaultWEPKeyIndex
+arguments: [NewDefaultWEPKeyIndex]
+service: WANDSLLinkConfig:1
+action: SetATMEncapsulation
+arguments: [NewATMEncapsulation]
+action: SetDestinationAddress
+arguments: [NewDestinationAddress]
+action: GetDSLLinkInfo
+arguments: [NewLinkStatus, NewLinkType]
+action: SetDSLLinkType
+arguments: [NewLinkType]
+action: GetInfo
+arguments: [NewATMPeakCellRate, NewEnable, NewATMQoS, NewDestinationAddress, NewATMSustainableCellRate, NewLinkStatus, NewAutoConfig, NewLinkType, NewATMEncapsulation]
+action: GetATMEncapsulation
+arguments: [NewATMEncapsulation]
+action: SetEnable
+arguments: [NewEnable]
+action: GetStatistics
+arguments: [NewAAL5CRCErrors, NewATMCRCErrors, NewATMTransmittedBlocks, NewATMReceivedBlocks]
+action: GetAutoConfig
+arguments: [NewAutoConfig]
+action: GetDestinationAddress
+arguments: [NewDestinationAddress]
+service: WANIPConnection:1
+action: GetExternalIPAddress
+arguments: [NewExternalIPAddress]
+action: GetStatusInfo
+arguments: [NewLastConnectionError, NewUptime, NewConnectionStatus]
+action: RequestConnection
+arguments: []
+action: GetPortMappingNumberOfEntries
+arguments: [NewPortMappingNumberOfEntries]
+action: SetConnectionType
+arguments: [NewConnectionType]
+action: DeletePortMapping
+arguments: [NewExternalPort, NewProtocol, NewRemoteHost]
+action: SetConnectionTrigger
+arguments: [NewConnectionTrigger]
+action: GetGenericPortMappingEntry
+arguments: [NewExternalPort, NewInternalPort, NewPortMappingIndex, NewProtocol, NewEnabled, NewInternalClient, NewLeaseDuration, NewPortMappingDescription, NewRemoteHost]
+action: SetIdleDisconnectTime
+arguments: [NewIdleDisconnectTime]
+action: ForceTermination
+arguments: []
+action: GetConnectionTypeInfo
+arguments: [NewPossibleConnectionTypes, NewConnectionType]
+action: X_GetDNSServers
+arguments: [NewDNSServers]
+action: AddPortMapping
+arguments: [NewExternalPort, NewInternalPort, NewProtocol, NewEnabled, NewInternalClient, NewLeaseDuration, NewPortMappingDescription, NewRemoteHost]
+action: GetInfo
+arguments: [NewLastConnectionError, NewDNSEnabled, NewUptime, NewConnectionStatus, NewMACAddress, NewPossibleConnectionTypes, NewRSIPAvailable, NewNATEnabled, NewConnectionTrigger, NewName, NewEnable, NewDNSOverrideAllowed, NewRouteProtocolRx, NewExternalIPAddress, NewConnectionType, NewDNSServers]
+action: GetSpecificPortMappingEntry
+arguments: [NewExternalPort, NewInternalPort, NewProtocol, NewEnabled, NewInternalClient, NewLeaseDuration, NewPortMappingDescription, NewRemoteHost]
+action: X_SetDNSServers
+arguments: [NewDNSServers]
+action: GetNATRSIPStatus
+arguments: [NewRSIPAvailable, NewNATEnabled]
+action: SetRouteProtocolRx
+arguments: [NewRouteProtocolRx]
+service: WANPPPConnection:1
+action: X_AVM-DE_SetAutoDisconnectTimeSpan
+arguments: [NewX_AVM-DE_DisconnectPreventionEnable, NewX_AVM-DE_DisconnectPreventionHour]
+action: GetExternalIPAddress
+arguments: [NewExternalIPAddress]
+action: GetStatusInfo
+arguments: [NewLastConnectionError, NewUptime, NewConnectionStatus]
+action: RequestConnection
+arguments: []
+action: GetPortMappingNumberOfEntries
+arguments: [NewPortMappingNumberOfEntries]
+action: SetConnectionType
+arguments: [NewConnectionType]
+action: DeletePortMapping
+arguments: [NewExternalPort, NewProtocol, NewRemoteHost]
+action: X_AVM-DE_GetAutoDisconnectTimeSpan
+arguments: [NewX_AVM-DE_DisconnectPreventionEnable, NewX_AVM-DE_DisconnectPreventionHour]
+action: SetConnectionTrigger
+arguments: [NewConnectionTrigger]
+action: SetPassword
+arguments: [NewPassword]
+action: GetGenericPortMappingEntry
+arguments: [NewExternalPort, NewInternalPort, NewPortMappingIndex, NewProtocol, NewEnabled, NewInternalClient, NewLeaseDuration, NewPortMappingDescription, NewRemoteHost]
+action: SetIdleDisconnectTime
+arguments: [NewIdleDisconnectTime]
+action: ForceTermination
+arguments: []
+action: GetConnectionTypeInfo
+arguments: [NewPossibleConnectionTypes, NewConnectionType]
+action: X_GetDNSServers
+arguments: [NewDNSServers]
+action: GetUserName
+arguments: [NewUserName]
+action: AddPortMapping
+arguments: [NewExternalPort, NewInternalPort, NewProtocol, NewEnabled, NewInternalClient, NewLeaseDuration, NewPortMappingDescription, NewRemoteHost]
+action: GetSpecificPortMappingEntry
+arguments: [NewExternalPort, NewInternalPort, NewProtocol, NewEnabled, NewInternalClient, NewLeaseDuration, NewPortMappingDescription, NewRemoteHost]
+action: GetInfo
+arguments: [NewUserName, NewLastConnectionError, NewMaxCharsUsername, NewDNSEnabled, NewMinCharsUsername, NewMaxCharsPassword, NewAllowedCharsPassword, NewTransportType, NewPossibleConnectionTypes, NewAllowedCharsUsername, NewRSIPAvailable, NewNATEnabled, NewConnectionTrigger, NewEnable, NewRouteProtocolRx, NewExternalIPAddress, NewPPPoEACName, NewDNSServers, NewDownstreamMaxBitRate, NewMinCharsPassword, NewUptime, NewIdleDisconnectTime, NewConnectionStatus, NewMACAddress, NewRemoteIPAddress, NewLastAuthErrorInfo, NewName, NewDNSOverrideAllowed, NewUpstreamMaxBitRate, NewPPPoEServiceName, NewConnectionType]
+action: SetUserName
+arguments: [NewUserName]
+action: X_SetDNSServers
+arguments: [NewDNSServers]
+action: GetLinkLayerMaxBitRates
+arguments: [NewDownstreamMaxBitRate, NewUpstreamMaxBitRate]
+action: GetNATRSIPStatus
+arguments: [NewRSIPAvailable, NewNATEnabled]
+action: SetRouteProtocolRx
+arguments: [NewRouteProtocolRx]
+service: X_AVM-DE_WebDAVClient:1
+action: SetConfig
+arguments: [NewPassword, NewHostURL, NewEnable, NewMountpointName, NewUsername]
+action: GetInfo
+arguments: [NewHostURL, NewEnable, NewMountpointName, NewUsername]
+service: LANHostConfigManagement:1
+action: GetIPRoutersList
+arguments: [NewIPRouters]
+action: SetIPInterface
+arguments: [NewSubnetMask, NewEnable, NewIPAddress, NewIPAddressingType]
+action: SetAddressRange
+arguments: [NewMaxAddress, NewMinAddress]
+action: SetSubnetMask
+arguments: [NewSubnetMask]
+action: SetIPRouter
+arguments: [NewIPRouters]
+action: GetAddressRange
+arguments: [NewMaxAddress, NewMinAddress]
+action: SetDHCPServerEnable
+arguments: [NewDHCPServerEnable]
+action: GetSubnetMask
+arguments: [NewSubnetMask]
+action: GetInfo
+arguments: [NewSubnetMask, NewDomainName, NewDHCPServerEnable, NewMaxAddress, NewReservedAddresses, NewDHCPServerConfigurable, NewIPRouters, NewDNSServers, NewMinAddress, NewDHCPRelay]
+action: GetIPInterfaceNumberOfEntries
+arguments: [NewIPInterfaceNumberOfEntries]
+action: GetDNSServers
+arguments: [NewDNSServers]
+service: WANEthernetLinkConfig:1
+action: GetEthernetLinkStatus
+arguments: [NewEthernetLinkStatus]
+service: Time:1
+action: GetInfo
+arguments: [NewDaylightSavingsEnd, NewCurrentLocalTime, NewLocalTimeZone, NewNTPServer1, NewNTPServer2, NewDaylightSavingsStart, NewDaylightSavingsUsed, NewLocalTimeZoneName]
+action: SetNTPServers
+arguments: [NewNTPServer1, NewNTPServer2]
+service: X_AVM-DE_RemoteAccess:1
+action: SetConfig
+arguments: [NewPassword, NewPort, NewUsername, NewEnabled]
+action: SetDDNSConfig
+arguments: [NewPassword, NewMode, NewDomain, NewUsername, NewEnabled, NewUpdateURL, NewServerIPv6, NewServerIPv4, NewProviderName]
+action: GetDDNSProviders
+arguments: [NewProviderList]
+action: GetInfo
+arguments: [NewPort, NewUsername, NewEnabled]
+action: GetDDNSInfo
+arguments: [NewMode, NewStatusIPv4, NewStatusIPv6, NewDomain, NewUsername, NewEnabled, NewUpdateURL, NewServerIPv6, NewServerIPv4, NewProviderName]
+service: WANCommonInterfaceConfig:1
+action: X_AVM-DE_GetOnlineMonitor
+arguments: [Newprio_low_bps, Newus_current_bps, Newds_current_bps, Newmax_us, Newprio_default_bps, NewSyncGroupIndex, NewSyncGroupName, Newprio_realtime_bps, Newmc_current_bps, Newprio_high_bps, Newmax_ds, NewTotalNumberSyncGroups, NewSyncGroupMode]
+action: X_AVM-DE_SetWANAccessType
+arguments: [NewAccessType]
+action: GetCommonLinkProperties
+arguments: [NewLayer1UpstreamMaxBitRate, NewPhysicalLinkStatus, NewWANAccessType, NewLayer1DownstreamMaxBitRate]
+action: GetTotalBytesReceived
+arguments: [NewTotalBytesReceived]
+action: GetTotalBytesSent
+arguments: [NewTotalBytesSent]
+action: GetTotalPacketsReceived
+arguments: [NewTotalPacketsReceived]
+action: GetTotalPacketsSent
+arguments: [NewTotalPacketsSent]
+service: LANConfigSecurity:1
+action: X_AVM-DE_GetCurrentUser
+arguments: [NewX_AVM-DE_CurrentUserRights, NewX_AVM-DE_CurrentUsername]
+action: SetConfigPassword
+arguments: [NewPassword]
+action: GetInfo
+arguments: [NewMinCharsPassword, NewMaxCharsPassword, NewAllowedCharsPassword]
+action: X_AVM-DE_GetAnonymousLogin
+arguments: [NewX_AVM-DE_AnonymousLoginEnabled]
+service: DeviceInfo:1
+action: SetProvisioningCode
+arguments: [NewProvisioningCode]
+action: GetDeviceLog
+arguments: [NewDeviceLog]
+action: GetSecurityPort
+arguments: [NewSecurityPort]
+action: GetInfo
+arguments: [NewProvisioningCode, NewHardwareVersion, NewSerialNumber, NewModelName, NewManufacturerName, NewUpTime, NewProductClass, NewDeviceLog, NewDescription, NewSoftwareVersion, NewSpecVersion, NewManufacturerOUI]
+service: DeviceConfig:1
+action: X_GenerateUUID
+arguments: [NewUUID]
+action: X_AVM-DE_CreateUrlSID
+arguments: [NewX_AVM-DE_UrlSID]
+action: X_AVM-DE_GetConfigFile
+arguments: [NewX_AVM-DE_ConfigFileUrl, NewX_AVM-DE_Password]
+action: GetPersistentData
+arguments: [NewPersistentData]
+action: Reboot
+arguments: []
+action: FactoryReset
+arguments: []
+action: ConfigurationStarted
+arguments: [NewSessionID]
+action: SetPersistentData
+arguments: [NewPersistentData]
+action: ConfigurationFinished
+arguments: [NewStatus]
+action: X_AVM-DE_SetConfigFile
+arguments: [NewX_AVM-DE_ConfigFileUrl, NewX_AVM-DE_Password]
