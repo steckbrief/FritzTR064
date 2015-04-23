@@ -78,164 +78,165 @@ public class FritzConnection {
 	
 	private String name;
 	
-FritzConnection(String address, int port){
-
-	targetHost = new HttpHost(address, port);
-	httpClient = HttpClients.createDefault();
-	context = HttpClientContext.create();
-	services = new HashMap<String,Service>();
-}
-
-public FritzConnection(String address){
-	this(address,DEFAULT_PORT);
-}
-
-public FritzConnection(String address, int port, String user, String pwd){
-	this(address, port);
-	this.user = user;
-	this.pwd = pwd;
-}
-
-public FritzConnection(String address, String user, String pwd){
-	this(address);
-	this.user = user;
-	this.pwd = pwd;
-}
-public void init() throws ClientProtocolException, IOException, JAXBException{
-	if (user!=null && pwd!=null){
-		LOG.debug("try to connect to " + this.targetHost.getAddress() 
-				+ " with credentials " + this.user + "/" + this.pwd);
-		CredentialsProvider credsProvider = new BasicCredentialsProvider();
-	    credsProvider.setCredentials(AuthScope.ANY,
-	        new UsernamePasswordCredentials(user, pwd));
-	    AuthCache authCache = new BasicAuthCache();
-	    DigestScheme digestScheme = new DigestScheme();
-	    digestScheme.overrideParamter("realm", "F!Box SOAP-Auth");
-	    digestScheme.overrideParamter("nonce", Long.toString(new Random().nextLong(), 36));
-	    digestScheme.overrideParamter("qop", "auth");
-	    digestScheme.overrideParamter("nc", "0");
-	    digestScheme.overrideParamter("cnonce", DigestScheme.createCnonce());
-	    authCache.put(targetHost, digestScheme);
-	    context.setCredentialsProvider(credsProvider);
-	    context.setAuthCache(authCache);
-	    readTR64();
-	}
-	else
-		readIGDDESC();
+	FritzConnection(String address, int port){
 	
-}
-private void readTR64() throws ClientProtocolException, IOException, JAXBException{
-	InputStream xml = getXMLIS("/" + FRITZ_TR64_DESC_FILE);
-	ObjectMapper mapper = new XmlMapper();
-	mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-	RootType root = mapper.readValue(xml, RootType.class);
-
-	LOG.debug(root.toString());
-	DeviceDesc device = root.getDevice();
-	name = device.getFriendlyName();
-	getServicesFromDevice(device);
-}
-private void readIGDDESC() throws IOException {
-	InputStream xml = getXMLIS("/" + FRITZ_IGD_DESC_FILE);
-	try
-	{
+		targetHost = new HttpHost(address, port);
+		httpClient = HttpClients.createDefault();
+		context = HttpClientContext.create();
+		services = new HashMap<String,Service>();
+	}
+	
+	public FritzConnection(String address){
+		this(address,DEFAULT_PORT);
+	}
+	
+	public FritzConnection(String address, int port, String user, String pwd){
+		this(address, port);
+		this.user = user;
+		this.pwd = pwd;
+	}
+	
+	public FritzConnection(String address, String user, String pwd){
+		this(address);
+		this.user = user;
+		this.pwd = pwd;
+	}
+	public void init() throws ClientProtocolException, IOException, JAXBException{
+		if (user!=null && pwd!=null){
+			LOG.debug("try to connect to " + this.targetHost.getAddress() 
+					+ " with credentials " + this.user + "/" + this.pwd);
+			CredentialsProvider credsProvider = new BasicCredentialsProvider();
+		    credsProvider.setCredentials(AuthScope.ANY,
+		        new UsernamePasswordCredentials(user, pwd));
+		    AuthCache authCache = new BasicAuthCache();
+		    DigestScheme digestScheme = new DigestScheme();
+		    digestScheme.overrideParamter("realm", "F!Box SOAP-Auth");
+		    digestScheme.overrideParamter("nonce", Long.toString(new Random().nextLong(), 36));
+		    digestScheme.overrideParamter("qop", "auth");
+		    digestScheme.overrideParamter("nc", "0");
+		    digestScheme.overrideParamter("cnonce", DigestScheme.createCnonce());
+		    authCache.put(targetHost, digestScheme);
+		    context.setCredentialsProvider(credsProvider);
+		    context.setAuthCache(authCache);
+		    readTR64();
+		}
+		else
+			readIGDDESC();
+		
+	}
+	private void readTR64() throws ClientProtocolException, IOException, JAXBException{
+		InputStream xml = getXMLIS("/" + FRITZ_TR64_DESC_FILE);
 		ObjectMapper mapper = new XmlMapper();
-//		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		RootType2 root = mapper.readValue(xml, RootType2.class);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		RootType root = mapper.readValue(xml, RootType.class);
+	
 		LOG.debug(root.toString());
-
 		DeviceDesc device = root.getDevice();
 		name = device.getFriendlyName();
 		getServicesFromDevice(device);
 	}
-	catch (JAXBException e)
-	{
-		LOG.error(e.getLocalizedMessage(), e);
-	}
-}
-
-private void getServicesFromDevice(DeviceDesc device) throws IOException, JAXBException {
-	for (ServiceDesc sT : device.getServiceList()){
-		String[] tmp = sT.getServiceType().split(":"); 
-		String key = tmp[tmp.length-2] + ":" + tmp[tmp.length-1];
-		
-		services.put(key, new Service(sT, this));
-	}
-	if (device.getDeviceList()!= null)
-		for (DeviceDesc d : device.getDeviceList()){
-			getServicesFromDevice(d);
-		}
-}
-
-private InputStream httpRequest(HttpHost target, HttpRequest request, HttpContext context) throws IOException{
-	CloseableHttpResponse response = null;
-	byte[] content = null;
-	try {
-		LOG.debug("try to request " + request.getRequestLine() + " from " + target.toURI());
-		response = httpClient.execute(target, request, context);
-		LOG.debug("got response " + response.getStatusLine());
-		content = EntityUtils.toByteArray(response.getEntity());
-		LOG.debug("got content: " + new String(content));
-	} catch (IOException e) {
-		LOG.error(e.getLocalizedMessage(), e);
-		throw e;
-	}
-    finally{
-    	if(response != null){
-    		response.close();
-    		if (response.getStatusLine().getStatusCode()!=200){
-    			throw new IOException(response.getStatusLine().toString());
-    		}
-    	}
-		 
-    }
-	if (content != null)
-		return new ByteArrayInputStream(content);
-	else
-		return new ByteArrayInputStream(new byte[0]);
-}
-
-
-
-protected InputStream getXMLIS(String fileName) throws IOException{
-	  HttpGet httpget = new HttpGet(fileName);
-	  return httpRequest(targetHost, httpget, context);
+	private void readIGDDESC() throws IOException {
+		InputStream xml = getXMLIS("/" + FRITZ_IGD_DESC_FILE);
+		try
+		{
+			ObjectMapper mapper = new XmlMapper();
+	//		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+			RootType2 root = mapper.readValue(xml, RootType2.class);
+			LOG.debug(root.toString());
 	
-}
-
-protected InputStream getSOAPXMLIS(String fileName, String urn, HttpEntity entity) throws IOException{
-	  HttpPost httppost = new HttpPost(fileName);
-	  httppost.addHeader("soapaction",  urn);
-	  httppost.addHeader("charset","utf-8");
-	  httppost.addHeader("content-type","text/xml");
-	  httppost.setEntity(entity);
-	  return httpRequest(targetHost, httppost, context);
-}
-
-
-
-public Map<String,Service> getServices(){
-	return services;
-}
-
-public Service getService(String name){
-	return getServices().get(name);
-}
-
-public void printInfo(){
-	LOG.info(name);
-	LOG.info("----------------------------------");
-	for (String a: services.keySet()){
-		LOG.info(a);
-		Service s = services.get(a);
-		for (String b : s.getActions().keySet()){
-			LOG.info("    ");
-			LOG.info(b);
-			LOG.info("       ");
-			LOG.info(s.getActions().get(b).getArguments().toString());
+			DeviceDesc device = root.getDevice();
+			name = device.getFriendlyName();
+			getServicesFromDevice(device);
+		}
+		catch (JAXBException e)
+		{
+			LOG.error(e.getLocalizedMessage(), e);
 		}
 	}
-}
+	
+	private void getServicesFromDevice(DeviceDesc device) throws IOException, JAXBException {
+		for (ServiceDesc sT : device.getServiceList()){
+			String[] tmp = sT.getServiceType().split(":"); 
+			String key = tmp[tmp.length-2] + ":" + tmp[tmp.length-1];
+			
+			services.put(key, new Service(sT, this));
+		}
+		if (device.getDeviceList()!= null)
+			for (DeviceDesc d : device.getDeviceList()){
+				getServicesFromDevice(d);
+			}
+	}
+	
+	private InputStream httpRequest(HttpHost target, HttpRequest request, HttpContext context) throws IOException{
+		CloseableHttpResponse response = null;
+		byte[] content = null;
+		try {
+			LOG.debug("try to request " + request.getRequestLine() + " from " + target.toURI());
+			response = httpClient.execute(target, request, context);
+			LOG.debug("got response " + response.getStatusLine());
+			content = EntityUtils.toByteArray(response.getEntity());
+			LOG.debug("got content: " + new String(content));
+		} catch (IOException e) {
+			LOG.error(e.getLocalizedMessage(), e);
+			throw e;
+		}
+	    finally{
+	    	if(response != null){
+	    		response.close();
+	    		if (response.getStatusLine().getStatusCode()!=200){
+	    			throw new IOException(response.getStatusLine().toString());
+	    		}
+	    	}
+			 
+	    }
+		if (content != null)
+			return new ByteArrayInputStream(content);
+		else
+			return new ByteArrayInputStream(new byte[0]);
+	}
+	
+	
+	
+	protected InputStream getXMLIS(String fileName) throws IOException{
+		  HttpGet httpget = new HttpGet(fileName);
+		  return httpRequest(targetHost, httpget, context);
+		
+	}
+	
+	protected InputStream getSOAPXMLIS(String fileName, String urn, HttpEntity entity) throws IOException{
+		  HttpPost httppost = new HttpPost(fileName);
+		  httppost.addHeader("soapaction",  urn);
+		  httppost.addHeader("charset","utf-8");
+		  httppost.addHeader("content-type","text/xml");
+		  httppost.setEntity(entity);
+		  return httpRequest(targetHost, httppost, context);
+	}
+	
+	
+	
+	public Map<String,Service> getServices(){
+		return services;
+	}
+	
+	public Service getService(String name){
+		return getServices().get(name);
+	}
+	
+	public void printInfo(){
+		this.print(name);
+		this.print("----------------------------------");
+		for (String a: services.keySet()){
+			this.print("service: " + a);
+			Service s = services.get(a);
+			for (String b : s.getActions().keySet()){
+				this.print("action: " + b);
+				this.print("arguments: " + s.getActions().get(b).getArguments().toString());
+			}
+		}
+	}
 
-
+	private void print(String msg) {
+//		LOG.info(msg);
+		System.out.println(msg);
+	}
 }
