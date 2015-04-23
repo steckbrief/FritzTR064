@@ -1,6 +1,7 @@
 package de.bausdorf.avm.tr064;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.xml.bind.JAXBException;
 
@@ -15,12 +16,12 @@ public class Query064
 	static String password = null;
 	static String serviceName = null;
 	static String actionName = null;
-	static String param = null;
+	static HashMap<String, Object> params = null;
 	
 	public static void main(String[] args)
 	{
 		if( args.length < 5 ) {
-			LOG.error("args: <fb-ip> <password> <user> <service> <action> [param]");
+			LOG.error("args: <fb-ip> <password> <user> <service> <action> *[key=value]");
 			System.exit(1);
 		} else {
 			ip = args[0];
@@ -28,9 +29,17 @@ public class Query064
 			user = args[2];
 			serviceName = args[3];
 			actionName = args[4];
-			if( args.length > 5 )
+			for(int i = 5; i < args.length; i++)
 			{
-				param = args[5];
+				String[] parts = args[i].split("=");
+				if( parts.length == 2 ) {
+					if( params == null ) {
+						params = new HashMap<String, Object>();
+					}
+					params.put(parts[0], parts[1]);
+				} else {
+					LOG.error(args[i] + "not a valid parameter (key=value");
+				}
 			}
 		}
 		//Create a new FritzConnection with username and password
@@ -57,14 +66,12 @@ public class Query064
 		}
 		try {
 			//Execute the action without any In-Parameter.
-			Response response1 = action.execute();
+			Response response1 = action.execute(params);
 			for( String key : response1.getData().keySet() ) {
 				System.out.println(key + " = " + response1.getData().get(key));
 			}
 		} catch (UnsupportedOperationException | IOException e) {
 			LOG.error(e.getLocalizedMessage(), e);
 		}
-
 	}
-	
 }
