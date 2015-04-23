@@ -30,6 +30,7 @@ import javax.xml.bind.JAXBException;
 
 
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,9 +60,14 @@ public class DisplayInfo {
 		FritzConnection fcWithoutUser = new FritzConnection(ip);
 		fcWithoutUser.init();
 		fcWithoutUser.printInfo();
-		LOG.info("##################################################################");
+		print("##################################################################");
 		FritzConnection fcWithUser = new FritzConnection(ip,user,password);
 		fcWithUser.init();
 		fcWithUser.printInfo();
+	}
+
+	private static void print(String msg) {
+//		LOG.info(msg);
+		System.out.println(msg);
 	}
 }

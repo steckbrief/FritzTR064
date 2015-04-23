@@ -226,12 +226,13 @@ public class FritzConnection {
 		this.print(name);
 		this.print("----------------------------------");
 		for (String a: services.keySet()){
-			this.print("service: " + a);
+			this.print(">>> service: " + a);
 			Service s = services.get(a);
 			for (String b : s.getActions().keySet()){
-				this.print("action: " + b);
+				this.print("\naction: " + b);
 				this.print("arguments: " + s.getActions().get(b).getArguments().toString());
 			}
+			this.print("<<< service: " + a);
 		}
 	}
 
