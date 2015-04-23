@@ -20,6 +20,7 @@
  ***********************************************************************************************************************/
 package de.bausdorf.avm.tr064.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -108,6 +109,9 @@ public class ScpdType
 	 */
 	public List<StateVariableType> getServiceStateTable()
 	{
+    	if( this.serviceStateTable == null ) {
+    		this.serviceStateTable = new ArrayList<StateVariableType>();
+    	}
 		return serviceStateTable;
 	}
 	
@@ -129,6 +133,9 @@ public class ScpdType
 	 */
 	public List<ActionType> getActionList()
 	{
+    	if( this.actionList == null ) {
+    		this.actionList = new ArrayList<ActionType>();
+    	}
 		return actionList;
 	}
 
