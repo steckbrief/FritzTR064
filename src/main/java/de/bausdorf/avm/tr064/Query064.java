@@ -36,7 +36,12 @@ public class Query064
 					if( params == null ) {
 						params = new HashMap<String, Object>();
 					}
-					params.put(parts[0], parts[1]);
+					try {
+						Integer ipart = Integer.parseInt(parts[1]);
+						params.put(parts[0], ipart);
+					} catch( NumberFormatException e ) {
+						params.put(parts[0], parts[1]);
+					}
 				} else {
 					LOG.error(args[i] + "not a valid parameter (key=value");
 				}
