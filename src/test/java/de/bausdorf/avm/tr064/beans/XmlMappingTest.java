@@ -19,6 +19,7 @@ public class XmlMappingTest
 	private static final Logger LOG = LoggerFactory.getLogger(XmlMappingTest.class);
 	
 	InputStream igdDescIS;
+	InputStream anyIS;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
@@ -29,6 +30,7 @@ public class XmlMappingTest
 	public void setUp() throws Exception
 	{
 		this.igdDescIS = ClassLoader.getSystemResourceAsStream("igd_desc_test.xml");
+		this.anyIS = ClassLoader.getSystemResourceAsStream("any_test.xml");
 	}
 	
 	@Test
@@ -38,6 +40,21 @@ public class XmlMappingTest
 		try
 		{
 			RootType2 root = mapper.readValue(this.igdDescIS, RootType2.class);
+			LOG.debug(root.toString());
+		}
+		catch (IOException e)
+		{
+			LOG.error(e.getLocalizedMessage(), e);
+			fail(e.getLocalizedMessage());
+		}
+	}
+	
+	@Test
+	public void testAnyMapping() {
+		ObjectMapper mapper = new XmlMapper();
+		try
+		{
+			ScpdType2 root = mapper.readValue(this.anyIS, ScpdType2.class);
 			LOG.debug(root.toString());
 		}
 		catch (IOException e)

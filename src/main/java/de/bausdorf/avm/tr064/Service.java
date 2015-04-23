@@ -57,7 +57,7 @@ public class Service {
 		ScpdType scpd = mapper.readValue(is, ScpdType.class);
 		LOG.debug(scpd.toString());
 		for (ActionType a : scpd.getActionList()){
-			actions.put(a.getName(), new Action(a, scpd.getServiceStateTable().getStateVariable(), connection, this.serviceXML));
+			actions.put(a.getName(), new Action(a, scpd.getServiceStateTable(), connection, this.serviceXML));
 		}
 		} catch (Exception e){
 			InputStream  is = connection.getXMLIS(serviceXML.getScpdurl());
@@ -66,7 +66,7 @@ public class Service {
 			LOG.debug(scpd.toString());
 			for (ActionType a : scpd.getActionList()){
 				
-				actions.put(a.getName(), new Action(a, scpd.getServiceStateTable().getStateVariable(), connection, this.serviceXML));
+				actions.put(a.getName(), new Action(a, scpd.getServiceStateTable(), connection, this.serviceXML));
 			}
 		}
 		

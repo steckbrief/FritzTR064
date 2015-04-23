@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * <p>Java-Klasse für scpdType complex type.
@@ -67,8 +68,9 @@ public class ScpdType
 	@XmlElementWrapper(name = "actionList", required = true)
 	@XmlElement(name = "action")
 	private List<ActionType> actionList;
-	@XmlElement(required = true)
-	protected ServiceStateTableType serviceStateTable;
+    @XmlElementWrapper(name="serviceStateTable")
+    @XmlElement(name="stateVariable", required = true)
+    protected List<StateVariableType> serviceStateTable;
 	
 	/**
 	 * Ruft den Wert der specVersion-Eigenschaft ab.
@@ -104,7 +106,7 @@ public class ScpdType
 	 *     {@link ServiceStateTableType }
 	 *     
 	 */
-	public ServiceStateTableType getServiceStateTable()
+	public List<StateVariableType> getServiceStateTable()
 	{
 		return serviceStateTable;
 	}
@@ -117,7 +119,7 @@ public class ScpdType
 	 *     {@link ServiceStateTableType }
 	 *     
 	 */
-	public void setServiceStateTable(ServiceStateTableType value)
+	public void setServiceStateTable(List<StateVariableType> value)
 	{
 		this.serviceStateTable = value;
 	}
@@ -144,7 +146,7 @@ public class ScpdType
 	@Override
 	public String toString()
 	{
-		return new ToStringBuilder(this)
+		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
 				.append("specVersion", this.specVersion)
 				.append("actionList", this.actionList)
 				.append("serviceStateTable", this.serviceStateTable)

@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * <p>Java-Klasse f�r actionType complex type.
@@ -119,7 +120,7 @@ public class ActionType {
     @Override
 	public String toString()
 	{
-		return new ToStringBuilder(this)
+		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
 				.append("name", this.name)
 				.append("argumentList", this.argumentList)
 				.toString();

@@ -26,6 +26,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 
 /**
  * <p>Java-Klasse f�r stateVariableType complex type.
@@ -55,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class StateVariableType {
 
-    @XmlElement(required = true)
+    @XmlElement(name="name", required = true)
     protected String name;
     @XmlElement(required = true)
     protected String dataType;
@@ -133,5 +136,18 @@ public class StateVariableType {
     public void setSendEvents(String value) {
         this.sendEvents = value;
     }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+				.append("name", this.name)
+				.append("dataType", this.dataType)
+				.append("sendEvents", this.sendEvents)
+				.toString();
+	}
 
 }

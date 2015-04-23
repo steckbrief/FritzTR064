@@ -115,8 +115,8 @@ public class ObjectFactory {
      * Create an instance of {@link ServiceStateTableType }
      * 
      */
-    public ServiceStateTableType createServiceStateTableType() {
-        return new ServiceStateTableType();
+    public List<StateVariableType> createServiceStateTableType() {
+        return new ArrayList<StateVariableType>();
     }
 
     /**
