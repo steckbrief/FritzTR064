@@ -4,13 +4,25 @@ Java-library to communicate with the AVM FritzBox by using the TR-064 protocol.
 
 ## Dependencies
 
-This library depends on:
-
-* [HttpClient 4.x](https://hc.apache.org/httpcomponents-client-4.4.x/logging.html)
+Managed by maven
 
 ## Quickstart
 
-Get all the posibel Actions:
+### compile and package
+
+mvn compile assembly:single
+
+This command will produce a startable jar containing all dependencies.
+
+### start and query
+```bash
+java -jar target/FritzTR064-<x.x.x>-SNAPSHOT-jar-with-dependencies.jar fb-ip fb-password fb-user tr064-service service-action [paramName=paramValue]*
+
+```
+The above query feature is intended only for testing / toying. 
+
+## Examples
+Get all the possible Actions:
 
 ```java
 FritzConnection fc = new FritzConnection("192.168.1.1","<username>","<password>");
@@ -27,8 +39,12 @@ Response response = action.execute();
 int deviceCount = response.getValueAsInteger("NewTotalAssociations");
 
 ```
-For more examples see: [The Example Folder](https://github.com/mirthas/FritzTR064/tree/master/examples)
+For more examples see: [The Example Folder](https://github.com/robbyb/FritzTR064/tree/master/examples)
 
 ## Resorces
 * [AVM API Description](http://avm.de/service/schnittstellen/) (German)
 * [Examples](https://github.com/mirthas/FritzTR064/tree/master/examples)
+
+## Thanks
+
+To Marin Pollmann<pollmann.m@gmail.com> for fiddling out the SOAP stuff.
