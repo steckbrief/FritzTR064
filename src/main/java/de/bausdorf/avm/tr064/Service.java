@@ -20,7 +20,6 @@
  ***********************************************************************************************************************/
 package de.bausdorf.avm.tr064;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -31,9 +30,6 @@ import javax.xml.bind.JAXBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
-
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import de.bausdorf.avm.tr064.beans.ActionType;
 import de.bausdorf.avm.tr064.beans.ScpdType;
@@ -59,19 +55,9 @@ public class Service {
 			}
 		} catch (Exception e) {
 			InputStream is = connection.getXMLIS(serviceXML.getScpdurl());
-
-//			ByteArrayOutputStream bout = new ByteArrayOutputStream();
-//			byte[] buffer = new byte[1024];
-//			int len;
-//			while ((len = is.read(buffer)) != -1) {
-//			    bout.write(buffer, 0, len);
-//			}
-//			
-//			LOG.info ("!!!! {} !!!!!", new String (bout.toByteArray()));
-//			
 			ScpdType scpd = (ScpdType) JAXBUtilities.unmarshallInput(is);
 
-			LOG.info("scpd {}", scpd.toString());
+			LOG.debug("scpd {}", scpd.toString());
 			for (ActionType a : scpd.getActionList()) {
 
 				actions.put(a.getName(), new Action(a, scpd.getServiceStateTable(), connection, this.serviceXML));

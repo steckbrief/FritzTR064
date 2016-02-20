@@ -49,10 +49,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement (name="specVersion")
 @XmlAccessorType(XmlAccessType.FIELD)
-//@XmlType(name = "specVersionType", propOrder = {
-//    "major",
-//    "minor"
-//})
 public class SpecVersionType {
 
 	@XmlElement(name="major")

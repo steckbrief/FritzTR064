@@ -75,7 +75,6 @@ public class StateVariableType {
     @XmlElement(required = true)
     protected String dataType;
     @XmlElementWrapper(name="allowedValueList")
-//    @XmlElement(name="allowedValue")
     @XmlAnyElement (lax = true)
     private List<String> allowedValueList;
     private AllowedValueRangeType allowedValueRange;

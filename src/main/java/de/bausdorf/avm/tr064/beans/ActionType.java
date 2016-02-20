@@ -65,7 +65,6 @@ public class ActionType {
     @XmlElement(required = true)
     protected String name;
     @XmlElementWrapper(name="argumentList")
-//    @XmlElement(name="argument")
     @XmlAnyElement (lax = true)
     protected List<ArgumentType> argumentList;
 

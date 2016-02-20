@@ -121,7 +121,6 @@ public class DeviceDesc {
     private List<ServiceDesc> serviceList;
     
     @XmlElementWrapper(name="deviceList")
-//    @XmlElement(name="device")
     @XmlAnyElement (lax = true)
     private List<DeviceDesc> deviceList;
     

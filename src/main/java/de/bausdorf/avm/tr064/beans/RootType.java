@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -48,14 +49,12 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * 
  * 
  */
-//@XmlRootElement(name = "root", namespace="urn:dslforum-org:device-1-0")
-//@XmlAccessorType(XmlAccessType.FIELD)
-//@XmlType(name = "rootType", propOrder = {
-//    "specVersion",
-//    "device"
-//})
 @XmlRootElement ( name="root")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "rootType", propOrder = {
+"specVersion",
+"device"
+})
 public class RootType {
 	
    @XmlElement(name="specVersion", required = true)
