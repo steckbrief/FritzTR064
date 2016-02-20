@@ -54,10 +54,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
-//import com.fasterxml.jackson.databind.DeserializationFeature;
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-
 import de.bausdorf.avm.tr064.beans.DeviceDesc;
 import de.bausdorf.avm.tr064.beans.RootType;
 import de.bausdorf.avm.tr064.beans.ServiceDesc;
