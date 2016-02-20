@@ -28,6 +28,7 @@ import javax.xml.bind.JAXBException;
 import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 
 import de.bausdorf.avm.tr064.Action;
 import de.bausdorf.avm.tr064.FritzConnection;
@@ -62,13 +63,16 @@ public class GetAllConnectedWlanDevices {
 			fc.init();
 		} catch (ClientProtocolException e2) {
 			//Any HTTP related error.
-			e2.printStackTrace();
+			LOG.error(e2.getMessage(), e2);
 		} catch (IOException e2) {
 			//Any Network related error.
-			e2.printStackTrace();
+			LOG.error(e2.getMessage(), e2);
 		} catch (JAXBException e2) {
 			//Any xml violation.
-			e2.printStackTrace();
+			LOG.error(e2.getMessage(), e2);
+		} catch (SAXException e2) {
+			// parser error
+			LOG.error(e2.getMessage(), e2);
 		}
 		
 		for (int i = 1; i<=3 ;i++){
@@ -81,8 +85,7 @@ public class GetAllConnectedWlanDevices {
 				//Execute the action without any In-Parameter.
 				response1 = action.execute();
 			} catch (UnsupportedOperationException | IOException e1) {
-				
-				e1.printStackTrace();
+				LOG.error(e1.getMessage(), e1);
 			}
 			int deviceCount = -1;
 			try {
@@ -101,9 +104,9 @@ public class GetAllConnectedWlanDevices {
 					Response response2 = fc.getService("WLANConfiguration:" + i).getAction("GetGenericAssociatedDeviceInfo").execute(arguments);
 					LOG.info("    " + response2.getData());
 				} catch (UnsupportedOperationException e) {
-					e.printStackTrace();
+					LOG.error(e.getMessage(), e);
 				} catch (IOException e) {
-					e.printStackTrace();
+					LOG.error(e.getMessage(), e);
 				}
 				
 			}

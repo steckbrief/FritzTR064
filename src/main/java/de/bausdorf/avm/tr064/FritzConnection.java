@@ -52,14 +52,14 @@ import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+//import com.fasterxml.jackson.databind.DeserializationFeature;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import de.bausdorf.avm.tr064.beans.DeviceDesc;
 import de.bausdorf.avm.tr064.beans.RootType;
-import de.bausdorf.avm.tr064.beans.RootType2;
 import de.bausdorf.avm.tr064.beans.ServiceDesc;
 
 public class FritzConnection {
@@ -101,7 +101,7 @@ public class FritzConnection {
 		this.user = user;
 		this.pwd = pwd;
 	}
-	public void init() throws ClientProtocolException, IOException, JAXBException{
+	public void init() throws ClientProtocolException, IOException, JAXBException, SAXException{
 		if (user!=null && pwd!=null){
 			LOG.debug("try to connect to " + this.targetHost.getAddress() 
 					+ " with credentials " + this.user + "/" + this.pwd);
@@ -124,11 +124,11 @@ public class FritzConnection {
 			readIGDDESC();
 		
 	}
-	private void readTR64() throws ClientProtocolException, IOException, JAXBException{
+	private void readTR64() throws ClientProtocolException, IOException, JAXBException, SAXException{
 		InputStream xml = getXMLIS("/" + FRITZ_TR64_DESC_FILE);
-		ObjectMapper mapper = new XmlMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		RootType root = mapper.readValue(xml, RootType.class);
+
+		RootType root =  (RootType) JAXBUtilities.unmarshallInput(xml);
+
 	
 		LOG.debug(root.toString());
 		DeviceDesc device = root.getDevice();
@@ -139,22 +139,29 @@ public class FritzConnection {
 		InputStream xml = getXMLIS("/" + FRITZ_IGD_DESC_FILE);
 		try
 		{
-			ObjectMapper mapper = new XmlMapper();
-	//		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-			RootType2 root = mapper.readValue(xml, RootType2.class);
+			
+			RootType root =  (RootType) JAXBUtilities.unmarshallInput(xml);
+			
 			LOG.debug(root.toString());
 	
 			DeviceDesc device = root.getDevice();
 			name = device.getFriendlyName();
 			getServicesFromDevice(device);
 		}
-		catch (JAXBException e)
-		{
+		catch (JAXBException e) {
+			LOG.error(e.getLocalizedMessage(), e);
+		} catch (SAXException e) {
 			LOG.error(e.getLocalizedMessage(), e);
 		}
 	}
 	
-	private void getServicesFromDevice(DeviceDesc device) throws IOException, JAXBException {
+	private void getServicesFromDevice(DeviceDesc device) throws IOException, JAXBException, SAXException {
+		
+		for (Object sT : device.getServiceList()){
+			LOG.info("Service {} {}", sT, sT.getClass().getName());
+		}
+
+		
 		for (ServiceDesc sT : device.getServiceList()){
 			String[] tmp = sT.getServiceType().split(":"); 
 			String key = tmp[tmp.length-2] + ":" + tmp[tmp.length-1];

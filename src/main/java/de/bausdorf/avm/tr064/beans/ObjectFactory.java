@@ -43,89 +43,89 @@ import javax.xml.namespace.QName;
  * provided in this class.
  * 
  */
-@XmlRegistry
+///@XmlRegistry
 public class ObjectFactory {
-
-    private final static QName _Scpd_QNAME = new QName("urn:dslforum-org:service-1-0", "scpd");
-
-    /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: de.mapoll.javaAVMTR064.beans
-     * 
-     */
-    public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link ScpdType }
-     * 
-     */
-    public ScpdType createScpdType() {
-        return new ScpdType();
-    }
-
-    /**
-     * Create an instance of {@link SpecVersionType }
-     * 
-     */
-    public SpecVersionType createSpecVersionType() {
-        return new SpecVersionType();
-    }
-
-    /**
-     * Create an instance of {@link ArgumentType }
-     * 
-     */
-    public ArgumentType createArgumentType() {
-        return new ArgumentType();
-    }
-
-    /**
-     * Create an instance of {@link ArgumentListType }
-     * 
-     */
-    public List<ArgumentType> createArgumentListType() {
-        return new ArrayList<ArgumentType>();
-    }
-
-    /**
-     * Create an instance of {@link ActionType }
-     * 
-     */
-    public ActionType createActionType() {
-        return new ActionType();
-    }
-
-    /**
-     * Create an instance of {@link ActionListType }
-     * 
-     */
-    public List<ActionType> createActionListType() {
-        return new ArrayList<ActionType>();
-    }
-
-    /**
-     * Create an instance of {@link StateVariableType }
-     * 
-     */
-    public StateVariableType createStateVariableType() {
-        return new StateVariableType();
-    }
-
-    /**
-     * Create an instance of {@link ServiceStateTableType }
-     * 
-     */
-    public List<StateVariableType> createServiceStateTableType() {
-        return new ArrayList<StateVariableType>();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ScpdType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "urn:dslforum-org:service-1-0", name = "scpd")
-    public JAXBElement<ScpdType> createScpd(ScpdType value) {
-        return new JAXBElement<ScpdType>(_Scpd_QNAME, ScpdType.class, null, value);
-    }
+//
+//    private final static QName _Scpd_QNAME = new QName("urn:dslforum-org:service-1-0", "scpd");
+//
+//    /**
+//     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: de.mapoll.javaAVMTR064.beans
+//     * 
+//     */
+//    public ObjectFactory() {
+//    }
+//
+//    /**
+//     * Create an instance of {@link ScpdType }
+//     * 
+//     */
+//    public ScpdType createScpdType() {
+//        return new ScpdType();
+//    }
+//
+//    /**
+//     * Create an instance of {@link SpecVersionType }
+//     * 
+//     */
+//    public SpecVersionType createSpecVersionType() {
+//        return new SpecVersionType();
+//    }
+//
+//    /**
+//     * Create an instance of {@link ArgumentType }
+//     * 
+//     */
+//    public ArgumentType createArgumentType() {
+//        return new ArgumentType();
+//    }
+//
+//    /**
+//     * Create an instance of {@link ArgumentListType }
+//     * 
+//     */
+//    public List<ArgumentType> createArgumentListType() {
+//        return new ArrayList<ArgumentType>();
+//    }
+//
+//    /**
+//     * Create an instance of {@link ActionType }
+//     * 
+//     */
+//    public ActionType createActionType() {
+//        return new ActionType();
+//    }
+//
+//    /**
+//     * Create an instance of {@link ActionListType }
+//     * 
+//     */
+//    public List<ActionType> createActionListType() {
+//        return new ArrayList<ActionType>();
+//    }
+//
+//    /**
+//     * Create an instance of {@link StateVariableType }
+//     * 
+//     */
+//    public StateVariableType createStateVariableType() {
+//        return new StateVariableType();
+//    }
+//
+//    /**
+//     * Create an instance of {@link ServiceStateTableType }
+//     * 
+//     */
+////    public List<StateVariableType> createServiceStateTableType() {
+////        return new ArrayList<StateVariableType>();
+////    }
+//
+//    /**
+//     * Create an instance of {@link JAXBElement }{@code <}{@link ScpdType }{@code >}}
+//     * 
+//     */
+//    @XmlElementDecl(namespace = "urn:dslforum-org:service-1-0", name = "scpd")
+//    public JAXBElement<ScpdType> createScpd(ScpdType value) {
+//        return new JAXBElement<ScpdType>(_Scpd_QNAME, ScpdType.class, null, value);
+//    }
 
 }

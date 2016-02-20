@@ -33,6 +33,7 @@ import javax.xml.bind.JAXBException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 
 import de.bausdorf.avm.tr064.FritzConnection;
 
@@ -45,7 +46,7 @@ public class DisplayInfo {
 	static String password = null;
 	
 	
-	public static void main(String[] args) throws  IOException, JAXBException{
+	public static void main(String[] args) throws  IOException, JAXBException, SAXException{
 		if( args.length < 2 ) {
 			LOG.error("args: <fb-ip> <password> [user]");
 			System.exit(1);

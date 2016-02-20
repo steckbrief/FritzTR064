@@ -1,6 +1,7 @@
 /***********************************************************************************************************************
  *
- * javaAVMTR064 - open source Java TR-064 API
+ * javaAVMTR064 - open source Java TR-06
+4 API
  *===========================================
  *
  * Copyright 2015 Marin Pollmann <pollmann.m@gmail.com>
@@ -26,6 +27,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
@@ -63,7 +65,8 @@ public class ActionType {
     @XmlElement(required = true)
     protected String name;
     @XmlElementWrapper(name="argumentList")
-    @XmlElement(name="argument")
+//    @XmlElement(name="argument")
+    @XmlAnyElement (lax = true)
     protected List<ArgumentType> argumentList;
 
     /**

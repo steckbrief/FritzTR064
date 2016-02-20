@@ -43,6 +43,8 @@ import javax.xml.soap.SOAPPart;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.StringEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.bausdorf.avm.tr064.beans.ActionType;
 import de.bausdorf.avm.tr064.beans.ArgumentType;
@@ -50,6 +52,7 @@ import de.bausdorf.avm.tr064.beans.ServiceDesc;
 import de.bausdorf.avm.tr064.beans.StateVariableType;
 
 public class Action {
+	private static final Logger LOGGER = LoggerFactory.getLogger(Action.class);
 
 	private Map<String, Class<?>> stateToType;
 	private Map<String, Boolean> argumentOut;
@@ -80,8 +83,9 @@ public class Action {
 				type = Date.class;
 			else if (s.getDataType().equals("uuid"))
 				type = UUID.class;
-			else
-				System.err.println("UNKNOWNE TYPE:" + s.getDataType() + " " + s.getName() + "  " + actionXML.getName());
+			else {
+				LOGGER.error("UNKNOWNE TYPE: {} {} {}", s.getDataType(), s.getName(), actionXML.getName());
+			}
 			stateToType.put(s.getName(), type);
 		}
 		if (actionXML.getArgumentList() != null)
@@ -176,7 +180,7 @@ public class Action {
 			soapMsg.writeTo(stream);
 			message = new String(stream.toByteArray(), "utf-8");
 		} catch (SOAPException e) {
-			e.printStackTrace();
+			LOGGER.error(e.getMessage(), e);
 		}
 
 		httpEntity = new StringEntity(message);
@@ -192,7 +196,7 @@ public class Action {
 			classOfValue = Class.forName(this.getTypeOfArgument(name).getName());
 		} catch (ClassNotFoundException | UnsupportedOperationException e) {
 			// Cant happen already checked
-			e.printStackTrace();
+			LOGGER.error(e.getMessage(), e);
 		}
 
 		if (classOfValue == String.class) {
@@ -233,7 +237,7 @@ public class Action {
 		try {
 			response = MessageFactory.newInstance().createMessage(null, soapxmlis);
 		} catch (IOException | SOAPException e) {
-			throw new IOException(e.getMessage());
+			throw new IOException(e);
 		}
 
 		if (response == null)
@@ -242,7 +246,7 @@ public class Action {
 		try {
 			ret = new Response(response, stateToType, argumentState);
 		} catch (SOAPException e) {
-			throw new IOException(e.getMessage());
+			throw new IOException(e);
 		}
 		return ret;
 
