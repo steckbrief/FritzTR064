@@ -62,10 +62,9 @@ public class ServiceTest {
 			if (response1 == null) {
 				Assert.fail("null response from device");
 			}
-			for (String key : response1.getData().keySet()) {
-				log.info(key + "=" + response1.getData().get(key));
-			}
-		} catch (UnsupportedOperationException | IOException e) {
+			String fbLog = response1.getValueAsString("NewDeviceLog");
+			log.info("\n" + fbLog + "\n");
+		} catch (UnsupportedOperationException | IOException | NoSuchFieldException e) {
 			log.error(e.getMessage(), e);
 			Assert.fail(e.getMessage());
 		}
