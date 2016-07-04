@@ -34,7 +34,7 @@ public class ServiceTest {
 		this.password = System.getProperty(FB_PASS_PROP);
 
 		log.info("test connection to host " + this.ip + " (" + this.user + "/" + this.password + ")");
-		FritzConnection fc = new FritzConnection(ip,user,password);
+		this.fc = new FritzConnection(ip, user, password);
 		try {
 			//The connection has to be initiated. This will load the tr64desc.xml respectively igddesc.xml 
 			//and all the defined Services and Actions. 
@@ -52,6 +52,7 @@ public class ServiceTest {
 	public void testGetDeviceLog() {
 		// Get the Service. In this case DeviceInfo:1
 		Service service = fc.getService("DeviceInfo:1");
+
 		// Get the Action. in this case GetTotalAssociations
 		Action action = service.getAction("GetDeviceLog");
 		Response response1 = null;
