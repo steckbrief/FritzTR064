@@ -101,7 +101,8 @@ public class FritzConnection {
 		this.user = user;
 		this.pwd = pwd;
 	}
-	public void init() throws ClientProtocolException, IOException, JAXBException{
+
+	public void init(String scpdUrl) throws ClientProtocolException, IOException, JAXBException {
 		if (user!=null && pwd!=null){
 			LOG.debug("try to connect to " + this.targetHost.getAddress() 
 					+ " with credentials " + this.user + "/" + this.pwd);
@@ -118,14 +119,17 @@ public class FritzConnection {
 		    authCache.put(targetHost, digestScheme);
 		    context.setCredentialsProvider(credsProvider);
 		    context.setAuthCache(authCache);
-		    readTR64();
+			readTR64(scpdUrl);
 		}
-		else
+		else {
+			LOG.debug("read igddesc, because credentials are " + this.user + "/" + this.pwd);
 			readIGDDESC();
-		
+		}
 	}
-	private void readTR64() throws ClientProtocolException, IOException, JAXBException{
-		InputStream xml = getXMLIS("/" + FRITZ_TR64_DESC_FILE);
+
+	private void readTR64(String scpdUrl) throws ClientProtocolException, IOException, JAXBException {
+		scpdUrl = scpdUrl == null ? FRITZ_TR64_DESC_FILE : scpdUrl;
+		InputStream xml = getXMLIS("/" + scpdUrl);
 		ObjectMapper mapper = new XmlMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		RootType root = mapper.readValue(xml, RootType.class);

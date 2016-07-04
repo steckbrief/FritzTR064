@@ -33,11 +33,14 @@ public class ServiceTest {
 		this.user = System.getProperty(FB_USER_PROP);
 		this.user = System.getProperty(FB_PASS_PROP);
 
+		log.info("test connection to host " + this.ip + " (" + this.user + "/" + this.password + ")");
 		FritzConnection fc = new FritzConnection(ip,user,password);
 		try {
 			//The connection has to be initiated. This will load the tr64desc.xml respectively igddesc.xml 
 			//and all the defined Services and Actions. 
-			fc.init();
+			log.info("initialize connection ...");
+			fc.init(null);
+			log.info("... connection initialized");
 		} catch (IOException | JAXBException e) {
 			//Any HTTP related error.
 			log.error(e.getMessage(), e);

@@ -58,7 +58,7 @@ public class GetDeviceLog {
 		try {
 			//The connection has to be initiated. This will load the tr64desc.xml respectively igddesc.xml 
 			//and all the defined Services and Actions. 
-			fc.init();
+			fc.init(null);
 		} catch (ClientProtocolException e2) {
 			//Any HTTP related error.
 			e2.printStackTrace();

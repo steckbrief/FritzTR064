@@ -58,11 +58,11 @@ public class DisplayInfo {
 			}
 		}
 		FritzConnection fcWithoutUser = new FritzConnection(ip);
-		fcWithoutUser.init();
+		fcWithoutUser.init(null);
 		fcWithoutUser.printInfo();
 		print("##################################################################");
 		FritzConnection fcWithUser = new FritzConnection(ip,user,password);
-		fcWithUser.init();
+		fcWithUser.init(null);
 		fcWithUser.printInfo();
 	}
 

@@ -52,7 +52,7 @@ public class Query064
 		try {
 			//The connection has to be initiated. This will load the tr64desc.xml respectively igddesc.xml 
 			//and all the defined Services and Actions. 
-			fc.init();
+			fc.init(null);
 		} catch (IOException | JAXBException e) {
 			LOG.error(e.getLocalizedMessage(), e);
 		}		
