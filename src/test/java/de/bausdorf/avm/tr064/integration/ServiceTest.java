@@ -31,7 +31,7 @@ public class ServiceTest {
 	public void setUp() throws Exception {
 		this.ip = System.getProperty(FB_HOST_PROP);
 		this.user = System.getProperty(FB_USER_PROP);
-		this.user = System.getProperty(FB_PASS_PROP);
+		this.password = System.getProperty(FB_PASS_PROP);
 
 		log.info("test connection to host " + this.ip + " (" + this.user + "/" + this.password + ")");
 		FritzConnection fc = new FritzConnection(ip,user,password);
