@@ -162,7 +162,7 @@ public class FritzConnection {
 		for (ServiceDesc sT : device.getServiceList()){
 			String[] tmp = sT.getServiceType().split(":"); 
 			String key = tmp[tmp.length-2] + ":" + tmp[tmp.length-1];
-			
+			LOG.debug("adding service " + key + "to inventory");
 			services.put(key, new Service(sT, this));
 		}
 		if (device.getDeviceList()!= null)
