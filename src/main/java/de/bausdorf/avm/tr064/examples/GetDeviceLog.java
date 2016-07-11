@@ -24,7 +24,6 @@ import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
 
-import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,6 +38,9 @@ public class GetDeviceLog {
 	static String user = null;
 	static String password = null;
 
+	private GetDeviceLog() {
+		super();
+	}
 
 	public static void main(String[] args){
 		if( args.length < 2 ) {
@@ -59,15 +61,9 @@ public class GetDeviceLog {
 			//The connection has to be initiated. This will load the tr64desc.xml respectively igddesc.xml 
 			//and all the defined Services and Actions. 
 			fc.init(null);
-		} catch (ClientProtocolException e2) {
+		} catch (IOException | JAXBException e2) {
 			//Any HTTP related error.
-			e2.printStackTrace();
-		} catch (IOException e2) {
-			//Any Network related error.
-			e2.printStackTrace();
-		} catch (JAXBException e2) {
-			//Any xml violation.
-			e2.printStackTrace();
+			LOG.error(e2.getMessage(), e2);
 		}
 
 		for (int i = 1; i<=3 ;i++){
@@ -88,7 +84,9 @@ public class GetDeviceLog {
 			String deviceLog = "";
 			try {
 				//Get the value from the field NewTotalAssociations as an integer. Values can have the Types: String, Integer, Boolean, DateTime and UUID
-				deviceLog = response1.getValueAsString("NewDeviceLog");
+				if (response1 != null) {
+					deviceLog = response1.getValueAsString("NewDeviceLog");
+				}
 			} catch (ClassCastException | NoSuchFieldException e) {
 				LOG.error(e.getMessage(), e);
 			}

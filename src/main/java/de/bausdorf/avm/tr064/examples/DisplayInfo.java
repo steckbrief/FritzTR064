@@ -44,7 +44,10 @@ public class DisplayInfo {
 	static String user = null;
 	static String password = null;
 	
-	
+	private DisplayInfo() {
+		super();
+	}
+
 	public static void main(String[] args) throws  IOException, JAXBException{
 		if( args.length < 2 ) {
 			LOG.error("args: <fb-ip> <password> [user]");
@@ -66,6 +69,7 @@ public class DisplayInfo {
 		fcWithUser.printInfo();
 	}
 
+	@SuppressWarnings({ "squid:S106", "squid:CommentedOutCodeLine" })
 	private static void print(String msg) {
 //		LOG.info(msg);
 		System.out.println(msg);

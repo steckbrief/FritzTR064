@@ -17,7 +17,11 @@ public class Query064
 	static String serviceName = null;
 	static String actionName = null;
 	static HashMap<String, Object> params = null;
-	
+
+	private Query064() {
+		super();
+	}
+
 	public static void main(String[] args)
 	{
 		if( args.length < 5 ) {
@@ -34,7 +38,7 @@ public class Query064
 				String[] parts = args[i].split("=");
 				if( parts.length == 2 ) {
 					if( params == null ) {
-						params = new HashMap<String, Object>();
+						params = new HashMap<>();
 					}
 					try {
 						Integer ipart = Integer.parseInt(parts[1]);
@@ -73,7 +77,7 @@ public class Query064
 			//Execute the action without any In-Parameter.
 			Response response1 = action.execute(params);
 			for( String key : response1.getData().keySet() ) {
-				System.out.println(key + " = " + response1.getData().get(key));
+				LOG.info(key + " = " + response1.getData().get(key));
 			}
 		} catch (UnsupportedOperationException | IOException e) {
 			LOG.error(e.getLocalizedMessage(), e);

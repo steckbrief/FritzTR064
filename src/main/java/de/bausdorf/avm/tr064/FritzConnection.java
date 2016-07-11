@@ -83,7 +83,7 @@ public class FritzConnection {
 		targetHost = new HttpHost(address, port);
 		httpClient = HttpClients.createDefault();
 		context = HttpClientContext.create();
-		services = new HashMap<String,Service>();
+		services = new HashMap<>();
 	}
 	
 	public FritzConnection(String address){
@@ -102,7 +102,7 @@ public class FritzConnection {
 		this.pwd = pwd;
 	}
 
-	public void init(String scpdUrl) throws ClientProtocolException, IOException, JAXBException {
+	public void init(String scpdUrl) throws IOException, JAXBException {
 		if (user!=null && pwd!=null){
 			LOG.debug("try to connect to " + this.targetHost.getAddress() 
 					+ " with credentials " + this.user + "/" + this.pwd);
@@ -187,12 +187,13 @@ public class FritzConnection {
 	    finally{
 	    	if(response != null){
 	    		response.close();
-	    		if (response.getStatusLine().getStatusCode()!=200){
-	    			throw new IOException(response.getStatusLine().toString());
-	    		}
 	    	}
-			 
 	    }
+
+		if (response.getStatusLine().getStatusCode() != 200) {
+			throw new IOException(response.getStatusLine().toString());
+		}
+
 		if (content != null)
 			return new ByteArrayInputStream(content);
 		else
@@ -240,6 +241,7 @@ public class FritzConnection {
 		}
 	}
 
+	@SuppressWarnings({ "squid:S106", "squid:CommentedOutCodeLine" })
 	private void print(String msg) {
 //		LOG.info(msg);
 		System.out.println(msg);

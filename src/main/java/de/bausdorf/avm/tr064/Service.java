@@ -49,7 +49,7 @@ public class Service {
 	
 	public Service(ServiceDesc serviceXML, FritzConnection connection) throws IOException, JAXBException{
 		this.serviceXML = serviceXML;
-		actions = new HashMap<String,Action>();
+		actions = new HashMap<>();
 		
 		try (InputStream is = connection.getXMLIS(serviceXML.getScpdurl())){
 
@@ -63,7 +63,7 @@ public class Service {
 			InputStream  is = connection.getXMLIS(serviceXML.getScpdurl());
 			ObjectMapper mapper = new XmlMapper();
 			ScpdType2 scpd = mapper.readValue(is, ScpdType2.class);
-			LOG.debug(scpd.toString());
+			LOG.debug(scpd.toString(), e);
 			for (ActionType a : scpd.getActionList()){
 				
 				actions.put(a.getName(), new Action(a, scpd.getServiceStateTable(), connection, this.serviceXML));
@@ -79,7 +79,7 @@ public class Service {
 		return getActions().get(name);
 	}
 	
-	
+	@Override
 	public String toString(){
 		return serviceXML.getServiceType();
 	}

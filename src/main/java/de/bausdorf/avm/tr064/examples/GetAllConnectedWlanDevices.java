@@ -25,7 +25,6 @@ import java.util.HashMap;
 
 import javax.xml.bind.JAXBException;
 
-import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +39,10 @@ public class GetAllConnectedWlanDevices {
 	static String user = null;
 	static String password = null;
 	
-	
+	private GetAllConnectedWlanDevices() {
+		super();
+	}
+
 	public static void main(String[] args){
 		if( args.length < 2 ) {
 			LOG.error("args: <fb-ip> <password> [user]");
@@ -60,15 +62,9 @@ public class GetAllConnectedWlanDevices {
 			//The connection has to be initiated. This will load the tr64desc.xml respectively igddesc.xml 
 			//and all the defined Services and Actions. 
 			fc.init(null);
-		} catch (ClientProtocolException e2) {
-			//Any HTTP related error.
-			e2.printStackTrace();
-		} catch (IOException e2) {
+		} catch (IOException | JAXBException e2) {
 			//Any Network related error.
-			e2.printStackTrace();
-		} catch (JAXBException e2) {
-			//Any xml violation.
-			e2.printStackTrace();
+			LOG.error(e2.getMessage(), e2);
 		}
 		
 		for (int i = 1; i<=3 ;i++){
@@ -81,29 +77,28 @@ public class GetAllConnectedWlanDevices {
 				//Execute the action without any In-Parameter.
 				response1 = action.execute();
 			} catch (UnsupportedOperationException | IOException e1) {
-				
-				e1.printStackTrace();
+				LOG.error(e1.getMessage(), e1);
 			}
 			int deviceCount = -1;
 			try {
 				//Get the value from the field NewTotalAssociations as an integer. Values can have the Types: String, Integer, Boolean, DateTime and UUID
-				deviceCount = response1.getValueAsInteger("NewTotalAssociations");
+				if (response1 != null) {
+					deviceCount = response1.getValueAsInteger("NewTotalAssociations");
+				}
 			} catch (ClassCastException | NoSuchFieldException e) {
-				e.printStackTrace();
+				LOG.error(e.getMessage(), e);
 			}
 			LOG.info("WLAN " + i + ":" + deviceCount);
 			for (int j = 0; j < deviceCount; j++){
 				//Create a map for the arguments of an action. You have to do this, if the action has IN-Parameters.
-				HashMap <String, Object> arguments = new HashMap<String, Object>();
+				HashMap<String, Object> arguments = new HashMap<>();
 				//Set the argument NewAssociatedDeviceIndex to an integer value.
 				arguments.put("NewAssociatedDeviceIndex", j);
 				try {
 					Response response2 = fc.getService("WLANConfiguration:" + i).getAction("GetGenericAssociatedDeviceInfo").execute(arguments);
 					LOG.info("    " + response2.getData());
-				} catch (UnsupportedOperationException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
+				} catch (UnsupportedOperationException | IOException e) {
+					LOG.error(e.getMessage(), e);
 				}
 				
 			}
