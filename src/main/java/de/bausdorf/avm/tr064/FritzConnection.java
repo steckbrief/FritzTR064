@@ -116,7 +116,7 @@ public class FritzConnection {
 		}
 	}
 
-	private void readTR64(String scpdUrl) throws ClientProtocolException, IOException, ParseException {
+	private void readTR64(String scpdUrl) throws IOException, ParseException {
 		scpdUrl = scpdUrl == null ? FRITZ_TR64_DESC_FILE : scpdUrl;
 		InputStream xml = getXMLIS("/" + scpdUrl);
 
