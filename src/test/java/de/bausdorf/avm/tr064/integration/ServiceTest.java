@@ -2,8 +2,6 @@ package de.bausdorf.avm.tr064.integration;
 
 import java.io.IOException;
 
-import javax.xml.bind.JAXBException;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +39,7 @@ public class ServiceTest {
 			log.info("initialize connection ...");
 			fc.init(null);
 			log.info("... connection initialized");
-		} catch (IOException | JAXBException e) {
+		} catch (IOException e) {
 			//Any HTTP related error.
 			log.error(e.getMessage(), e);
 		}
