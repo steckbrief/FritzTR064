@@ -31,6 +31,7 @@ import org.xml.sax.SAXException;
 
 import de.bausdorf.avm.tr064.Action;
 import de.bausdorf.avm.tr064.FritzConnection;
+import de.bausdorf.avm.tr064.ParseException;
 import de.bausdorf.avm.tr064.Service;
 import de.bausdorf.avm.tr064.Response;
 
@@ -64,7 +65,7 @@ public class GetAllConnectedWlanDevices {
 			//and all the defined Services and Actions. 
 
 			fc.init(null);
-		} catch (IOException | JAXBException | SAXException e2) {
+		} catch (IOException | ParseException e2) {
 			//Any Network related error.
 			LOG.error(e2.getMessage(), e2);
 		}

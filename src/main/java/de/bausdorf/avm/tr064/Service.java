@@ -25,23 +25,20 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.bind.JAXBException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.SAXException;
 
 import de.bausdorf.avm.tr064.beans.ActionType;
 import de.bausdorf.avm.tr064.beans.ScpdType;
 import de.bausdorf.avm.tr064.beans.ServiceDesc;
 
 public class Service {
-	private static Logger LOG = LoggerFactory.getLogger(FritzConnection.class);
+	private static final Logger LOG = LoggerFactory.getLogger(FritzConnection.class);
 
 	private ServiceDesc serviceXML;
 	private Map<String, Action> actions;
 
-	public Service(ServiceDesc serviceXML, FritzConnection connection) throws IOException, JAXBException, SAXException {
+	public Service(ServiceDesc serviceXML, FritzConnection connection) throws IOException, ParseException {
 		this.serviceXML = serviceXML;
 		actions = new HashMap<String, Action>();
 
@@ -54,6 +51,7 @@ public class Service {
 				actions.put(a.getName(), new Action(a, scpd.getServiceStateTable(), connection, this.serviceXML));
 			}
 		} catch (Exception e) {
+			LOG.error(e.getMessage(), e);
 			InputStream is = connection.getXMLIS(serviceXML.getScpdurl());
 			ScpdType scpd = (ScpdType) JAXBUtilities.unmarshallInput(is);
 

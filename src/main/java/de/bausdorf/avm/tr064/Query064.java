@@ -3,11 +3,8 @@ package de.bausdorf.avm.tr064;
 import java.io.IOException;
 import java.util.HashMap;
 
-import javax.xml.bind.JAXBException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.SAXException;
 
 public class Query064
 {
@@ -58,7 +55,7 @@ public class Query064
 			//The connection has to be initiated. This will load the tr64desc.xml respectively igddesc.xml 
 			//and all the defined Services and Actions. 
 			fc.init(null);
-		} catch (IOException | JAXBException | SAXException e) {
+		} catch (IOException | ParseException e) {
 			LOG.error(e.getLocalizedMessage(), e);
 		}		
 

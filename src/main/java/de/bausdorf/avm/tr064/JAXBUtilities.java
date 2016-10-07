@@ -30,35 +30,36 @@ import de.bausdorf.avm.tr064.beans.StateVariableType;
  */
 public class JAXBUtilities {
 
-	public static JAXBContext getContext() throws JAXBException {
-		JAXBContext context = JAXBContext.newInstance(
-				RootType.class, 
-				ScpdType.class, 
-				ActionType.class,
-				AllowedValueRangeType.class, 
-				ArgumentType.class, 
-				DeviceDesc.class, 
-				ServiceDesc.class, 
-				IconType.class,
-				SpecVersionType.class, 
-				StateVariableType.class
+	public static JAXBContext getContext() throws ParseException {
+		try {
 
-		);
-		return context;
+			JAXBContext context = JAXBContext.newInstance(RootType.class, ScpdType.class, ActionType.class,
+					AllowedValueRangeType.class, ArgumentType.class, DeviceDesc.class, ServiceDesc.class,
+					IconType.class, SpecVersionType.class, StateVariableType.class
+
+			);
+			return context;
+		} catch (JAXBException e) {
+			throw new ParseException(e);
+		}
 	}
 
-	public static Object unmarshallInput(InputStream in) throws JAXBException, SAXException {
-		JAXBContext context = getContext();
-
-		javax.xml.bind.Unmarshaller um = context.createUnmarshaller();
-		XMLReader reader = XMLReaderFactory.createXMLReader();
-		NamespaceFilter inFilter = new NamespaceFilter(null, false);
-		inFilter.setParent(reader);
-		InputSource is = new InputSource(in);
-		SAXSource source = new SAXSource(inFilter, is);
-		return um.unmarshal(source);
+	public static Object unmarshallInput(InputStream in) throws ParseException {
+		try {
+			JAXBContext context = getContext();
+			javax.xml.bind.Unmarshaller um = context.createUnmarshaller();
+			XMLReader reader = XMLReaderFactory.createXMLReader();
+			NamespaceFilter inFilter = new NamespaceFilter(null, false);
+			inFilter.setParent(reader);
+			InputSource is = new InputSource(in);
+			SAXSource source = new SAXSource(inFilter, is);
+			return um.unmarshal(source);
+		} catch (SAXException | JAXBException e) {
+			throw new ParseException(e);
+		}
 	}
-	
-	// utility class 
-	private JAXBUtilities () {}
+
+	// utility class
+	private JAXBUtilities() {
+	}
 }
