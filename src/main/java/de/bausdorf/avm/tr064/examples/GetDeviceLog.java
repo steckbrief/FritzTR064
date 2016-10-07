@@ -21,7 +21,6 @@ package de.bausdorf.avm.tr064.examples;
  ***********************************************************************************************************************/
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.xml.bind.JAXBException;
 
@@ -34,13 +33,13 @@ import de.bausdorf.avm.tr064.FritzConnection;
 import de.bausdorf.avm.tr064.Service;
 import de.bausdorf.avm.tr064.Response;
 
-public class GetAllConnectedWlanDevices {
-	private static final Logger LOG = LoggerFactory.getLogger(GetAllConnectedWlanDevices.class);
+public class GetDeviceLog {
+	private static final Logger LOG = LoggerFactory.getLogger(GetDeviceLog.class);
 	static String ip = null;
 	static String user = null;
 	static String password = null;
-	
-	private GetAllConnectedWlanDevices() {
+
+	private GetDeviceLog() {
 		super();
 	}
 
@@ -56,59 +55,43 @@ public class GetAllConnectedWlanDevices {
 				user = args[2];
 			}
 		}
-			
+
 		//Create a new FritzConnection with username and password
 		FritzConnection fc = new FritzConnection(ip,user,password);
 		try {
 			//The connection has to be initiated. This will load the tr64desc.xml respectively igddesc.xml 
 			//and all the defined Services and Actions. 
-
 			fc.init(null);
 		} catch (IOException | JAXBException | SAXException e2) {
-			//Any Network related error.
+			//Any HTTP related error.
 			LOG.error(e2.getMessage(), e2);
 		}
-		
+
 		for (int i = 1; i<=3 ;i++){
 			//Get the Service. In this case WLANConfiguration:X 
-			Service service = fc.getService("WLANConfiguration:" + i);
+			Service service = fc.getService("DeviceInfo:" + i);
 			//Get the Action. in this case GetTotalAssociations
-			Action action = service.getAction("GetTotalAssociations");
+			Action action = service.getAction("GetDeviceLog");
 			Response response1 = null;
 			try {
 				//Execute the action without any In-Parameter.
 				response1 = action.execute();
+				if (response1 == null) {
+					return;
+				}
 			} catch (UnsupportedOperationException | IOException e1) {
 				LOG.error(e1.getMessage(), e1);
 			}
-			int deviceCount = -1;
+			String deviceLog = "";
 			try {
 				//Get the value from the field NewTotalAssociations as an integer. Values can have the Types: String, Integer, Boolean, DateTime and UUID
 				if (response1 != null) {
-					deviceCount = response1.getValueAsInteger("NewTotalAssociations");
+					deviceLog = response1.getValueAsString("NewDeviceLog");
 				}
 			} catch (ClassCastException | NoSuchFieldException e) {
 				LOG.error(e.getMessage(), e);
 			}
-			LOG.info("WLAN " + i + ":" + deviceCount);
-			for (int j = 0; j < deviceCount; j++){
-				//Create a map for the arguments of an action. You have to do this, if the action has IN-Parameters.
-				HashMap<String, Object> arguments = new HashMap<>();
-				//Set the argument NewAssociatedDeviceIndex to an integer value.
-				arguments.put("NewAssociatedDeviceIndex", j);
-				try {
-					Response response2 = fc.getService("WLANConfiguration:" + i).getAction("GetGenericAssociatedDeviceInfo").execute(arguments);
-					LOG.info("    " + response2.getData());
-				} catch (UnsupportedOperationException | IOException e) {
-					LOG.error(e.getMessage(), e);
-				}
-				
-			}
-			
+			LOG.info(deviceLog);
 		}
-			
-		
-		
-		
 	}
 }

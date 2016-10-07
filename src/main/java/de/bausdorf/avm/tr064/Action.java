@@ -65,23 +65,23 @@ public class Action {
 	public Action(ActionType action, List<StateVariableType> stateVariableList, FritzConnection connection,
 			ServiceDesc serviceXML) {
 		this.actionXML = action;
-		stateToType = new HashMap<String, Class<?>>();
-		argumentOut = new HashMap<String, Boolean>();
-		argumentState = new HashMap<String, String>();
+		stateToType = new HashMap<>();
+		argumentOut = new HashMap<>();
+		argumentState = new HashMap<>();
 		name = actionXML.getName();
 		this.connection = connection;
 		this.serviceXML = serviceXML;
 		for (StateVariableType s : stateVariableList) {
 			Class<?> type = null;
-			if (s.getDataType().equals("string"))
+			if ("string".equals(s.getDataType()))
 				type = String.class;
 			else if (s.getDataType().startsWith("ui") || s.getDataType().startsWith("i"))
 				type = Integer.class;
-			else if (s.getDataType().equals("boolean"))
+			else if ("boolean".equals(s.getDataType()))
 				type = Boolean.class;
-			else if (s.getDataType().equals("dateTime"))
+			else if ("dateTime".equals(s.getDataType()))
 				type = Date.class;
-			else if (s.getDataType().equals("uuid"))
+			else if ("uuid".equals(s.getDataType()))
 				type = UUID.class;
 			else {
 				LOGGER.error("UNKNOWNE TYPE: {} {} {}", s.getDataType(), s.getName(), actionXML.getName());
@@ -90,20 +90,22 @@ public class Action {
 		}
 		if (actionXML.getArgumentList() != null)
 			for (ArgumentType a : actionXML.getArgumentList()) {
-				String name = a.getName();
-				argumentOut.put(name, a.getDirection().equals("out"));
-				argumentState.put(name, a.getRelatedStateVariable());
+				String aname = a.getName();
+				argumentOut.put(aname, "out".equals(a.getDirection()));
+				argumentState.put(aname, a.getRelatedStateVariable());
 			}
 	}
 
+	@Override
 	public String toString() {
-		String ret = getName() + ":";
-		for (String argument : argumentOut.keySet()) {
-			ret += " " + argument + (argumentOut.get(argument) ? " out" : " in") + " "
-					+ stateToType.get(argumentState.get(argument)).getName();
+		StringBuilder ret = new StringBuilder(getName() + ":");
+		for (Map.Entry<String, Boolean> entry : argumentOut.entrySet()) {
+			ret.append(" ").append(entry.getKey());
+			ret.append(entry.getValue() ? " out" : " in");
+			ret.append(" ").append(stateToType.get(argumentState.get(entry.getKey())).getName());
 		}
 
-		return ret;
+		return ret.toString();
 	}
 
 	public String getName() {
@@ -114,31 +116,33 @@ public class Action {
 		return argumentOut.keySet();
 	}
 
-	public boolean isOut(String argument) throws UnsupportedOperationException {
+	public boolean isOut(String argument) {
 		if (!argumentOut.containsKey(argument))
 			throw new UnsupportedOperationException(argument);
 		return argumentOut.get(argument);
 	}
 
-	public boolean isIn(String argument) throws UnsupportedOperationException {
+	public boolean isIn(String argument) {
 		return !isOut(argument);
 	}
 
-	public Class<?> getTypeOfArgument(String argument) throws UnsupportedOperationException {
+	public Class<?> getTypeOfArgument(String argument) {
 		if (!argumentOut.containsKey(argument))
 			throw new UnsupportedOperationException(argument);
 		return stateToType.get(argumentState.get(argument));
 	}
 
-	public Response execute() throws UnsupportedOperationException, IOException {
+	public Response execute() throws IOException {
 		return this.execute(null);
 	}
 
-	public Response execute(Map<String, Object> arguments) throws UnsupportedOperationException, IOException {
-		Set<String> inArguments = new HashSet<String>();
-		for (String a : argumentOut.keySet())
-			if (!argumentOut.get(a))
-				inArguments.add(a);
+	public Response execute(Map<String, Object> arguments) throws IOException {
+		Set<String> inArguments = new HashSet<>();
+		for (Map.Entry<String, Boolean> entry : argumentOut.entrySet()) {
+			if (!entry.getValue()) {
+				inArguments.add(entry.getKey());
+			}
+		}
 		if (arguments != null) {
 			for (String a : arguments.keySet()) {
 				Object parameter = arguments.get(a);
@@ -151,7 +155,7 @@ public class Action {
 						parameter = Class.forName(this.getTypeOfArgument(a).getName()).cast(parameter);
 					} catch (Exception e) {
 						throw new UnsupportedOperationException(a + " has to be " + this.getTypeOfArgument(a)
-								+ ". Cast not posible: " + e.getMessage());
+								+ ". Cast not posible: " + e.getMessage(), e);
 					}
 
 				}
@@ -159,9 +163,9 @@ public class Action {
 			}
 
 		}
-		if (inArguments.size() > 0)
+		if (!inArguments.isEmpty())
 			throw new UnsupportedOperationException("Missing In-Arguments: " + inArguments);
-		HttpEntity httpEntity = null;
+		HttpEntity httpEntity;
 		String message = null;
 		try {
 			MessageFactory factory = MessageFactory.newInstance();
@@ -172,9 +176,10 @@ public class Action {
 			envelope.setEncodingStyle("http://schemas.xmlsoap.org/soap/encoding/");
 			SOAPBodyElement element = body.addBodyElement(envelope.createName(this.name, "u",
 					serviceXML.getServiceType()));
-			if (arguments != null)
-			for (String key : arguments.keySet()) {
-				element.addChildElement(key).addTextNode(valueToSOAPString(key, arguments.get(key)));
+			if (arguments != null) {
+				for (String key : arguments.keySet()) {
+					element.addChildElement(key).addTextNode(valueToSOAPString(key, arguments.get(key)));
+				}
 			}
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
 			soapMsg.writeTo(stream);
@@ -205,7 +210,7 @@ public class Action {
 
 		else if (classOfValue == Integer.class) {
 			int tmp = (Integer) value;
-			ret  = "" + tmp;
+			ret = Integer.toString(tmp);
 
 		}
 
@@ -232,7 +237,7 @@ public class Action {
 
 	private Response getMessage(InputStream soapxmlis) throws IOException {
 		SOAPMessage response = null;
-		Response ret = null;
+		Response ret;
 
 		try {
 			response = MessageFactory.newInstance().createMessage(null, soapxmlis);

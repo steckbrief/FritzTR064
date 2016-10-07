@@ -45,7 +45,10 @@ public class DisplayInfo {
 	static String user = null;
 	static String password = null;
 	
-	
+	private DisplayInfo() {
+		super();
+	}
+
 	public static void main(String[] args) throws  IOException, JAXBException, SAXException{
 		if( args.length < 2 ) {
 			LOG.error("args: <fb-ip> <password> [user]");
@@ -59,14 +62,15 @@ public class DisplayInfo {
 			}
 		}
 		FritzConnection fcWithoutUser = new FritzConnection(ip);
-		fcWithoutUser.init();
+		fcWithoutUser.init(null);
 		fcWithoutUser.printInfo();
 		print("##################################################################");
 		FritzConnection fcWithUser = new FritzConnection(ip,user,password);
-		fcWithUser.init();
+		fcWithUser.init(null);
 		fcWithUser.printInfo();
 	}
 
+	@SuppressWarnings({ "squid:S106", "squid:CommentedOutCodeLine" })
 	private static void print(String msg) {
 //		LOG.info(msg);
 		System.out.println(msg);

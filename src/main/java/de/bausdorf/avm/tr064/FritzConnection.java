@@ -79,7 +79,7 @@ public class FritzConnection {
 		targetHost = new HttpHost(address, port);
 		httpClient = HttpClients.createDefault();
 		context = HttpClientContext.create();
-		services = new HashMap<String,Service>();
+		services = new HashMap<>();
 	}
 	
 	public FritzConnection(String address){
@@ -97,7 +97,8 @@ public class FritzConnection {
 		this.user = user;
 		this.pwd = pwd;
 	}
-	public void init() throws ClientProtocolException, IOException, JAXBException, SAXException{
+
+	public void init(String scpdUrl) throws IOException, JAXBException, SAXException {
 		if (user!=null && pwd!=null){
 			LOG.debug("try to connect to " + this.targetHost.getAddress() 
 					+ " with credentials " + this.user + "/" + this.pwd);
@@ -114,23 +115,25 @@ public class FritzConnection {
 		    authCache.put(targetHost, digestScheme);
 		    context.setCredentialsProvider(credsProvider);
 		    context.setAuthCache(authCache);
-		    readTR64();
+			readTR64(scpdUrl);
 		}
-		else
+		else {
+			LOG.debug("read igddesc, because credentials are " + this.user + "/" + this.pwd);
 			readIGDDESC();
-		
+		}
 	}
-	private void readTR64() throws ClientProtocolException, IOException, JAXBException, SAXException{
-		InputStream xml = getXMLIS("/" + FRITZ_TR64_DESC_FILE);
+private void readTR64(String scpdUrl) throws ClientProtocolException, IOException, JAXBException, SAXException {
+		scpdUrl = scpdUrl == null ? FRITZ_TR64_DESC_FILE : scpdUrl;
+		InputStream xml = getXMLIS("/" + scpdUrl);
 
 		RootType root =  (RootType) JAXBUtilities.unmarshallInput(xml);
-
-	
 		LOG.debug(root.toString());
 		DeviceDesc device = root.getDevice();
 		name = device.getFriendlyName();
 		getServicesFromDevice(device);
 	}
+
+
 	private void readIGDDESC() throws IOException {
 		InputStream xml = getXMLIS("/" + FRITZ_IGD_DESC_FILE);
 		try
@@ -161,7 +164,7 @@ public class FritzConnection {
 		for (ServiceDesc sT : device.getServiceList()){
 			String[] tmp = sT.getServiceType().split(":"); 
 			String key = tmp[tmp.length-2] + ":" + tmp[tmp.length-1];
-			
+			LOG.debug("adding service " + key + " to inventory");
 			services.put(key, new Service(sT, this));
 		}
 		if (device.getDeviceList()!= null)
@@ -186,12 +189,13 @@ public class FritzConnection {
 	    finally{
 	    	if(response != null){
 	    		response.close();
-	    		if (response.getStatusLine().getStatusCode()!=200){
-	    			throw new IOException(response.getStatusLine().toString());
-	    		}
 	    	}
-			 
 	    }
+
+		if (response.getStatusLine().getStatusCode() != 200) {
+			throw new IOException(response.getStatusLine().toString());
+		}
+
 		if (content != null)
 			return new ByteArrayInputStream(content);
 		else
@@ -239,6 +243,7 @@ public class FritzConnection {
 		}
 	}
 
+	@SuppressWarnings({ "squid:S106", "squid:CommentedOutCodeLine" })
 	private void print(String msg) {
 //		LOG.info(msg);
 		System.out.println(msg);

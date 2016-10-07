@@ -59,7 +59,6 @@ public class Service {
 
 			LOG.debug("scpd {}", scpd.toString());
 			for (ActionType a : scpd.getActionList()) {
-
 				actions.put(a.getName(), new Action(a, scpd.getServiceStateTable(), connection, this.serviceXML));
 			}
 		}
@@ -73,8 +72,8 @@ public class Service {
 	public Action getAction(String name) {
 		return getActions().get(name);
 	}
-
-	public String toString() {
+	@Override
+	public String toString(){
 		return serviceXML.getServiceType();
 	}
 }

@@ -44,14 +44,14 @@ public class Response {
 		this.response = response;
 		this.stateToType = stateToType;
 		this.argumentState = argumentState;
-		this.data = new HashMap<String, String>();
+		this.data = new HashMap<>();
 
 		NodeList nodes = null;
 		NodeList tmp = null;
 		try {
 			tmp = response.getSOAPBody().getChildNodes();
 			for (int i = 1; i < tmp.getLength() && nodes == null; i++) {
-				if (tmp.item(i).getNodeName().equals("#text"))
+				if ("#text".equals(tmp.item(i).getNodeName()))
 					continue;
 				nodes = tmp.item(i).getChildNodes();
 			}
@@ -59,12 +59,13 @@ public class Response {
 			throw e;
 		}
 
-		for (int i = 1; i < nodes.getLength(); i++) {
-			if (nodes.item(i).getNodeName().equals("#text"))
-				continue;
-			data.put(nodes.item(i).getNodeName(), nodes.item(i).getTextContent());
+		if (nodes != null) {
+			for (int i = 1; i < nodes.getLength(); i++) {
+				if ("#text".equals(nodes.item(i).getNodeName()))
+					continue;
+				data.put(nodes.item(i).getNodeName(), nodes.item(i).getTextContent());
+			}
 		}
-
 	}
 
 	public SOAPMessage getSOAPMessage() {
@@ -104,11 +105,11 @@ public class Response {
 		if (stateToType.get(argumentState.get(argument)) != Boolean.class)
 			throw new ClassCastException(argument);
 
-		boolean ret = false;
+		boolean ret;
 
-		if (data.get(argument).equals("1") || data.get(argument).equalsIgnoreCase("true"))
+		if ("1".equals(data.get(argument)) || "true".equalsIgnoreCase(data.get(argument)))
 			ret = true;
-		else if (data.get(argument).equals("0") || data.get(argument).equalsIgnoreCase("false"))
+		else if ("0".equals(data.get(argument)) || "false".equalsIgnoreCase(data.get(argument)))
 			ret = false;
 		else
 			throw new ClassCastException(argument);
@@ -134,21 +135,13 @@ public class Response {
 		return ret;
 	}
 
-	public UUID getValueAsUUID(String argument) throws ClassCastException, NoSuchFieldException {
+	public UUID getValueAsUUID(String argument) throws NoSuchFieldException {
 		if (!argumentState.containsKey(argument) || !data.containsKey(argument))
 			throw new NoSuchFieldException(argument);
 		if (stateToType.get(argumentState.get(argument)) != UUID.class)
 			throw new ClassCastException(argument);
-		UUID ret = null;
 		
-		try{
-			ret = UUID.fromString(data.get(argument));
-		} catch (IllegalArgumentException e) {
-			throw new ClassCastException(argument + " " + e.getMessage());
-		}
-		
-		
-		return ret;
+		return UUID.fromString(data.get(argument));
 	}
 
 }
