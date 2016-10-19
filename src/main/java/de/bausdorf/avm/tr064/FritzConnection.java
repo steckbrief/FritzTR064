@@ -33,7 +33,6 @@ import org.apache.http.HttpRequest;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.AuthCache;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -165,6 +164,7 @@ public class FritzConnection {
 		try (CloseableHttpResponse response = httpClient.execute(target, request, context)) {
 			LOG.debug("got response " + response.getStatusLine());
 			content = EntityUtils.toByteArray(response.getEntity());
+			EntityUtils.consume(response.getEntity());
 			LOG.debug("got content: " + new String(content));
 			if (response.getStatusLine().getStatusCode() != 200) {
 				throw new IOException(response.getStatusLine().toString());
