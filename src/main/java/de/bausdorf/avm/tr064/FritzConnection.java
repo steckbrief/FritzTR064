@@ -207,7 +207,7 @@ public class FritzConnection {
 				return new ByteArrayInputStream(new byte[0]);
 			}
 		} catch (IOException e) {
-			LOG.error(e.getLocalizedMessage(), e);
+			LOG.error(e.getLocalizedMessage());
 			throw e;
 		}
 
