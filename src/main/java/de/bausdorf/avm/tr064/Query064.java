@@ -1,6 +1,9 @@
 package de.bausdorf.avm.tr064;
 
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -20,8 +23,7 @@ public class Query064
 		super();
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
 		if( args.length < 5 ) {
 			LOG.error("args: <fb-ip> <password> <user> <service> <action> *[key=value]");
 			System.exit(1);

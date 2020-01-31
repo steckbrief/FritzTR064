@@ -21,6 +21,9 @@ package de.bausdorf.avm.tr064.examples;
  ***********************************************************************************************************************/
 
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +44,7 @@ public class GetDeviceLog {
 		super();
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
 		if( args.length < 2 ) {
 			LOG.error("args: <fb-ip> <password> [user]");
 			System.exit(1);

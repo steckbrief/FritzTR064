@@ -23,6 +23,9 @@ package de.bausdorf.avm.tr064;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -38,12 +41,21 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.config.Registry;
+import org.apache.http.config.RegistryBuilder;
+import org.apache.http.conn.socket.ConnectionSocketFactory;
+import org.apache.http.conn.socket.PlainConnectionSocketFactory;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.auth.DigestScheme;
 import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.protocol.HttpContext;
+import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,10 +64,13 @@ import de.bausdorf.avm.tr064.beans.DeviceDesc;
 import de.bausdorf.avm.tr064.beans.RootType;
 import de.bausdorf.avm.tr064.beans.ServiceDesc;
 
+import javax.net.ssl.SSLContext;
+
 public class FritzConnection {
 	private static final Logger LOG = LoggerFactory.getLogger(FritzConnection.class);
 
-	private static final int DEFAULT_PORT = 49000;
+	private static final int DEFAULT_HTTPS_PORT = 49443;
+	private static final String SCHEME_HTTPS = "https";
 	private static final String FRITZ_IGD_DESC_FILE = "igddesc.xml";
 	private static final String FRITZ_TR64_DESC_FILE = "tr64desc.xml";
 
@@ -68,32 +83,48 @@ public class FritzConnection {
 
 	private String name;
 
-	FritzConnection(String address, int port) {
-
-		targetHost = new HttpHost(address, port);
-		httpClient = HttpClients.createDefault();
+	public FritzConnection(String scheme, String address, int port) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+		targetHost = new HttpHost(address, port, scheme);
+		httpClient = newClient();
 		context = HttpClientContext.create();
 		services = new HashMap<>();
 	}
 
-	public FritzConnection(String address) {
-		this(address, DEFAULT_PORT);
+	public FritzConnection(String address) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+		this(SCHEME_HTTPS, address, DEFAULT_HTTPS_PORT);
 	}
 
-	public FritzConnection(String address, int port, String user, String pwd) {
-		this(address, port);
+	public FritzConnection(String scheme, String address, int port, String user, String pwd) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+		this(scheme, address, port);
 		this.user = user;
 		this.pwd = pwd;
 	}
 
-	public FritzConnection(String address, String user, String pwd) {
+	public FritzConnection(String address, String user, String pwd) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
 		this(address);
 		this.user = user;
 		this.pwd = pwd;
 	}
 
+	private CloseableHttpClient newClient() throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
+		SSLContext context = SSLContexts.custom()
+				.loadTrustMaterial(TrustSelfSignedStrategy.INSTANCE)
+				.build();
+
+		Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory> create()
+				.register("http", PlainConnectionSocketFactory.INSTANCE)
+				.register("https", new SSLConnectionSocketFactory(context, NoopHostnameVerifier.INSTANCE))
+				.build();
+
+		PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(registry);
+
+		return HttpClients.custom()
+				.setConnectionManager(connectionManager)
+				.build();
+	}
+
 	public void init(String scpdUrl) throws IOException, ParseException {
-		if (user != null && pwd != null) {
+		if (pwd != null) {
 			LOG.debug("try to connect to " + this.targetHost.getAddress() + " with credentials " + this.user + "/"
 					+ this.pwd);
 			CredentialsProvider credsProvider = new BasicCredentialsProvider();
@@ -143,7 +174,7 @@ public class FritzConnection {
 	private void getServicesFromDevice(DeviceDesc device) throws IOException, ParseException {
 
 		for (Object sT : device.getServiceList()) {
-			LOG.info("Service {} {}", sT, sT.getClass().getName());
+			LOG.debug("Service {} {}", sT, sT.getClass().getName());
 		}
 
 		for (ServiceDesc sT : device.getServiceList()) {
@@ -182,7 +213,7 @@ public class FritzConnection {
 
 	}
 
-	protected InputStream getXMLIS(String fileName) throws IOException {
+	public InputStream getXMLIS(String fileName) throws IOException {
 		HttpGet httpget = new HttpGet(fileName);
 		return httpRequest(targetHost, httpget, context);
 
