@@ -189,7 +189,7 @@ public class FritzConnection {
 			}
 	}
 
-	private InputStream httpRequest(HttpHost target, HttpRequest request, HttpContext context) throws IOException {
+	synchronized private InputStream httpRequest(HttpHost target, HttpRequest request, HttpContext context) throws IOException {
 		byte[] content = null;
 		LOG.debug("try to request " + request.getRequestLine() + " from " + target.toURI());
 		try (CloseableHttpResponse response = httpClient.execute(target, request, context)) {
