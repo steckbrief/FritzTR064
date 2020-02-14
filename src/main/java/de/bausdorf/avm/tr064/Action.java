@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPBody;
@@ -130,6 +131,21 @@ public class Action {
 		if (!argumentOut.containsKey(argument))
 			throw new UnsupportedOperationException(argument);
 		return stateToType.get(argumentState.get(argument));
+	}
+
+	public CompletableFuture<Response> executeAsync() {
+		return executeAsync(null);
+	}
+
+	public CompletableFuture<Response> executeAsync(Map<String, Object> arguments) {
+		return CompletableFuture.supplyAsync(() -> {
+			try {
+				Response result = execute(arguments);
+				return result;
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
 	}
 
 	public Response execute() throws IOException {
