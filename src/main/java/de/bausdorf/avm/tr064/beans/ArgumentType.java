@@ -1,4 +1,4 @@
-/***********************************************************************************************************************
+/* *********************************************************************************************************************
  *
  * javaAVMTR064 - open source Java TR-064 API
  *===========================================
@@ -32,7 +32,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
- * <p>Java-Klasse für argumentType complex type.
+ * <p>Java-Klasse fï¿½r argumentType complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
@@ -149,7 +149,7 @@ public class ArgumentType {
 		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
 				.append("name", this.name)
 				.append("direction", this.direction)
-				.append("relatedstateVariable", this.relatedStateVariable)
+				.append("relatedStateVariable", this.relatedStateVariable)
 				.toString();
 	}
 

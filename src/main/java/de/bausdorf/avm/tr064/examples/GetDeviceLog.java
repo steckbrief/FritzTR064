@@ -1,11 +1,10 @@
-package de.bausdorf.avm.tr064.examples;
-/***********************************************************************************************************************
+/* *********************************************************************************************************************
  *
  * javaAVMTR064 - open source Java TR-064 API
  *===========================================
  *
  * Copyright 2015 Marin Pollmann <pollmann.m@gmail.com>
- * 
+ *
  *
  ***********************************************************************************************************************
  *
@@ -19,6 +18,7 @@ package de.bausdorf.avm.tr064.examples;
  * specific language governing permissions and limitations under the License.
  *
  ***********************************************************************************************************************/
+package de.bausdorf.avm.tr064.examples;
 
 import java.io.IOException;
 import java.security.KeyManagementException;

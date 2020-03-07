@@ -1,4 +1,4 @@
-/***********************************************************************************************************************
+/* *********************************************************************************************************************
  *
  * javaAVMTR064 - open source Java TR-064 API
  *===========================================
@@ -158,7 +158,7 @@ public class StateVariableType {
 	public List<String> getAllowedValueList()
 	{
 		if( this.allowedValueList == null ) {
-			this.allowedValueList = new ArrayList<String>();
+			this.allowedValueList = new ArrayList<>();
 		}
 		return allowedValueList;
 	}

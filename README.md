@@ -24,13 +24,13 @@ The above query feature is intended only for testing / toying.
 ## Examples
 Get all the possible Actions:
 
-```java
+```
 FritzConnection fc = new FritzConnection("192.168.1.1","<username>","<password>");
 fc.init();
 fc.printInfo();
 ```
 The next Example shows how you can get the number of connected Wlan Devices:
-```java
+```
 FritzConnection fc = new FritzConnection("192.168.1.1","<username>","<password>");
 fc.init();
 Service service = fc.getService("WLANConfiguration:1");
@@ -41,7 +41,7 @@ int deviceCount = response.getValueAsInteger("NewTotalAssociations");
 ```
 For more examples see: [The Example Folder](https://github.com/robbyb/FritzTR064/tree/master/examples)
 
-## Resorces
+## Resources
 * [AVM API Description](http://avm.de/service/schnittstellen/) (German)
 * [Examples](https://github.com/mirthas/FritzTR064/tree/master/examples)
 

@@ -1,4 +1,4 @@
-/***********************************************************************************************************************
+/* *********************************************************************************************************************
  *
  * javaAVMTR064 - open source Java TR-064 API
  *===========================================
@@ -34,10 +34,10 @@ import org.w3c.dom.NodeList;
 
 public class Response {
 
-	private SOAPMessage response;
-	private Map<String, Class<?>> stateToType;
-	private Map<String, String> argumentState;
-	private Map<String, String> data;
+	private final SOAPMessage response;
+	private final Map<String, Class<?>> stateToType;
+	private final Map<String, String> argumentState;
+	private final Map<String, String> data;
 
 	public Response(SOAPMessage response, Map<String, Class<?>> stateToType, Map<String, String> argumentState)
 			throws SOAPException {
@@ -47,16 +47,11 @@ public class Response {
 		this.data = new HashMap<>();
 
 		NodeList nodes = null;
-		NodeList tmp = null;
-		try {
-			tmp = response.getSOAPBody().getChildNodes();
-			for (int i = 1; i < tmp.getLength() && nodes == null; i++) {
-				if ("#text".equals(tmp.item(i).getNodeName()))
-					continue;
-				nodes = tmp.item(i).getChildNodes();
-			}
-		} catch (SOAPException e) {
-			throw e;
+		NodeList tmp = response.getSOAPBody().getChildNodes();
+		for (int i = 1; i < tmp.getLength() && nodes == null; i++) {
+			if ("#text".equals(tmp.item(i).getNodeName()))
+				continue;
+			nodes = tmp.item(i).getChildNodes();
 		}
 
 		if (nodes != null) {
@@ -88,8 +83,7 @@ public class Response {
 		if (stateToType.get(argumentState.get(argument)) != Integer.class)
 			throw new ClassCastException(argument);
 
-		int ret = -1;
-
+		int ret;
 		try {
 			ret = Integer.parseInt(data.get(argument));
 		} catch (NumberFormatException e) {
@@ -124,8 +118,8 @@ public class Response {
 			throw new ClassCastException(argument);
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
-		Date ret = null;
 
+		Date ret;
 		try {
 			ret = dateFormat.parse(data.get(argument));
 		} catch (ParseException e) {

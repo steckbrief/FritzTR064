@@ -1,27 +1,24 @@
 package de.bausdorf.avm.tr064.beans;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.io.InputStream;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.transform.sax.SAXSource;
-
+import de.bausdorf.avm.tr064.JAXBUtilities;
+import de.bausdorf.avm.tr064.NamespaceFilter;
+import de.bausdorf.avm.tr064.ParseException;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLReaderFactory;
 
-import de.bausdorf.avm.tr064.JAXBUtilities;
-import de.bausdorf.avm.tr064.NamespaceFilter;
-import de.bausdorf.avm.tr064.ParseException;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.sax.SAXSource;
+import java.io.InputStream;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class XmlMappingTest {
 	private static final String ROOT_TEST_XML = "rootTest.xml";
@@ -31,29 +28,25 @@ public class XmlMappingTest {
 	private static final String IGDICFG_SCPD_TEST_XML = "igdicfgSCPD_test.xml";
 	private static final Logger LOG = LoggerFactory.getLogger(XmlMappingTest.class);
 
-	private Object unmarshallInput(InputStream in) throws ParseException {
+	private Object unmarshalInput(InputStream in) throws ParseException {
 		JAXBContext context = JAXBUtilities.getContext();
 
 		try {
 			javax.xml.bind.Unmarshaller um = context.createUnmarshaller();
 
-			XMLReader reader = XMLReaderFactory.createXMLReader();
+			XMLReader reader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
 			NamespaceFilter inFilter = new NamespaceFilter(null, false);
 			inFilter.setParent(reader);
 			InputSource is = new InputSource(in);
 			SAXSource source = new SAXSource(inFilter, is);
 
-			um.setEventHandler(new ValidationEventHandler() {
-
-				@Override
-				public boolean handleEvent(ValidationEvent event) {
-					LOG.error("ERROR {}", event);
-					fail("cant unmarshal given input");
-					return true;
-				}
+			um.setEventHandler(event -> {
+				LOG.error("ERROR {}", event);
+				fail("cant unmarshal given input");
+				return true;
 			});
 			return um.unmarshal(source);
-		} catch (JAXBException | SAXException e) {
+		} catch (JAXBException | SAXException | ParserConfigurationException e) {
 			throw new ParseException(e);
 		}
 
@@ -68,7 +61,7 @@ public class XmlMappingTest {
 			InputStream xml = ClassLoader.getSystemResourceAsStream(ROOT_TEST_XML);
 			LOG.info("xml {}", xml);
 
-			RootType root = (RootType) unmarshallInput(xml);
+			RootType root = (RootType) unmarshalInput(xml);
 
 			assertEquals(root.getSpecVersion().getMajor(), 1);
 			assertEquals(root.getDevice().getServiceList().size(), 15);
@@ -94,7 +87,7 @@ public class XmlMappingTest {
 			LOG.info("testing " + IGD_DESC_TEST_XML);
 			igdDescIS = ClassLoader.getSystemResourceAsStream(IGD_DESC_TEST_XML);
 
-			RootType root = (RootType) unmarshallInput(igdDescIS);
+			RootType root = (RootType) unmarshalInput(igdDescIS);
 
 			assertEquals(root.getSpecVersion().getMajor(), 1);
 			assertEquals(root.getDevice().getServiceList().size(), 1);
@@ -112,7 +105,7 @@ public class XmlMappingTest {
 		try {
 			LOG.info("testing " + ANY_TEST_XML);
 			anyIS = ClassLoader.getSystemResourceAsStream(ANY_TEST_XML);
-			ScpdType root = (ScpdType) unmarshallInput(anyIS);
+			ScpdType root = (ScpdType) unmarshalInput(anyIS);
 			assertEquals(root.getServiceStateTable().size(), 1);
 
 
@@ -128,7 +121,7 @@ public class XmlMappingTest {
 		try {
 			LOG.info("testing " + SCPD_TEST_XML);
 			anyIS = ClassLoader.getSystemResourceAsStream(SCPD_TEST_XML);
-			ScpdType scpd = (ScpdType) unmarshallInput(anyIS);
+			ScpdType scpd = (ScpdType) unmarshalInput(anyIS);
 
 			for (Object o : scpd.getServiceStateTable()) {
 				if (!(o instanceof StateVariableType)) {
@@ -149,7 +142,7 @@ public class XmlMappingTest {
 		try {
 			LOG.info("testing " + IGDICFG_SCPD_TEST_XML);
 			igdicfgIS = ClassLoader.getSystemResourceAsStream(IGDICFG_SCPD_TEST_XML);
-			ScpdType root = (ScpdType) unmarshallInput(igdicfgIS);
+			ScpdType root = (ScpdType) unmarshalInput(igdicfgIS);
 			assertEquals(root.getActionList().size(), 6);
 
 

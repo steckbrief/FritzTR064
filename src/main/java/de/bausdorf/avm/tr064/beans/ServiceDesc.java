@@ -1,4 +1,4 @@
-/***********************************************************************************************************************
+/* *********************************************************************************************************************
  *
  * javaAVMTR064 - open source Java TR-064 API
  *===========================================
@@ -32,7 +32,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
- * <p>Java-Klasse für serviceType complex type.
+ * <p>Java-Klasse fï¿½r serviceType complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 

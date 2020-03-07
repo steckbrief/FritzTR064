@@ -1,4 +1,4 @@
-/***********************************************************************************************************************
+/* *********************************************************************************************************************
  *
  * javaAVMTR064 - open source Java TR-064 API
  *===========================================
@@ -35,16 +35,16 @@ import de.bausdorf.avm.tr064.beans.ServiceDesc;
 public class Service {
 	private static final Logger LOG = LoggerFactory.getLogger(FritzConnection.class);
 
-	private ServiceDesc serviceXML;
-	private Map<String, Action> actions;
+	private final ServiceDesc serviceXML;
+	private final Map<String, Action> actions;
 
 	public Service(ServiceDesc serviceXML, FritzConnection connection) throws IOException, ParseException, UnauthorizedException {
 		this.serviceXML = serviceXML;
-		actions = new HashMap<String, Action>();
+		actions = new HashMap<>();
 
 		try (InputStream is = connection.getXMLIS(serviceXML.getScpdurl())) {
 
-			ScpdType scpd = (ScpdType) JAXBUtilities.unmarshallInput(is);
+			ScpdType scpd = (ScpdType) JAXBUtilities.unmarshalInput(is);
 
 			LOG.debug(scpd.toString());
 			for (ActionType a : scpd.getActionList()) {
@@ -53,7 +53,7 @@ public class Service {
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
 			InputStream is = connection.getXMLIS(serviceXML.getScpdurl());
-			ScpdType scpd = (ScpdType) JAXBUtilities.unmarshallInput(is);
+			ScpdType scpd = (ScpdType) JAXBUtilities.unmarshalInput(is);
 
 			LOG.debug("scpd {}", scpd.toString());
 			for (ActionType a : scpd.getActionList()) {

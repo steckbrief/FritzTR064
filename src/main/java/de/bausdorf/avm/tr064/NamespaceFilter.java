@@ -11,8 +11,8 @@ import org.xml.sax.helpers.XMLFilterImpl;
  */
 public class NamespaceFilter extends XMLFilterImpl {
 
-    private String usedNamespaceUri;
-    private boolean addNamespace;
+    private final String usedNamespaceUri;
+    private final boolean addNamespace;
 
     //State variable
     private boolean addedNamespace = false;
@@ -73,7 +73,7 @@ public class NamespaceFilter extends XMLFilterImpl {
             //We should add namespace since it is set and has not yet been done.
             super.startPrefixMapping("", this.usedNamespaceUri);
 
-            //Make sure we dont do it twice
+            //Make sure we don't do it twice
             this.addedNamespace = true;
         }
     }

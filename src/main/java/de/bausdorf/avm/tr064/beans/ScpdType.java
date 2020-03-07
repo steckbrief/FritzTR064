@@ -1,4 +1,4 @@
-/***********************************************************************************************************************
+/* *********************************************************************************************************************
  *
  * javaAVMTR064 - open source Java TR-064 API
  *===========================================
@@ -35,7 +35,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * <p>Java-Klasse für scpdType complex type.
+ * <p>Java-Klasse fï¿½r scpdType complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
@@ -105,13 +105,13 @@ public class ScpdType
 	 * 
 	 * @return
 	 *     possible object is
-	 *     {@link ServiceStateTableType }
+	 *     {@link StateVariableType }
 	 *     
 	 */
 	public List<StateVariableType> getServiceStateTable()
 	{
     	if( this.serviceStateTable == null ) {
-    		this.serviceStateTable = new ArrayList<StateVariableType>();
+    		this.serviceStateTable = new ArrayList<>();
     	}
 		return serviceStateTable;
 	}
@@ -121,7 +121,7 @@ public class ScpdType
 	 * 
 	 * @param value
 	 *     allowed object is
-	 *     {@link ServiceStateTableType }
+	 *     {@link StateVariableType }
 	 *     
 	 */
 	public void setServiceStateTable(List<StateVariableType> value)
@@ -135,7 +135,7 @@ public class ScpdType
 	public List<ActionType> getActionList()
 	{
     	if( this.actionList == null ) {
-    		this.actionList = new ArrayList<ActionType>();
+    		this.actionList = new ArrayList<>();
     	}
 		return actionList;
 	}

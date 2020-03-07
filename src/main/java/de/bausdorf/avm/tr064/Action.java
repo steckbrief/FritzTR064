@@ -1,4 +1,4 @@
-/***********************************************************************************************************************
+/* *********************************************************************************************************************
  *
  * javaAVMTR064 - open source Java TR-064 API
  *===========================================
@@ -23,6 +23,7 @@ package de.bausdorf.avm.tr064;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -55,21 +56,19 @@ import de.bausdorf.avm.tr064.beans.StateVariableType;
 public class Action {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Action.class);
 
-	private Map<String, Class<?>> stateToType;
-	private Map<String, Boolean> argumentOut;
-	private Map<String, String> argumentState;
-	private String name;
-	private ActionType actionXML;
-	private FritzConnection connection;
-	private ServiceDesc serviceXML;
+	private final Map<String, Class<?>> stateToType;
+	private final Map<String, Boolean> argumentOut;
+	private final Map<String, String> argumentState;
+	private final String name;
+	private final FritzConnection connection;
+	private final ServiceDesc serviceXML;
 
 	public Action(ActionType action, List<StateVariableType> stateVariableList, FritzConnection connection,
 			ServiceDesc serviceXML) {
-		this.actionXML = action;
 		stateToType = new HashMap<>();
 		argumentOut = new HashMap<>();
 		argumentState = new HashMap<>();
-		name = actionXML.getName();
+		name = action.getName();
 		this.connection = connection;
 		this.serviceXML = serviceXML;
 		for (StateVariableType s : stateVariableList) {
@@ -85,15 +84,15 @@ public class Action {
 			else if ("uuid".equals(s.getDataType()))
 				type = UUID.class;
 			else {
-				LOGGER.error("UNKNOWNE TYPE: {} {} {}", s.getDataType(), s.getName(), actionXML.getName());
+				LOGGER.error("UNKNOWN TYPE: {} {} {}", s.getDataType(), s.getName(), action.getName());
 			}
 			stateToType.put(s.getName(), type);
 		}
-		if (actionXML.getArgumentList() != null)
-			for (ArgumentType a : actionXML.getArgumentList()) {
-				String aname = a.getName();
-				argumentOut.put(aname, "out".equals(a.getDirection()));
-				argumentState.put(aname, a.getRelatedStateVariable());
+		if (action.getArgumentList() != null)
+			for (ArgumentType a : action.getArgumentList()) {
+				String argName = a.getName();
+				argumentOut.put(argName, "out".equals(a.getDirection()));
+				argumentState.put(argName, a.getRelatedStateVariable());
 			}
 	}
 
@@ -140,8 +139,7 @@ public class Action {
 	public CompletableFuture<Response> executeAsync(Map<String, Object> arguments) {
 		return CompletableFuture.supplyAsync(() -> {
 			try {
-				Response result = execute(arguments);
-				return result;
+				return execute(arguments);
 			} catch (IOException | UnauthorizedException e) {
 				throw new RuntimeException(e);
 			}
@@ -171,7 +169,7 @@ public class Action {
 						parameter = Class.forName(this.getTypeOfArgument(a).getName()).cast(parameter);
 					} catch (Exception e) {
 						throw new UnsupportedOperationException(a + " has to be " + this.getTypeOfArgument(a)
-								+ ". Cast not posible: " + e.getMessage(), e);
+								+ ". Cast not possible: " + e.getMessage(), e);
 					}
 
 				}
@@ -199,7 +197,7 @@ public class Action {
 			}
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
 			soapMsg.writeTo(stream);
-			message = new String(stream.toByteArray(), "utf-8");
+			message = new String(stream.toByteArray(), StandardCharsets.UTF_8);
 		} catch (SOAPException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
@@ -251,12 +249,12 @@ public class Action {
 		return ret;
 	}
 
-	private Response getMessage(InputStream soapxmlis) throws IOException {
-		SOAPMessage response = null;
+	private Response getMessage(InputStream soapXmlInputStream) throws IOException {
+		SOAPMessage response;
 		Response ret;
 
 		try {
-			response = MessageFactory.newInstance().createMessage(null, soapxmlis);
+			response = MessageFactory.newInstance().createMessage(null, soapXmlInputStream);
 		} catch (IOException | SOAPException e) {
 			throw new IOException(e);
 		}

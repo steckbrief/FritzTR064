@@ -1,4 +1,4 @@
-/***********************************************************************************************************************
+/* *********************************************************************************************************************
  *
  * javaAVMTR064 - open source Java TR-064 API
  *===========================================
@@ -372,7 +372,7 @@ public class DeviceDesc {
      * 
      * @return
      *     possible object is
-     *     {@link IconListType }
+     *     {@link IconType }
      *     
      */
     public List<IconType> getIconList() {
@@ -384,7 +384,7 @@ public class DeviceDesc {
      * 
      * @param value
      *     allowed object is
-     *     {@link IconListType }
+     *     {@link IconType }
      *     
      */
     public void setIconList(List<IconType> value) {
@@ -396,7 +396,7 @@ public class DeviceDesc {
      * 
      * @return
      *     possible object is
-     *     {@link ServiceListType }
+     *     {@link ServiceDesc }
      *     
      */
     public List<ServiceDesc> getServiceList() {
@@ -408,7 +408,7 @@ public class DeviceDesc {
      * 
      * @param value
      *     allowed object is
-     *     {@link ServiceListType }
+     *     {@link ServiceDesc }
      *     
      */
     public void setServiceList(List<ServiceDesc> value) {
@@ -420,7 +420,7 @@ public class DeviceDesc {
      * 
      * @return
      *     possible object is
-     *     {@link DeviceListType }
+     *     {@link DeviceDesc }
      *     
      */
     public List<DeviceDesc> getDeviceList() {
@@ -432,7 +432,7 @@ public class DeviceDesc {
      * 
      * @param value
      *     allowed object is
-     *     {@link DeviceListType }
+     *     {@link DeviceDesc }
      *     
      */
     public void setDeviceList(List<DeviceDesc> value) {

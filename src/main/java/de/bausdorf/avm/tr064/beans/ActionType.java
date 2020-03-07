@@ -1,7 +1,6 @@
-/***********************************************************************************************************************
+/* *********************************************************************************************************************
  *
- * javaAVMTR064 - open source Java TR-06
-4 API
+ * javaAVMTR064 - open source Java TR-064 API
  *===========================================
  *
  * Copyright 2015 Marin Pollmann <pollmann.m@gmail.com>
@@ -36,10 +35,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * <p>Java-Klasse für actionType complex type.
+ * <p>Java-Class for actionType complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="actionType"&gt;
  *   &lt;complexContent&gt;
@@ -97,7 +96,7 @@ public class ActionType {
      * 
      * @return
      *     possible object is
-     *     {@link ArgumentListType }
+     *     {@link ArgumentType }
      *     
      */
     public List<ArgumentType> getArgumentList() {
@@ -109,7 +108,7 @@ public class ActionType {
      * 
      * @param value
      *     allowed object is
-     *     {@link ArgumentListType }
+     *     {@link ArgumentType }
      *     
      */
     public void setArgumentList(List<ArgumentType> value) {

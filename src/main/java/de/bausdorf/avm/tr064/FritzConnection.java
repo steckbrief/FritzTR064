@@ -1,4 +1,4 @@
-/***********************************************************************************************************************
+/* *********************************************************************************************************************
  *
  * javaAVMTR064 - open source Java TR-064 API
  *===========================================
@@ -74,10 +74,10 @@ public class FritzConnection {
 	private static final String FRITZ_IGD_DESC_FILE = "igddesc.xml";
 	private static final String FRITZ_TR64_DESC_FILE = "tr64desc.xml";
 
+	private final HttpHost targetHost;
 	private Map<String, Service> services;
 	private String user = null;
 	private String pwd = null;
-	private HttpHost targetHost;
 	private CloseableHttpClient httpClient;
 	private HttpClientContext context;
 
@@ -141,7 +141,7 @@ public class FritzConnection {
 			context.setAuthCache(authCache);
 			readTR64(scpdUrl);
 		} else {
-			LOG.debug("read igddesc, because credentials are " + this.user + "/" + this.pwd);
+			LOG.debug("read igddesc, because only user is set to " + this.user);
 			readIGDDESC();
 		}
 	}
@@ -150,7 +150,7 @@ public class FritzConnection {
 		scpdUrl = scpdUrl == null ? FRITZ_TR64_DESC_FILE : scpdUrl;
 		InputStream xml = getXMLIS("/" + scpdUrl);
 
-		RootType root = (RootType) JAXBUtilities.unmarshallInput(xml);
+		RootType root = (RootType) JAXBUtilities.unmarshalInput(xml);
 		LOG.debug(root.toString());
 		DeviceDesc device = root.getDevice();
 		name = device.getFriendlyName();
@@ -160,7 +160,7 @@ public class FritzConnection {
 	private void readIGDDESC() throws IOException, UnauthorizedException {
 		InputStream xml = getXMLIS("/" + FRITZ_IGD_DESC_FILE);
 		try {
-			RootType root = (RootType) JAXBUtilities.unmarshallInput(xml);
+			RootType root = (RootType) JAXBUtilities.unmarshalInput(xml);
 			LOG.debug(root.toString());
 			DeviceDesc device = root.getDevice();
 			name = device.getFriendlyName();
@@ -190,7 +190,7 @@ public class FritzConnection {
 	}
 
 	synchronized private InputStream httpRequest(HttpHost target, HttpRequest request, HttpContext context) throws IOException, UnauthorizedException {
-		byte[] content = null;
+		byte[] content;
 		LOG.debug("try to request " + request.getRequestLine() + " from " + target.toURI());
 		try (CloseableHttpResponse response = httpClient.execute(target, request, context)) {
 			LOG.debug("got response " + response.getStatusLine());
