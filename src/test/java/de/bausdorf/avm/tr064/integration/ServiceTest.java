@@ -12,6 +12,7 @@ import de.bausdorf.avm.tr064.Action;
 import de.bausdorf.avm.tr064.FritzConnection;
 import de.bausdorf.avm.tr064.Response;
 import de.bausdorf.avm.tr064.Service;
+import de.bausdorf.avm.tr064.UnauthorizedException;
 
 public class ServiceTest {
 	private static final String FB_HOST_PROP = "fritzbox.ip";
@@ -66,7 +67,7 @@ public class ServiceTest {
 				}
 				String fbLog = response1.getValueAsString("NewDeviceLog");
 				log.info("\n" + fbLog + "\n");
-			} catch (UnsupportedOperationException | IOException | NoSuchFieldException e) {
+			} catch (UnsupportedOperationException | IOException | NoSuchFieldException | UnauthorizedException e) {
 				log.error(e.getMessage(), e);
 				Assert.fail(e.getMessage());
 			}

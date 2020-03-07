@@ -33,6 +33,7 @@ import de.bausdorf.avm.tr064.FritzConnection;
 import de.bausdorf.avm.tr064.ParseException;
 import de.bausdorf.avm.tr064.Response;
 import de.bausdorf.avm.tr064.Service;
+import de.bausdorf.avm.tr064.UnauthorizedException;
 
 public class GetDeviceLog {
 	private static final Logger LOG = LoggerFactory.getLogger(GetDeviceLog.class);
@@ -63,7 +64,7 @@ public class GetDeviceLog {
 			//The connection has to be initiated. This will load the tr64desc.xml respectively igddesc.xml 
 			//and all the defined Services and Actions. 
 			fc.init(null);
-		} catch (IOException | ParseException e2) {
+		} catch (IOException | ParseException | UnauthorizedException e2) {
 			//Any HTTP related error.
 			LOG.error(e2.getMessage(), e2);
 		}
@@ -80,7 +81,7 @@ public class GetDeviceLog {
 				if (response1 == null) {
 					return;
 				}
-			} catch (UnsupportedOperationException | IOException e1) {
+			} catch (UnsupportedOperationException | IOException | UnauthorizedException e1) {
 				LOG.error(e1.getMessage(), e1);
 			}
 			String deviceLog = "";

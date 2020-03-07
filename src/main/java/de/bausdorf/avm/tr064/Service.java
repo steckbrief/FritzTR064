@@ -38,7 +38,7 @@ public class Service {
 	private ServiceDesc serviceXML;
 	private Map<String, Action> actions;
 
-	public Service(ServiceDesc serviceXML, FritzConnection connection) throws IOException, ParseException {
+	public Service(ServiceDesc serviceXML, FritzConnection connection) throws IOException, ParseException, UnauthorizedException {
 		this.serviceXML = serviceXML;
 		actions = new HashMap<String, Action>();
 

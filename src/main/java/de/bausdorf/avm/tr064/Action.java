@@ -4,7 +4,7 @@
  *===========================================
  *
  * Copyright 2015 Marin Pollmann <pollmann.m@gmail.com>
- * 
+ *
  *
  ***********************************************************************************************************************
  *
@@ -142,17 +142,17 @@ public class Action {
 			try {
 				Response result = execute(arguments);
 				return result;
-			} catch (IOException e) {
+			} catch (IOException | UnauthorizedException e) {
 				throw new RuntimeException(e);
 			}
 		});
 	}
 
-	public Response execute() throws IOException {
+	public Response execute() throws IOException, UnauthorizedException {
 		return this.execute(null);
 	}
 
-	public Response execute(Map<String, Object> arguments) throws IOException {
+	public Response execute(Map<String, Object> arguments) throws IOException, UnauthorizedException {
 		Set<String> inArguments = new HashSet<>();
 		for (Map.Entry<String, Boolean> entry : argumentOut.entrySet()) {
 			if (!entry.getValue()) {

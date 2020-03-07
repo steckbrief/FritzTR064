@@ -123,7 +123,7 @@ public class FritzConnection {
 				.build();
 	}
 
-	public void init(String scpdUrl) throws IOException, ParseException {
+	public void init(String scpdUrl) throws IOException, ParseException, UnauthorizedException {
 		if (pwd != null) {
 			LOG.debug("try to connect to " + this.targetHost.getAddress() + " with credentials " + this.user + "/"
 					+ this.pwd);
@@ -146,7 +146,7 @@ public class FritzConnection {
 		}
 	}
 
-	private void readTR64(String scpdUrl) throws IOException, ParseException {
+	private void readTR64(String scpdUrl) throws IOException, ParseException, UnauthorizedException {
 		scpdUrl = scpdUrl == null ? FRITZ_TR64_DESC_FILE : scpdUrl;
 		InputStream xml = getXMLIS("/" + scpdUrl);
 
@@ -157,7 +157,7 @@ public class FritzConnection {
 		getServicesFromDevice(device);
 	}
 
-	private void readIGDDESC() throws IOException {
+	private void readIGDDESC() throws IOException, UnauthorizedException {
 		InputStream xml = getXMLIS("/" + FRITZ_IGD_DESC_FILE);
 		try {
 			RootType root = (RootType) JAXBUtilities.unmarshallInput(xml);
@@ -171,7 +171,7 @@ public class FritzConnection {
 		}
 	}
 
-	private void getServicesFromDevice(DeviceDesc device) throws IOException, ParseException {
+	private void getServicesFromDevice(DeviceDesc device) throws IOException, ParseException, UnauthorizedException {
 
 		for (Object sT : device.getServiceList()) {
 			LOG.debug("Service {} {}", sT, sT.getClass().getName());
@@ -189,7 +189,7 @@ public class FritzConnection {
 			}
 	}
 
-	synchronized private InputStream httpRequest(HttpHost target, HttpRequest request, HttpContext context) throws IOException {
+	synchronized private InputStream httpRequest(HttpHost target, HttpRequest request, HttpContext context) throws IOException, UnauthorizedException {
 		byte[] content = null;
 		LOG.debug("try to request " + request.getRequestLine() + " from " + target.toURI());
 		try (CloseableHttpResponse response = httpClient.execute(target, request, context)) {
@@ -208,18 +208,26 @@ public class FritzConnection {
 			}
 		} catch (IOException e) {
 			LOG.error(e.getLocalizedMessage());
-			throw e;
+			if (isUnauthorizedException(e)) {
+				throw new UnauthorizedException(e);
+			} else {
+				throw e;
+			}
 		}
 
 	}
 
-	public InputStream getXMLIS(String fileName) throws IOException {
+	private boolean isUnauthorizedException(IOException e) {
+		return e.getMessage().contains("401");
+	}
+
+	public InputStream getXMLIS(String fileName) throws IOException, UnauthorizedException {
 		HttpGet httpget = new HttpGet(fileName);
 		return httpRequest(targetHost, httpget, context);
 
 	}
 
-	protected InputStream getSOAPXMLIS(String fileName, String urn, HttpEntity entity) throws IOException {
+	protected InputStream getSOAPXMLIS(String fileName, String urn, HttpEntity entity) throws IOException, UnauthorizedException {
 		HttpPost httppost = new HttpPost(fileName);
 		httppost.addHeader("soapaction", urn);
 		httppost.addHeader("charset", "utf-8");

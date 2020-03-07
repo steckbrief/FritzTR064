@@ -34,6 +34,7 @@ import de.bausdorf.avm.tr064.FritzConnection;
 import de.bausdorf.avm.tr064.ParseException;
 import de.bausdorf.avm.tr064.Response;
 import de.bausdorf.avm.tr064.Service;
+import de.bausdorf.avm.tr064.UnauthorizedException;
 
 public class GetAllConnectedWlanDevices {
 	private static final Logger LOG = LoggerFactory.getLogger(GetAllConnectedWlanDevices.class);
@@ -65,7 +66,7 @@ public class GetAllConnectedWlanDevices {
 			//and all the defined Services and Actions. 
 
 			fc.init(null);
-		} catch (IOException | ParseException e2) {
+		} catch (IOException | ParseException | UnauthorizedException e2) {
 			//Any Network related error.
 			LOG.error(e2.getMessage(), e2);
 		}
@@ -79,7 +80,7 @@ public class GetAllConnectedWlanDevices {
 			try {
 				//Execute the action without any In-Parameter.
 				response1 = action.execute();
-			} catch (UnsupportedOperationException | IOException e1) {
+			} catch (UnsupportedOperationException | IOException | UnauthorizedException e1) {
 				LOG.error(e1.getMessage(), e1);
 			}
 			int deviceCount = -1;
@@ -100,16 +101,10 @@ public class GetAllConnectedWlanDevices {
 				try {
 					Response response2 = fc.getService("WLANConfiguration:" + i).getAction("GetGenericAssociatedDeviceInfo").execute(arguments);
 					LOG.info("    " + response2.getData());
-				} catch (UnsupportedOperationException | IOException e) {
+				} catch (UnsupportedOperationException | IOException | UnauthorizedException e) {
 					LOG.error(e.getMessage(), e);
 				}
-				
 			}
-			
 		}
-			
-		
-		
-		
 	}
 }

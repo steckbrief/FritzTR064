@@ -25,6 +25,7 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 
+import de.bausdorf.avm.tr064.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +44,7 @@ public class DisplayInfo {
 		super();
 	}
 
-	public static void main(String[] args) throws IOException, ParseException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+	public static void main(String[] args) throws IOException, ParseException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException, UnauthorizedException {
 		if( args.length < 2 ) {
 			LOG.error("args: <fb-ip> <password> [user]");
 			System.exit(1);

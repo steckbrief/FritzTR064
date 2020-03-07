@@ -57,7 +57,7 @@ public class Query064
 			//The connection has to be initiated. This will load the tr64desc.xml respectively igddesc.xml 
 			//and all the defined Services and Actions. 
 			fc.init(null);
-		} catch (IOException | ParseException e) {
+		} catch (IOException | ParseException | UnauthorizedException e) {
 			LOG.error(e.getLocalizedMessage(), e);
 		}		
 
@@ -79,7 +79,7 @@ public class Query064
 			for( String key : response1.getData().keySet() ) {
 				LOG.info(key + " = " + response1.getData().get(key));
 			}
-		} catch (UnsupportedOperationException | IOException e) {
+		} catch (UnsupportedOperationException | IOException | UnauthorizedException e) {
 			LOG.error(e.getLocalizedMessage(), e);
 		}
 	}
